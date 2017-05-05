@@ -1,0 +1,84 @@
+<!doctype html>
+<html>
+  <head>
+    <title><%= json.project.seo_title %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="__sync_contentCategory" content="meterA">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <%= !json.project.embedded ? t.include("partials/_paywall.html") : t.include("partials/_embedframe.html") %>
+
+    <%= t.include("partials/_head.html") %>
+
+  </head>
+
+  <%= !json.project.embedded ? "<body>" : "<body is='responsive-body'>" %>
+
+    <%= t.include("partials/_nav.html") %>
+
+    <div class="title long"><%= json.foster_shelters_interactive_text_inline["interactive"][0]["Title"] %></div>
+    <div class="authors"><%= json.foster_shelters_interactive_text_inline["interactive"][0]["Authors"] %></div>
+    <div class="date"><%= json.foster_shelters_interactive_text_inline["interactive"][0]["Date"] %></div>
+    <%= t.include("partials/_title_social.html") %>
+
+    <% json.foster_shelters_interactive_text_inline["slides"].forEach(function(slide,slideIDX) { %>
+
+      <% if ( slideIDX == 0 ){ %>
+        <div class="slide-top active" id="slide-top-<%=slideIDX%>">
+      <% } else { %>
+        <div class="slide-top" id="slide-top-<%=slideIDX%>">
+      <% } %>
+
+        <div class="slide">
+
+          <% if (slide["Interactive"] == "quote") { %>
+
+            <div class='quote'>
+              <div class='huge-quote'>“</div>
+              <span class="quote-text"><%= slide["Text"] %></span>
+              <span class='small-quote'> ”</span>
+              <div class='quote-author'>&mdash; <%= slide["Author"] %></div>
+            </div>
+
+
+          <% } else { %>
+
+            <% var text = slide["Text"].replace("**","<span class='bold'>").replace("*","</span>"); %>
+            <div class="text"><%= text %></div>
+
+          <% } %>
+
+          <% if (slide["Interactive"]) { %>
+            <div class="interactive" id="<%= slide['Interactive'] %>"></div>
+          <% } %>
+
+        </div>
+      </div>
+
+    <% }); %>
+
+
+
+    <div class="credits">
+      <h2>About the data</h2>
+      <div class="entry"><%= json.foster_shelters_interactive_text_inline["data"][0]["Text"] %></div>
+    </div>
+
+    <%= t.include("partials/_credits.html") %>
+    <%= t.include("partials/_footer.html") %>
+
+    <script>
+      var mapData = <%= JSON.stringify(json.map) %>;
+      var bubbleData = <%= JSON.stringify(json.arrests_aggregate) %>;
+      var callsData = <%= JSON.stringify(json.calls_aggregate) %>;
+      var MGData = <%= JSON.stringify(json.marygraham_short) %>;
+      var slidesData = <%= JSON.stringify(json.foster_shelters_interactive_text_inline) %>
+    </script>
+
+    <script src="app.js" async></script>
+    <%= t.include("partials/_helloSFC.html") %>
+
+  </body>
+</html>

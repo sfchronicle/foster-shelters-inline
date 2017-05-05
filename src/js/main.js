@@ -185,7 +185,7 @@ var drawDots = function(){
 }
 
 // function to create map
-var drawMap = function() {
+var drawMap = function(key) {
 
   // tooltip information
   function tooltip_function (d) {
@@ -208,7 +208,7 @@ var drawMap = function() {
   var tooltip = d3.select("div.tooltip-map");
 
   //get access to Leaflet and the map
-  var element = document.querySelector("map");
+  var element = document.querySelector(key);
   // var L = element.leaflet;
   // var map = element.map;
 
@@ -694,13 +694,53 @@ var drawBubbles = function(flag) {
 
 }
 
+var active_num, lastactive_num, inactive_num;
 // function to draw icons
-var drawIcons = function(html_str, maxIcon, key) {
+var drawIcons = function(html_str,key) {
+
+  console.log(key);
+
+  if (key == "icon-arrests") {
+    active_num = 259;
+    lastactive_num = 0;
+    inactive_num = 0;
+  } else if (key == "icon-bookings") {
+    active_num = 199;
+    lastactive_num = 60;
+    inactive_num = 0;
+  } else if (key == "icon-pursued") {
+    active_num = 55;
+    lastactive_num = 139;
+    inactive_num = 65;
+  } else if (key == "icon-probation") {
+    active_num = 31;
+    lastactive_num = 24;
+    inactive_num = 204;
+  }
+
+  console.log(active_num);
+  console.log(inactive_num);
 
   html_str += "<div class='icon-container'>";
-  MGData.forEach(function(d,idx) {
-    html_str += "<div class='"+key+" "+d["disposition_cleaned"].toLowerCase().replace(/ /g,"")+" "+d["final_disposition_cleaned"].toLowerCase().replace(/ /g,"")+"' id='icon"+String(idx)+"'><i class='fa fa-male' aria-hidden='true'></i></div>"
-  });
+  var count = 0;
+  for (var ii=0; ii< active_num; ii++) {
+    html_str += "<div class='"+key+" show"+"' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
+    count++;
+    // console.log(count);
+    // console.log("active");
+  };
+  for (var ii=0; ii< lastactive_num; ii++) {
+    html_str += "<div class='"+key+" dark"+"' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
+    count++;
+    // console.log(count);
+    // console.log("active");
+  };
+  for (var ii=0; ii< inactive_num; ii++) {
+    html_str += "<div class='"+key+"' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
+    count++;
+    // console.log(count);
+    // console.log("not active");
+  };
   html_str += "</div>";
   return html_str;
 
@@ -741,14 +781,14 @@ slides.forEach( function(slide) {
 
     var key = "icon-"+slide["Interactive"].split("-")[1];
 
-    var html_str = drawIcons("",MGData.length,key);
+    var html_str = drawIcons("",key);
     document.getElementById(slide["Interactive"]).innerHTML = html_str;
 
   }
 
 });
 
-
+var prevIDX = -1;
 $(window).scroll(function () {
 
   var pos = $(this).scrollTop();
@@ -762,70 +802,47 @@ $(window).scroll(function () {
       currentIDX = Math.max(slideIDX,currentIDX);
     }
   });
-  console.log(currentIDX);
 
-  document.getElementById(["slide-top-"+currentIDX]).classList.add("active");
+  if (currentIDX != prevIDX) {
 
-  // var targetDiv = document.getElementById(["slide-top-"+currentIDX]).getElementsByClassName("bold")[0];
-  // console.log(targetDiv);
-  //There were 259 arrests and citations at Mary Graham in 2015 and 2016.
-  //Those incidents led to 199 bookings of Mary Graham residents, some as young as 9 and 10 years old.
-  //The District Attorney pursued just 55 cases. The rest were either rejected by probation officers or prosecutors who determined the alleged offenses were too minor to justify incarceration.
-  //Only 31 of those cases had resulted in probation or prosecution. The rest were either dismissed by the court or pending at the time of publication.
-  console.log(slides[currentIDX]["Interactive"]);
-  if (slides[currentIDX]["Interactive"] == "icons-arrests") {
-    var icon_list = document.getElementsByClassName("icon-arrests");
-    Array.from(icon_list).forEach(function(element,idx){
-      if (element.classList.contains("pursuedbydistrictattorney")) {
-        $(function(){
-          setTimeout(function() {
-            element.classList.add("active");
-          }, 500+10*idx);
+    console.log("switching slide");
+
+    document.getElementById(["slide-top-"+currentIDX]).classList.add("active");
+
+    var targetDivs = document.getElementById(["slide-top-"+currentIDX]).getElementsByClassName("bold");
+    if (targetDivs.length > 0) {
+      console.log(targetDivs);
+      if (targetDivs.length > 1) {
+        targetDivs.forEach(function(target){
+          target.classList.add("boldColor");
         });
+      } else {
+        targetDivs[0].classList.add("boldColor");
       }
-    });
-  } else if (slides[currentIDX]["Interactive"] == "icons-bookings") {
-    var icon_list = document.getElementsByClassName("icon-bookings");
-    var count = 0;
-    Array.from(icon_list).forEach(function(element,idx){
-      if (element.classList.contains("closedandreleased")) {
-        count += 1;
-        $(function(){
-          setTimeout(function() {
-            element.classList.add("active");
-          }, 500+10*count);
-        });
-      }
-    });
-  } else if (slides[currentIDX]["Interactive"] == "icons-pursued") {
-    var icon_list = document.getElementsByClassName("icon-pursued");
-    var count = 0;
-    Array.from(icon_list).forEach(function(element,idx){
-      if (element.classList.contains("closed")) {
-        count += 1;
-        $(function(){
-          setTimeout(function() {
-            element.classList.add("active");
-          }, 500+10*count);
-        });
-      }
-    });
-  } else if (slides[currentIDX]["Interactive"] == "icons-probation") {
-    console.log("here");
-    var icon_list = document.getElementsByClassName("icon-probation");
-    var count = 0;
-    Array.from(icon_list).forEach(function(element,idx){
-      if (element.classList.contains("adjudicatedandplacedonprobationorwardship")) {
-        count += 1;
-        $(function(){
-          setTimeout(function() {
-            element.classList.add("active");
-          }, 500+10*count);
-        });
-      }
-    });
-    console.log(count);
+    }
+
+    var icon_list = [];
+    if (slides[currentIDX]["Interactive"] == "icons-arrests") {
+      var icon_list = document.getElementsByClassName("icon-arrests");
+    } else if (slides[currentIDX]["Interactive"] == "icons-bookings") {
+      var icon_list = document.getElementsByClassName("icon-bookings");
+    } else if (slides[currentIDX]["Interactive"] == "icons-pursued") {
+      var icon_list = document.getElementsByClassName("icon-pursued");
+    } else if (slides[currentIDX]["Interactive"] == "icons-probation") {
+      var icon_list = document.getElementsByClassName("icon-probation");
+    }
+    if ((slides[currentIDX]["Interactive"] == "icons-arrests") || (slides[currentIDX]["Interactive"] == "icons-bookings") || (slides[currentIDX]["Interactive"] == "icons-pursued") || (slides[currentIDX]["Interactive"] == "icons-probation")){
+      Array.from(icon_list).forEach(function(element,idx){
+        if (element.classList.contains("show")) {
+          $(function(){
+            setTimeout(function() {
+              element.classList.add("active");
+            }, 500+10*idx);
+          });
+        }
+      });
+    }
+
   }
-
 
 });

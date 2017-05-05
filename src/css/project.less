@@ -29,8 +29,16 @@
   .text {
     .bold {
       font-size: 40px;
-      color: @lavender;
       font-family: @boldest-graphics;
+      color: @light-gray;
+      &.boldColor {
+        color: @lavender;
+        -webkit-transition: color 800ms ease-in;
+        -moz-transition: color 800ms ease-in;
+        -ms-transition: color 800ms ease-in;
+        -o-transition: color 800ms ease-in;
+        transition: color 800ms ease-in;
+      }
     }
   }
 }
@@ -90,18 +98,21 @@
     width: 95%;
   }
   .icon-arrests, .icon-bookings, .icon-pursued, .icon-probation {
-    .flex(0 0 0 1%);
+    .flex(0 0 0 2%);
     @media @mobile {
       font-size: 12px;
     }
     // display: inline-block;
-    color: @dark-gray;
+    color: @light-gray;
     // -webkit-transition: color 1000ms linear;
     // -ms-transition: color 1000ms linear;
     // transition: color 1000ms linear;
     padding: 0 2px;
+    &.dark, &.show {
+      color: lighten(@lavender,30%);
+    }
     &.active {
-      color: red;
+      color: @lavender;
     }
     &.hide {
       visibility: hidden;

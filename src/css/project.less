@@ -168,3 +168,55 @@
     }
   }
 }
+
+
+svg {
+  pointer-events: all;
+}
+
+#map {
+  pointer-events: all;
+  width: 500px;
+  height: 600px;
+  // width: 80%;
+  // height: 760px;
+  margin: auto;
+  margin-top: 40px;
+  z-index: 0;
+  @media @tablet {
+    width: 100%;
+  }
+  @media @mobile {
+    height: 300px;
+    margin: auto;
+    top: 220px;
+  }
+  .leaflet-tile-pane {
+    opacity: 0.7;
+  }
+}
+
+.tooltip-map, .tooltip-bubbles, .tooltip-bars, .tooltip-dots {
+  width: 300px;
+  position: absolute;
+  font-family: @block-graphics;
+  font-size: 14px;
+  background: white;
+  padding: 5px 10px;
+  border: @light-gray 1px solid;
+  visibility: hidden;
+  z-index:40;
+  // @media @mobile {
+  //   display: none;
+  // }
+  .bold {
+    font-family: @med-graphics;
+  }
+  .desc {
+    font-size: 14px;
+    padding-top: 10px;
+  }
+  &:empty {
+    display: none;
+  }
+}

@@ -1,4 +1,5 @@
 require("./lib/social"); //Do not delete
+var d3 = require('d3');
 
 console.log(slidesData);
 console.log(MGData.length);
@@ -585,10 +586,10 @@ var drawBars = function() {
 }
 
 // function to draw bubbles
-var drawBubbles = function(flag) {
+var drawBubbles = function(key,flag) {
 
   // show tooltip
-  var bubbles_tooltip = d3.select("div.tooltip-bubbles");
+  // var bubbles_tooltip = d3.select("div.tooltip-bubbles");
 
   if (screen.width > 768) {
     var diameter = 500;
@@ -617,7 +618,7 @@ var drawBubbles = function(flag) {
   var height = diameter-topbuffer; //because the bubbles aren't arranged so they're square
   var color = d3.scale.category20b();
 
-  var svg = d3.select(".bubble-chart").append('svg')
+  var svg = d3.select("#"+key).append('svg')
     .attr('width', width + margin.left + margin.right)
     .attr('height', height)
     .append("g")
@@ -652,26 +653,26 @@ var drawBubbles = function(flag) {
       .selectAll(".bubble")
       .data(nodes)
       .enter()
-      .append("g")
-      .on("mouseover", function(d) {
-        bubbles_tooltip.html(`
-            <div>Call type: <b>${d.call_types}</b></div>
-            <div>Total calls: <b>${formatthousands(d.call_totals)}</b></div>
-        `);
-        bubbles_tooltip.style("visibility", "visible");
-      })
-      .on("mousemove", function(d) {
-        if (screen.width <= 480) {
-          return bubbles_tooltip
-            .style("top", (d3.event.pageY+20)+"px")
-            .style("left",d3.event.pageX/2+20+"px");
-        } else {
-          return bubbles_tooltip
-            .style("top", (d3.event.pageY+20)+"px")
-            .style("left",(d3.event.pageX-80)+"px");
-        }
-      })
-      .on("mouseout", function(){return bubbles_tooltip.style("visibility", "hidden");});
+      .append("g");
+      // .on("mouseover", function(d) {
+      //   bubbles_tooltip.html(`
+      //       <div>Call type: <b>${d.call_types}</b></div>
+      //       <div>Total calls: <b>${formatthousands(d.call_totals)}</b></div>
+      //   `);
+      //   bubbles_tooltip.style("visibility", "visible");
+      // })
+      // .on("mousemove", function(d) {
+      //   if (screen.width <= 480) {
+      //     return bubbles_tooltip
+      //       .style("top", (d3.event.pageY+20)+"px")
+      //       .style("left",d3.event.pageX/2+20+"px");
+      //   } else {
+      //     return bubbles_tooltip
+      //       .style("top", (d3.event.pageY+20)+"px")
+      //       .style("left",(d3.event.pageX-80)+"px");
+      //   }
+      // })
+      // .on("mouseout", function(){return bubbles_tooltip.style("visibility", "hidden");});
 
   //create the bubbles
   bubbles.append("circle")
@@ -694,8 +695,8 @@ var drawBubbles = function(flag) {
 
 }
 
-var active_num, lastactive_num, inactive_num;
 // function to draw icons
+var active_num, lastactive_num, inactive_num;
 var drawIcons = function(html_str,key) {
 
   console.log(key);
@@ -726,20 +727,14 @@ var drawIcons = function(html_str,key) {
   for (var ii=0; ii< active_num; ii++) {
     html_str += "<div class='"+key+" show"+"' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
     count++;
-    // console.log(count);
-    // console.log("active");
   };
   for (var ii=0; ii< lastactive_num; ii++) {
     html_str += "<div class='"+key+" dark"+"' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
     count++;
-    // console.log(count);
-    // console.log("active");
   };
   for (var ii=0; ii< inactive_num; ii++) {
     html_str += "<div class='"+key+"' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
     count++;
-    // console.log(count);
-    // console.log("not active");
   };
   html_str += "</div>";
   return html_str;
@@ -752,9 +747,11 @@ var drawIcons = function(html_str,key) {
 
 slides.forEach( function(slide) {
 
+  console.log(slide["Interactive"]);
+
   // this is the map interactive
   if (slide["Interactive"] == "map"){
-    drawMap();
+    drawMap("map");
 
   // this is the interactive that shows how Mary Graham is an outlier
   } else if (slide["Interactive"] == "bars"){
@@ -769,10 +766,10 @@ slides.forEach( function(slide) {
 
     // bubble chart that includes runaways
     if (slide["Interactive"] == "bubbles"){
-      drawBubbles();
+      drawBubbles("bubbles");
     // bubble chart that does not include runaways
     } else {
-      drawBubbles(1);
+      drawBubbles("bubbles-v2",1);
     }
 
 

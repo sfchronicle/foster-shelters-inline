@@ -586,7 +586,11 @@ var drawBars = function() {
 }
 
 // function to draw bubbles
-var drawBubbles = function(key,flag) {
+var drawBubbles = function(key,flag,highlight) {
+
+  console.log(key);
+  console.log(flag);
+  console.log(highlight);
 
   // show tooltip
   // var bubbles_tooltip = d3.select("div.tooltip-bubbles");
@@ -623,6 +627,8 @@ var drawBubbles = function(key,flag) {
     .attr('height', height)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + 0 + ")"); // giving the bubbles some padding, so that the text won't get cut off on the right and left margins
+
+  console.log(svg);
 
   var bubble = d3.layout.pack()
       .sort(null)
@@ -679,7 +685,14 @@ var drawBubbles = function(key,flag) {
       .attr("r", function(d){ return d.r; })
       .attr("cx", function(d){ return d.x; })
       .attr("cy", function(d){ return d.y; })
-      .style("opacity",0.8)
+      .style("opacity",function(d) {
+        console.log(d);
+        if (d.call_types == highlight) {
+          return 1;
+        } else {
+          return 0.4;
+        }
+      })
       .style("fill", function(d) { return color(d.value); });
 
   //format the text for each bubble
@@ -690,6 +703,13 @@ var drawBubbles = function(key,flag) {
       .text(function(d){
         if (d.r > 20) {
           return d["call_types"];
+        }
+      })
+      .style("fill",function(d) {
+        if (d.call_types == highlight) {
+          return "white";
+        } else {
+          return "black";
         }
       })
 
@@ -762,16 +782,17 @@ slides.forEach( function(slide) {
     drawDots();
 
   // this is the interactive that shows how Mary Graham is an outlier
-  } else if ((slide["Interactive"] == "bubbles") || (slide["Interactive"] == "bubbles-v2")){
+  } else if ((slide["Interactive"] == "bubbles") || (slide["Interactive"] == "bubbles-v2") || (slide["Interactive"] == "bubbles-v3")){
 
     // bubble chart that includes runaways
     if (slide["Interactive"] == "bubbles"){
-      drawBubbles("bubbles");
+      drawBubbles("bubbles",0,"Runaway");
     // bubble chart that does not include runaways
-    } else {
-      drawBubbles("bubbles-v2",1);
+    } else if (slide["Interactive"] == "bubbles-v2"){
+      drawBubbles("bubbles-v2",1,"Assault/Battery");
+    } else if (slide["Interactive"] == "bubbles-v3") {
+      drawBubbles("bubbles-v3",1,"Suicidal Subject");
     }
-
 
   // this is the icon chart that shows all the cases that were thrown out
   } else if ((slide["Interactive"] == "icons-arrests") || (slide["Interactive"] == "icons-bookings") || (slide["Interactive"] == "icons-pursued") || (slide["Interactive"] == "icons-probation")) {
@@ -808,7 +829,6 @@ $(window).scroll(function () {
 
     var targetDivs = document.getElementById(["slide-top-"+currentIDX]).getElementsByClassName("bold");
     if (targetDivs.length > 0) {
-      console.log(targetDivs);
       if (targetDivs.length > 1) {
         targetDivs.forEach(function(target){
           target.classList.add("boldColor");

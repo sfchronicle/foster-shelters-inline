@@ -866,6 +866,8 @@ function handleScroll() {
       prevInteractives[i].classList.remove("fixedInteractive");
     };
 
+    console.log("WRITING A THING");
+
     document.getElementById(["slide-top-"+currentIDX]).classList.add("active");
 
     var targetDivs = document.getElementById(["slide-top-"+currentIDX]).getElementsByClassName("bold");

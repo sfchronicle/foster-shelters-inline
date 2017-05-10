@@ -4,10 +4,36 @@ var d3 = require('d3');
 console.log(slidesData);
 console.log(MGData.length);
 
+var timeTimeout = 100;
+
 var offset_top = 500;
 
 var slides = slidesData["slides"];
 // var num_slides = slides.length();
+
+var colors = {
+    // 'runaway': '#D4A190',
+    // 'assault/battery': '#D4C890',
+    // 'juvenilemisconduct': '#782E20',
+    // 'threats/disturbingthepeace': '#3C501F',
+    // 'propertycrime': '#D3D57C',
+    // 'suicidalsubject': '#889C6B',
+    // '5150/mentalhealthemergency': '#957964',
+    // 'drugs': '#F5CB5C',
+    // 'sexcrimes': '#492D18',
+    // 'childabuse': '#CAD178',
+    'fallback': '#92483A'
+}
+
+function color(name, depth) {
+  var id = name.toLowerCase().replace(/ /g,"");
+  console.log(id);
+  if (colors[id]) {
+    return colors[id];
+  } else {
+    return null;
+  }
+}
 
 // CODE FOR INTERACTIVES -------------------------------------------------------
 
@@ -56,7 +82,7 @@ var drawDots = function(){
   var y = d3.scale.linear()
       .rangeRound([height, 0]);
 
-  var color = d3.scale.category10();
+  // var color = d3.scale.category10();
 
   // use x-axis scale to set x-axis
   var xAxis = d3.svg.axis()
@@ -213,13 +239,8 @@ var drawMap = function(key) {
   // var L = element.leaflet;
   // var map = element.map;
 
-  var Stamen = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.{ext}', {
-  	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-  	subdomains: 'abcd',
-  	minZoom: 0,
-  	maxZoom: 18,
-  	ext: 'png'
-  });
+  // add tiles to the map
+  var Stamen = L.tileLayer("https://api.mapbox.com/styles/v1/emro/cj2i9mx33001b2rqov44u9fux/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZW1ybyIsImEiOiJjaXl2dXUzMGQwMDdsMzJuM2s1Nmx1M29yIn0._KtME1k8LIhloMyhMvvCDA",{attribution: '© <a href="https://www.mapbox.com/map-feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>'})
 
   // var Stamen = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
   // 	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -297,7 +318,7 @@ var drawMap = function(key) {
       return "dot "+d.Facility;
     })
     .style("opacity", function(d) {
-      return 0.8;
+      return "0.8";
       // if ((d.Day == current_day) || (current_day == 100)) {
       //   return 0.8;
       // } else {
@@ -305,7 +326,7 @@ var drawMap = function(key) {
       // }
     })
     .style("fill", function(d) {
-      return "#E32B2B";//"#3C87CF";
+      return "#782E20";//"#3C87CF";
     })
     .style("stroke","#696969")
     .attr("r", function(d) {
@@ -355,50 +376,50 @@ var drawMap = function(key) {
     .enter().append("g")
     .attr("class","node");
 
-  node.append("rect")
-    .attr("x", function(d) {
-      if (d.Name.match("Betty")) {
-        return map.latLngToLayerPoint(d.LatLng).x-100;
-      } else {
-        return map.latLngToLayerPoint(d.LatLng).x+20;
-      }
-    })
-    .attr("y", function(d) {
-      if (d.Name.match("Betty")) {
-        return map.latLngToLayerPoint(d.LatLng).y+15;
-      } else {
-        return map.latLngToLayerPoint(d.LatLng).y-15;
-      }
-    })
-    .attr("width",function(d){
-      return (d.Name).length*7+40 + "px";
-    })
-    .attr("visibility",function(d) {
-      if (d.Name.match("Mary Graham")) {
-        console.log("visibility");
-        return "visible";
-      } else {
-        return "hidden";
-      }
-    })
-    .attr("height","20px")
-    .attr("opacity","0.5")
-    .attr("fill","white")
-    .attr("pointer-events", "none");
+  // node.append("rect")
+  //   .attr("x", function(d) {
+  //     if (d.Name.match("Betty")) {
+  //       return map.latLngToLayerPoint(d.LatLng).x-100;
+  //     } else {
+  //       return map.latLngToLayerPoint(d.LatLng).x+20;
+  //     }
+  //   })
+  //   .attr("y", function(d) {
+  //     if (d.Name.match("Betty")) {
+  //       return map.latLngToLayerPoint(d.LatLng).y+15;
+  //     } else {
+  //       return map.latLngToLayerPoint(d.LatLng).y-15;
+  //     }
+  //   })
+  //   .attr("width",function(d){
+  //     return (d.Name).length*7+40 + "px";
+  //   })
+  //   .attr("visibility",function(d) {
+  //     if (d.Name.match("Mary Graham")) {
+  //       console.log("visibility");
+  //       return "visible";
+  //     } else {
+  //       return "hidden";
+  //     }
+  //   })
+  //   .attr("height","20px")
+  //   .attr("opacity","0.5")
+  //   .attr("fill","white")
+  //   .attr("pointer-events", "none");
 
   node.append("text")
     .attr("x", function(d) {
       if (d.Name.match("Betty")) {
         return map.latLngToLayerPoint(d.LatLng).x-90;
       } else {
-        return map.latLngToLayerPoint(d.LatLng).x+30;
+        return map.latLngToLayerPoint(d.LatLng).x+20;
       }
     })
     .attr("y", function(d) {
       if (d.Name.match("Betty")) {
         return map.latLngToLayerPoint(d.LatLng).y+30;
       } else {
-        return map.latLngToLayerPoint(d.LatLng).y;
+        return map.latLngToLayerPoint(d.LatLng).y+5;
       }
     })
     .attr("id", function(d) {
@@ -413,8 +434,8 @@ var drawMap = function(key) {
       }
     })
     // .style("fill","BFBFBF")
-    .style("font-family","AntennaBold")
-    .style("font-size","14px")
+    // .style("font-family","AntennaBold")
+    .style("font-size","16px")
     // .style("font-style","italic")
     .text(function(d) {
         return d.Name
@@ -620,7 +641,7 @@ var drawBubbles = function(key,flag,highlight) {
 
   var width = diameter-margin.left-margin.right;
   var height = diameter-topbuffer; //because the bubbles aren't arranged so they're square
-  var color = d3.scale.category20b();
+  // var color = d3.scale.category20b();
 
   var svg = d3.select("#"+key).append('svg')
     .attr('width', width + margin.left + margin.right)
@@ -687,13 +708,16 @@ var drawBubbles = function(key,flag,highlight) {
       .attr("cy", function(d){ return d.y; })
       .style("opacity",function(d) {
         console.log(d);
+        // return "0.7";
         if (d.call_types == highlight) {
           return 1;
         } else {
-          return 0.4;
+          return 0.6;
         }
       })
-      .style("fill", function(d) { return color(d.value); });
+      .style("fill", function(d) {
+        return color(d.call_types, 1) || colors.fallback;
+      });
 
   //format the text for each bubble
   bubbles.append("text")
@@ -706,11 +730,11 @@ var drawBubbles = function(key,flag,highlight) {
         }
       })
       .style("fill",function(d) {
-        if (d.call_types == highlight) {
-          return "white";
-        } else {
+        // if (d.call_types == highlight) {
+          // return "white";
+        // } else {
           return "black";
-        }
+        // }
       })
 
 }
@@ -806,8 +830,19 @@ slides.forEach( function(slide) {
 
 });
 
-var prevIDX = -1;
+// set up scrolling timeout
+var scrollTimer = null;
 $(window).scroll(function () {
+    if (scrollTimer) {
+        clearTimeout(scrollTimer);   // clear any previous pending timer
+    }
+    scrollTimer = setTimeout(handleScroll, timeTimeout);   // set new timer
+});
+
+var prevIDX = -1;
+function handleScroll() {
+
+  scrollTimer = null;
 
   var pos = $(this).scrollTop();
   // var pos_map_top = $('#bottom-of-top').offset().top;
@@ -821,9 +856,15 @@ $(window).scroll(function () {
     }
   });
 
+  console.log(currentIDX);
+
   if (currentIDX != prevIDX) {
 
     console.log("switching slide");
+    var prevInteractives = document.getElementsByClassName("interactive");
+    for (var i=0; i< prevInteractives.length; i++) {
+      prevInteractives[i].classList.remove("fixedInteractive");
+    };
 
     document.getElementById(["slide-top-"+currentIDX]).classList.add("active");
 
@@ -836,6 +877,12 @@ $(window).scroll(function () {
       } else {
         targetDivs[0].classList.add("boldColor");
       }
+    }
+    var targetInteractive = document.getElementById(["slide-top-"+currentIDX]).getElementsByClassName("interactive");
+    if (targetInteractive.length > 0) {
+      console.log(targetInteractive);
+
+      targetInteractive[0].classList.add("fixedInteractive");
     }
 
     var icon_list = [];
@@ -862,4 +909,4 @@ $(window).scroll(function () {
 
   }
 
-});
+};

@@ -10,6 +10,8 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+@orange: #782E20;
+
 //elements
 body {
   padding: 0;
@@ -37,17 +39,17 @@ main {
 }
 
 a {
-  color: @gray-blue;
+  color: @orange;
   text-decoration: none;
   outline: 0 !important;
   &:hover {
-    color: darken(@gray-blue,10%);
+    color: darken(@orange,10%);
   }
   img {
     border: none;
   }
   :hover {
-    color: darken(@gray-blue,10%);
+    color: darken(@orange,10%);
   }
 }
 
@@ -191,6 +193,19 @@ text {
 
 // heading styles ---------------------------------------
 
+// .title-container {
+//   background-image: url("http://ww3.hdnux.com/photos/61/02/21/12854386/3/2000x2000.jpg");
+//   background-repeat: no-repeat;
+//   background-size: contain;
+//   background-repeat: no-repeat;
+//   background-position: center center;
+//   height: 700px;
+//
+//   &.top-margin {
+//     margin-top: 3.5em;
+//   }
+// }
+
 .author {
     margin-top: 10px;
     font-size: 15px;
@@ -199,15 +214,17 @@ text {
 }
 .date {
     font-size: 15px;
-    text-align: center;
-    margin-bottom: 40px;
+    font-family: @med-graphics;
+    // text-align: center;
+    margin-bottom: 20px;
+    padding: 10px;
 }
 
 .title {
   font-family: @bold-graphics;
   font-size: 30px;
   padding: 0 10px;
-  text-align: center;
+  // text-align: center;
   margin: 10px auto 0;
   max-width: 835px;
 
@@ -215,7 +232,7 @@ text {
     font-size: 45px;
     line-height: 1.2;
     margin: 20px auto 0;
-    margin-top: 100px;
+    margin-top: 30px;
     margin-bottom: 25px;
 
     &.text-width {
@@ -237,7 +254,7 @@ text {
 }
 
 .specialhead-top {
-  color: @gray-blue;
+  color: @orange;
   font-family: @banner;
   font-size: 18px;
   // text-transform: uppercase;
@@ -270,42 +287,44 @@ text {
   height: 37px;
 }
 
-.link {
-  padding: 5px 10px 0 7px;
-  vertical-align: 3px;
-  font-size: 18px;
-  font-family: @body;
-  cursor: pointer;
+.navigation {
+  .link {
+    padding: 5px 10px 0 7px;
+    vertical-align: 3px;
+    font-size: 18px;
+    font-family: @body;
+    cursor: pointer;
 
-  &.active {
-    background: @active-link;
-    color: @dark-gray;
-  }
+    &.active {
+      background: @active-link;
+      color: @dark-gray;
+    }
 
-  &.special {
-    a {
-      color: @gray-blue;
+    &.special {
+      a {
+        color: @orange;
+      }
+    }
+    &.social {
+      float: right;
+      margin: 0 6px;
+      padding: 4px 2px;
+      a {
+        color: @orange;
+      }
+    }
+    &.email {
+      margin-right: 10px;
     }
   }
-  &.social {
-    float: right;
-    margin: 0 6px;
-    padding: 4px 2px;
-    a {
-      color: @gray-blue;
+  .logo-link {
+    cursor: pointer;
+    margin: 0 0 0 10px;
+    vertical-align:0;
+    img {
+      opacity: 1;
+      height: 20px;
     }
-  }
-  &.email {
-    margin-right: 10px;
-  }
-}
-.logo-link {
-  cursor: pointer;
-  margin: 0 0 0 10px;
-  vertical-align:0;
-  img {
-    opacity: 1;
-    height: 20px;
   }
 }
 
@@ -555,7 +574,7 @@ footer {
 
 .credits {
   max-width: 900px;
-  margin: 30px auto;
+  margin: 50px auto;
   padding: 10px;
   text-align: center;
   font-size: 15px;

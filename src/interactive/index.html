@@ -10,6 +10,7 @@
 
     <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet-src.js"></script>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"/>
+    <link href='https://cdn.knightlab.com/libs/soundcite/latest/css/player.css' rel='stylesheet' type='text/css'><script type='text/javascript' src='https://cdn.knightlab.com/libs/soundcite/latest/js/soundcite.min.js'></script>
 
     <%= !json.project.embedded ? t.include("partials/_paywall.html") : t.include("partials/_embedframe.html") %>
 
@@ -21,10 +22,14 @@
 
     <%= t.include("partials/_nav.html") %>
 
-    <div class="title long"><%= json.foster_shelters_interactive_text_inline["interactive"][0]["Title"] %></div>
-    <div class="authors"><%= json.foster_shelters_interactive_text_inline["interactive"][0]["Authors"] %></div>
-    <div class="date"><%= json.foster_shelters_interactive_text_inline["interactive"][0]["Date"] %></div>
-    <%= t.include("partials/_title_social.html") %>
+    <div class="title-image"><img src="http://ww3.hdnux.com/photos/61/02/21/12854386/3/2000x2000.jpg"></img></div>
+
+    <div class="title-container">
+      <div class="title long"><%= json.foster_shelters_interactive_text_inline["interactive"][0]["Title"] %></div>
+      <div class="authors"><%= json.foster_shelters_interactive_text_inline["interactive"][0]["Authors"] %></div>
+      <div class="date"><%= json.foster_shelters_interactive_text_inline["interactive"][0]["Date"] %></div>
+      <%= t.include("partials/_title_social.html") %>
+    </div>
 
     <% json.foster_shelters_interactive_text_inline["slides"].forEach(function(slide,slideIDX) { %>
 
@@ -34,7 +39,15 @@
         <div class="slide-top" id="slide-top-<%=slideIDX%>">
       <% } %>
 
-        <div class="slide">
+        <% if (slide["Interactive"]){ %>
+          <% if (slide["Interactive"] == "map"){ %>
+            <div class="slide map-slide">
+          <% } else { %>
+            <div class="slide">
+          <% } %>
+        <% } else { %>
+          <div class="slide text-slide">
+        <% } %>
 
           <% if (slide["Interactive"] == "quote") { %>
 
@@ -45,6 +58,20 @@
               <div class='quote-author'>&mdash; <%= slide["Author"] %></div>
             </div>
 
+          <% } else if (slide["Interactive"] == "sound") { %>
+
+            <span class="soundcite" data-url="/media/bach-cello-suite.mp3" data-start="0" data-end="164000" data-plays="1">listen</span>
+
+
+          <% } else  if (slide["Interactive"] == "map") { %>
+
+            <% var text = slide["Text"].replace("**","<span class='bold'>").replace("*","</span>"); %>
+            <div class="text float-left"><%= text %></div>
+
+          <% } else if (slide["Interactive"]) { %>
+
+            <% var text = slide["Text"].replace("**","<span class='bold'>").replace("*","</span>"); %>
+            <div class="text flex-left"><%= text %></div>
 
           <% } else { %>
 
@@ -54,7 +81,11 @@
           <% } %>
 
           <% if (slide["Interactive"]) { %>
-            <div class="interactive" id="<%= slide['Interactive'] %>"></div>
+            <% if (slide["Interactive"] == "map") { %>
+              <div class="map" id="<%= slide['Interactive'] %>"></div>
+            <% } else { %>
+              <div class="interactive" id="<%= slide['Interactive'] %>"></div>
+            <% } %>
           <% } %>
 
         </div>

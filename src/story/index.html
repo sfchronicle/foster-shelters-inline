@@ -3,7 +3,7 @@
   <head>
     <title><%= json.project.seo_title %></title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="__sync_contentCategory" content="meterA">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../style.css">
@@ -17,6 +17,80 @@
   <%= !json.project.embedded ? "<body>" : "<body is='responsive-body'>" %>
 
     <%= t.include("partials/_nav.html") %>
+
+
+    <div id="mainbar">
+
+    <div class="title-container">
+    <div class="background-img">
+    <video id="looper" class="show-for-large" poster="" loop autoplay>
+      <source src="../assets/videos/intro3-480.mov" type="video/mp4" >
+      Your browser does not support the <code>video</code> element.
+    </video>
+      <div class="over-img">
+        <h1 class="title">Foster Story</h1>
+        <p class="date">May 20, 2017</p>
+        <p class="deck">
+        
+        </p>
+
+        <p class="author">By <a href="mailto:jtucker@sfchronicle.com">Author, Author, Author</a></p>
+      </div>
+    </div>
+  </div>
+
+      <% json.test_docs['text'].forEach(function(text) { %>
+
+        <% if ( text.type == 'text' ){ %>
+          
+          <p><%= text.value %></p>
+
+        <% } else if ( text.type == 'image' ){ %>
+
+       
+
+
+          <div class="<%= text.value[0].Width %>-img">
+            <img src="http://ww4.hdnux.com/photos/61/02/21/<%= text.value[0].Wcm_id %>/3/1600x0.jpg">
+            <div class="caption"><%= text.value[0].Caption %> <span class="byline"><%= text.value[0].Photographer %>, The Chronicle</span></div>
+          </div>
+
+          
+
+    
+
+        <% } else if ( text.type == 'grid' ){ %>
+
+           <div class="grid">
+
+          <% text.value.forEach(function(grid) { %>
+           
+           <div class="grid-img">
+              <img src="http://ww4.hdnux.com/photos/61/02/21/<%= grid.Wcm_id %>/3/1600x0.jpg">
+            </div>
+            
+            
+          <% }); %>
+
+          </div>
+
+
+        <% } else if ( text.type == 'gif' ){ %>
+
+           <div class="gif">
+           <img src="../assets/gifs/<%= text.value[0].Title %>">
+           </div>
+          
+
+        <% } %>
+
+      <% }); %>
+
+    </div>
+
+
+
+
 
     <%= t.include("partials/_credits.html") %>
     <%= t.include("partials/_footer.html") %>

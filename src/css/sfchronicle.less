@@ -16,7 +16,8 @@ body {
   margin: 0;
   //remove 300ms click delay in Safari, AKA still the worst
   touch-action: manipulation;
-
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background-color: @white;
   font-size: @base-font;
   line-height:@line-height;
@@ -189,14 +190,6 @@ text {
 }
 
 // heading styles ---------------------------------------
-
-.title-container {
-  background-image: url("./assets/photos/test-img.jpg");
-
-  &.top-margin {
-    margin-top: 3.5em;
-  }
-}
 
 .author {
     margin-top: 10px;
@@ -390,19 +383,6 @@ header {
   font-style: italic;
 }
 
-.background-img {
-    height: 800px;
-    background-size: cover;
-    background-position: center center;
-    position: relative;
-    display: block;
-    z-index: 1;
-
-    @media @mobile {
-      height: 640px;
-    }
-}
-
 .full-width-img {
   margin: 2em auto;
   width: 100%;
@@ -415,6 +395,10 @@ header {
 .inline-img {
   max-width: 730px;
   margin: 2em auto;
+
+  img{
+    width:100%;
+  }
 
   .caption{
     padding:0;

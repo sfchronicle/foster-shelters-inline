@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="__sync_contentCategory" content="meterA">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flickity@2/dist/flickity.css">
     <link rel="stylesheet" type="text/css" href="../style.css">
 
     <%= !json.project.embedded ? t.include("partials/_paywall.html") : t.include("partials/_embedframe.html") %>
@@ -21,21 +23,21 @@
 
     <div id="mainbar">
 
-    <div class="title-container">
-    <div class="background-img">
-    <video id="looper" class="show-for-large" poster="" loop autoplay>
-      <source src="../assets/videos/bird.mov" type="video/mp4" >
-      Your browser does not support the <code>video</code> element.
-    </video>
-      <div class="over-img">
-        <h1 class="title">Foster Story</h1>
-        <p class="date">May 20, 2017</p>
-        <p class="author">By <a href="mailto:jtucker@sfchronicle.com">Author, Author, Author</a></p>
+      <div class="top-image">
+        <div class="background-img">
+          <video id="looper" class="show-for-large" poster="" loop autoplay>
+            <source src="../assets/videos/bird.mov" type="video/mp4" >
+            Your browser does not support the <code>video</code> element.
+          </video>
+          <div class="over-img">
+            <h1 class="title">Childish outbursts — or criminal acts?</h1>
+            <p class="date">May 20, 2017</p>
+            <p class="author">By <a href="mailto:jtucker@sfchronicle.com">Author, Author, Author</a></p>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-      <% json.test_docs['text'].forEach(function(text) { %>
+      <% json.shelters_digital['text'].forEach(function(text) { %>
 
         <% if ( text.type == 'text' ){ %>
           
@@ -47,7 +49,7 @@
 
 
           <div class="<%= text.value[0].Width %>-img">
-            <img src="http://ww4.hdnux.com/photos/61/02/21/<%= text.value[0].Wcm_id %>/3/1600x0.jpg">
+            <img src="http://ww4.hdnux.com/photos/61/02/21/<%= text.value[0].Wcm_id %>/3/2000x0.jpg">
             <div class="caption"><%= text.value[0].Caption %> <span class="byline"><%= text.value[0].Photographer %>, The Chronicle</span></div>
           </div>
 
@@ -70,13 +72,48 @@
 
           </div>
 
+        <% } else if ( text.type == 'grid-large' ){ %>
+
+           <div class="grid-large">
+
+          <% text.value.forEach(function(grid) { %>
+           
+           <div class="grid-img">
+              <img src="http://ww4.hdnux.com/photos/61/02/21/<%= grid.Wcm_id %>/3/1600x0.jpg">
+            </div>
+            
+            
+          <% }); %>
+
+          </div>
+
 
         <% } else if ( text.type == 'gif' ){ %>
 
            <div class="gif">
            <img src="../assets/gifs/<%= text.value[0].Title %>">
            </div>
-          
+
+        <% } else if ( text.type == 'video' ){ %>
+         <div class="inline-img"> 
+            <div class='embed-container'>
+            <iframe src='http://player.vimeo.com/video/<%= text.value[0].ID %>' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+            </div>
+          </div>
+
+        <% } else if ( text.type == 'slideshow' ){ %>
+
+          <div class="slideshow" data-flickity>
+            <% text.value.forEach(function(slide) { %>
+           
+             <div class="carousel-cell">
+              <img src="http://ww4.hdnux.com/photos/61/02/21/<%= slide.Wcm_id %>/3/1600x0.jpg">
+              <div class="caption"><%= slide.Caption %> <span class="byline"><%= slide.Photographer %></span></div>
+            </div>
+
+            <% }); %>
+
+          </div>
 
         <% } %>
 

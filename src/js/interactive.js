@@ -4,7 +4,7 @@ var d3 = require('d3');
 console.log(slidesData);
 console.log(MGData.length);
 
-var timeTimeout = 100;
+// var timeTimeout = 50;
 
 var offset_top = 500;
 
@@ -831,18 +831,19 @@ slides.forEach( function(slide) {
 });
 
 // set up scrolling timeout
-var scrollTimer = null;
-$(window).scroll(function () {
-    if (scrollTimer) {
-        clearTimeout(scrollTimer);   // clear any previous pending timer
-    }
-    scrollTimer = setTimeout(handleScroll, timeTimeout);   // set new timer
-});
+// var scrollTimer = null;
+// $(window).scroll(function () {
+//     if (scrollTimer) {
+//         clearTimeout(scrollTimer);   // clear any previous pending timer
+//     }
+//     scrollTimer = setTimeout(handleScroll, timeTimeout);   // set new timer
+// });
 
 var prevIDX = -1;
-function handleScroll() {
+// function handleScroll() {
+$(window).scroll(function () {
 
-  scrollTimer = null;
+  // scrollTimer = null;
 
   var pos = $(this).scrollTop();
   // var pos_map_top = $('#bottom-of-top').offset().top;
@@ -879,10 +880,10 @@ function handleScroll() {
       }
     }
     var targetInteractive = document.getElementById(["slide-top-"+currentIDX]).getElementsByClassName("interactive");
+    var targetText = document.getElementById(["slide-top-"+currentIDX]).getElementsByClassName("flex-left");
     if (targetInteractive.length > 0) {
-      console.log(targetInteractive);
-
       targetInteractive[0].classList.add("fixedInteractive");
+      targetText[0].classList.add("fixedText");
     }
 
     var icon_list = [];
@@ -909,4 +910,4 @@ function handleScroll() {
 
   }
 
-};
+});

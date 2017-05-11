@@ -72,6 +72,9 @@
   &.quote-slide {
     padding: 50px 0;
   }
+  &.fixed-height-slide {
+    height: 700px;
+  }
   // background: white;
   margin: auto;
   text-align: center;
@@ -137,19 +140,33 @@
   .flex-wrap(wrap);
   .flex-left {
     width: 40%;
-    margin-right: 55%;
+    margin-right: 0;
+    .flex(0 0 40%);
+    &.fixedText {
+      width: 40%;
+      margin-right: 55%;
+      // margin-left: 5%;
+    }
+    // margin-right: 55%;
   }
   #icons-arrests, #icons-pursued, #icons-bookings, #icons-probation, #bubbles, #bubbles-v2, #bubbles-v3 {
     width: 40%;
+    margin-left: 5%;
+    .flex(0 0 50%);
     // padding: 600px 0;
   }
 }
 
 .interactive {
-  display: none;
+  // display: none;
+  position: relative;
+  width: 50%;
+  display: inline-block;
+  opacity: 0;
   &.fixedInteractive {
-    display: block;
+    // display: block;
     position: fixed;
+    opacity: 1;
 
     top: 100px;
     z-index: -20;

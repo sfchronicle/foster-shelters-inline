@@ -42,6 +42,12 @@
         <% if (slide["Interactive"]){ %>
           <% if (slide["Interactive"] == "map"){ %>
             <div class="slide map-slide">
+          <% } else if (slide["Interactive"] == "audio"){ %>
+            <div class="slide audio-slide">
+          <% } else if (slide["Interactive"] == "quote"){ %>
+            <div class="slide quote-slide">
+          <% } else if (slide["Interactive"] == "report"){ %>
+            <div class="slide report-slide">
           <% } else { %>
             <div class="slide">
           <% } %>
@@ -58,10 +64,21 @@
               <div class='quote-author'>&mdash; <%= slide["Author"] %></div>
             </div>
 
-          <% } else if (slide["Interactive"] == "sound") { %>
+          <% } else if (slide["Interactive"] == "audio") { %>
 
-            <span class="soundcite" data-url="/media/bach-cello-suite.mp3" data-start="0" data-end="164000" data-plays="1">listen</span>
+            <div class="text audio-text"><div><%= slide["Text"] %></div>
+              <div class="soundcite" data-url="../assets/audio/MG_Dispatch.wav" data-start="0" data-end="164000" data-plays="1"><i class="fa fa-volume-up" aria-hidden="true"></i> Listen to the call</div>
+            </div>
+            <div class="inline-img">
+              <img src='<%= slide["Photo"] %>'></img>
+            </div>
 
+          <% } else if (slide["Interactive"] == "report") { %>
+
+            <div class="graphic-img">
+              <div class="text graphics-text"><%= slide["Text"] %></div>
+              <img src='<%= slide["Report"] %>'></img>
+            </div>
 
           <% } else  if (slide["Interactive"] == "map") { %>
 

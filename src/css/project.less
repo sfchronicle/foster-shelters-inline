@@ -8,21 +8,47 @@
   img {
     width: 100%;
   }
+  background: white;
 }
 
 .slide-top {
 
-  opacity: 1;
+  opacity: 1.0;
 
   &.active {
     opacity: 1;
-    -webkit-transition: opacity 100ms ease-in;
-    -moz-transition: opacity 100ms ease-in;
-    -ms-transition: opacity 100ms ease-in;
-    -o-transition: opacity 100ms ease-in;
-    transition: opacity 100ms ease-in;
+    -webkit-transition: opacity 500ms ease-in;
+    -moz-transition: opacity 500ms ease-in;
+    -ms-transition: opacity 500ms ease-in;
+    -o-transition: opacity 500ms ease-in;
+    transition: opacity 500ms ease-in;
   }
 
+}
+
+.audio-slide {
+  background: black;
+}
+.quote-slide, .report-slide {
+  background: white;
+}
+
+.graphic-img {
+  max-width: 900px;
+  margin: auto;
+  position: relative;
+  img {
+    width: 100%;
+  }
+  .graphics-text {
+    position: absolute;
+    top: 12%;
+    left: 17%;
+    color: white;
+    font-size: 16px;
+    font-family: @bold-graphics;
+    max-width: 130px !important;
+  }
 }
 
 .slide {
@@ -37,7 +63,14 @@
     padding: 100px 0;
   }
   &.map-slide {
+    padding: 200px 0 0 0;
     background: white;
+  }
+  &.report-slide {
+    padding: 100px 0;
+  }
+  &.quote-slide {
+    padding: 50px 0;
   }
   // background: white;
   margin: auto;
@@ -62,7 +95,7 @@
       // padding-top: 200px;
     }
     &.flex-left {
-      padding: 300px 0;
+      padding: 0 0 200px 0;
     }
     .bold {
       font-size: 40px;
@@ -77,6 +110,25 @@
         transition: color 800ms ease-in;
       }
     }
+    &.audio-text {
+      color: white;
+      font-family: @bold-graphics;
+      font-size: 25px;
+      padding-bottom: 40px;
+      max-width: 400px;
+    }
+  }
+}
+
+.soundcite {
+  cursor: pointer;
+  // font-style: italic;
+  padding-top: 20px !important;
+  font-family: @med-graphics;
+  text-transform: capitalize;
+  font-size: 18px;
+  .fa {
+    padding-right: 10px;
   }
 }
 
@@ -161,7 +213,8 @@
     width: 95%;
   }
   .icon-arrests, .icon-bookings, .icon-pursued, .icon-probation {
-    .flex(0 0 0 2%);
+    .flex(0 0 0 4%);
+    font-size: 25px;
     @media @mobile {
       font-size: 12px;
     }
@@ -170,7 +223,7 @@
     // -webkit-transition: color 1000ms linear;
     // -ms-transition: color 1000ms linear;
     // transition: color 1000ms linear;
-    padding: 0 2px;
+    padding: 0 4px;
     &.dark, &.show {
       color: lighten(@orange,10%);
     }

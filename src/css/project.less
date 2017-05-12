@@ -11,6 +11,14 @@
   background: white;
 }
 
+.divider {
+  padding-top:50px;
+  width: 60%;
+  margin: auto;
+  border-bottom: 1px @dark-gray solid;
+  height: 2px;
+}
+
 .slide-top {
 
   opacity: 1.0;
@@ -29,8 +37,11 @@
 .audio-slide {
   background: black;
 }
-.quote-slide, .report-slide {
+.quote-slide, .report-slide, .photo-slide {
   background: white;
+}
+.gif-slide {
+  background: darken(@orange,10%);
 }
 
 .graphic-img {
@@ -54,7 +65,7 @@
 .slide {
   position: relative;
   // max-width: 800px;
-  padding: 200px 0;
+  padding: 100px 0;
   &.interactive-slide {
     padding: 200px 0;
   }
@@ -64,7 +75,8 @@
   }
   &.map-slide {
     padding: 200px 0 0 0;
-    background: white;
+    // background: white;
+    height: 700px;
   }
   &.report-slide {
     padding: 100px 0;
@@ -73,7 +85,11 @@
     padding: 50px 0;
   }
   &.fixed-height-slide {
-    height: 700px;
+    height: 800px;
+  }
+  &.gif-slide, &.audio-slide {
+    padding: 0;
+    margin: 100px auto;
   }
   // background: white;
   margin: auto;
@@ -120,6 +136,10 @@
       padding-bottom: 40px;
       max-width: 400px;
     }
+    &.gif-text {
+      max-width: 400px;
+      color: white;
+    }
   }
 }
 
@@ -135,14 +155,27 @@
   }
 }
 
+.slide-hed {
+  max-width: 800px;
+  // font-size: 22px;
+  margin: auto;
+  text-align: center;
+  font-family: @med-graphics;
+  padding-bottom: 40px;
+  color: @orange;
+  // text-transform: uppercase;
+}
+
 .slide {
   .display-flex;
   .flex-wrap(wrap);
   .flex-left {
     width: 40%;
+    padding-top: 50px;
     margin-right: 0;
     .flex(0 0 40%);
     &.fixedText {
+      padding-top: 50px;
       width: 40%;
       margin-right: 55%;
       // margin-left: 5%;
@@ -175,12 +208,15 @@
 }
 
 .quote {
-  background: darken(@orange,10%);//@dark-gray;
+  background: white;
+  // background: darken(@orange,10%);//@dark-gray;
   padding: 20px;
   font-size: 30px;
   font-style: italic;
   position: relative;
-  color: white;
+  max-width: 900px;
+  margin: auto;
+  // color: white;
   // height: 300px;
   @media @mobile {
     font-size: 20px;
@@ -199,7 +235,8 @@
     line-height:1;
     font-family: @body;
     font-size: 200px;
-    color: white;//@orange;
+    color: darken(@orange,10%);
+    // color: white;//@orange;
     // float: left;
     height: 80px;
     width: 120px;
@@ -209,7 +246,8 @@
   }
   .small-quote {
     font-family: @body;
-    color: white;//@orange;
+    color: darken(@orange,10%);
+    // color: white;//@orange;
   }
   .quote-author {
     text-align: right;
@@ -325,10 +363,31 @@ svg {
   pointer-events: all;
 }
 
+#map-v2 {
+  z-index: -20;
+}
 #map {
+  z-index: -10;
+}
+
+.map {
+  opacity: 0;
+  // visibility: hidden;
+  &.fixedMap {
+    // visibility: visible;
+    // display: block;
+    position: fixed !important;
+    opacity: 1;
+    top: 0;
+    margin-top: 0 !important;
+    // z-index: -20;
+    // left: 50%;
+  }
+}
+#map, #map-v2 {
   pointer-events: all;
   width: 100%;
-  height: 600px;
+  height: 700px;
   // width: 80%;
   // height: 760px;
   margin: auto;

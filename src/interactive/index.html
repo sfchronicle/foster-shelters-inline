@@ -40,7 +40,7 @@
       <% } %>
 
         <% if (slide["Interactive"]){ %>
-          <% if (slide["Interactive"] == "map"){ %>
+          <% if ((slide["Interactive"] == "map") || (slide["Interactive"] == "map-v2") ){ %>
             <div class="slide map-slide">
           <% } else if (slide["Interactive"] == "audio"){ %>
             <div class="slide audio-slide">
@@ -48,6 +48,10 @@
             <div class="slide quote-slide">
           <% } else if (slide["Interactive"] == "report"){ %>
             <div class="slide report-slide">
+          <% } else if (slide["Interactive"] == "photo"){ %>
+            <div class="slide photo-slide">
+          <% } else if (slide["Interactive"] == "gif"){ %>
+            <div class="slide gif-slide">
           <% } else { %>
             <div class="slide fixed-height-slide">
           <% } %>
@@ -72,15 +76,32 @@
             <div class="inline-img">
               <img src='<%= slide["Photo"] %>'></img>
             </div>
+            </div>
+
+          <% } else if (slide["Interactive"] == "gif") { %>
+
+            <div class="text gif-text"><%= slide["Text"] %></div>
+            <div class="inline-img">
+              <img src='<%= slide["Photo"] %>'></img>
+            </div>
+            </div>
 
           <% } else if (slide["Interactive"] == "report") { %>
 
+            <div class="slide-hed"><%= slide["Hed"] %></div>
             <div class="graphic-img">
               <div class="text graphics-text"><%= slide["Text"] %></div>
               <img src='<%= slide["Report"] %>'></img>
             </div>
 
-          <% } else  if (slide["Interactive"] == "map") { %>
+          <% } else if (slide["Interactive"] == "photo") { %>
+
+            <div class="text"><%= slide["Text"].replace("**","<span class='bold'>").replace("*","</span>") %></div>
+            <div class="inline-img">
+              <img src='<%= slide["Photo"] %>'></img>
+            </div>
+
+          <% } else if ((slide["Interactive"] == "map") || (slide["Interactive"] == "map-v2")) { %>
 
             <% var text = slide["Text"].replace("**","<span class='bold'>").replace("*","</span>"); %>
             <div class="text float-left"><%= text %></div>
@@ -98,8 +119,10 @@
           <% } %>
 
           <% if (slide["Interactive"]) { %>
-            <% if (slide["Interactive"] == "map") { %>
-              <div class="map" id="<%= slide['Interactive'] %>"></div>
+            <% if ((slide["Interactive"] == "map")||(slide["Interactive"] == "map-v2")) { %>
+              <div class="map <%= slide['Interactive'] %>" id="<%= slide['Interactive'] %>"></div>
+            <% } else if ( (slide["Interactive"] != "quote") && (slide["Interactive"] != "report") && (slide["Interactive"] != "gif") && (slide["Interactive"] != "photo") && (slide["Interactive"] != "audio") ) { %>
+              <div class="interactive sticky" id="<%= slide['Interactive'] %>"></div>
             <% } else { %>
               <div class="interactive" id="<%= slide['Interactive'] %>"></div>
             <% } %>
@@ -111,7 +134,7 @@
     <% }); %>
 
 
-
+    <div class="divider"></div>
     <div class="credits">
       <h2>About the data</h2>
       <div class="entry"><%= json.foster_shelters_interactive_text_inline["data"][0]["Text"] %></div>

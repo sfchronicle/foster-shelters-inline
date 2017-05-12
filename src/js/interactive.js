@@ -212,7 +212,7 @@ var drawDots = function(){
 }
 
 // function to create map
-var drawMap = function(key) {
+var drawMap = function(key,mapDataFLAG) {
 
   // tooltip information
   function tooltip_function (d) {
@@ -226,8 +226,8 @@ var drawMap = function(key) {
     var sf_long = -122.43;
     var zoom_deg = 8;
   } else {
-    var sf_lat = 36.04
-    var sf_long = -119.5;
+    var sf_lat = 37.14
+    var sf_long = -121.5;
     var zoom_deg = 6;
   }
 
@@ -236,56 +236,17 @@ var drawMap = function(key) {
 
   //get access to Leaflet and the map
   var element = document.querySelector(key);
-  // var L = element.leaflet;
-  // var map = element.map;
 
   // add tiles to the map
   var Stamen = L.tileLayer("https://api.mapbox.com/styles/v1/emro/cj2i9mx33001b2rqov44u9fux/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZW1ybyIsImEiOiJjaXl2dXUzMGQwMDdsMzJuM2s1Nmx1M29yIn0._KtME1k8LIhloMyhMvvCDA",{attribution: '© <a href="https://www.mapbox.com/map-feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>'})
 
-  // var Stamen = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}.{ext}', {
-  // 	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-  // 	subdomains: 'abcd',
-  // 	minZoom: 0,
-  // 	maxZoom: 20,
-  // 	ext: 'png'
-  // });
-  //
-  // var Stamen = L.tileLayer('http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', {
-  // 	maxZoom: 18,
-  // 	attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-  // });
-  //
-  // var Stamen = L.tileLayer('http://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}', {
-  // 	attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-  // 	subdomains: 'abcd',
-  // 	minZoom: 1,
-  // 	maxZoom: 16,
-  // 	ext: 'png'
-  // });
-
   // initialize map with center position and zoom levels
-  var map = L.map("map", {
-    // minZoom: 7,
-    // maxZoom: 16,
-    zoomControl: false,
-    dragging: true,
-    touchZoom: true
-    // zoomControl: isMobile ? false : true,
-    // scrollWheelZoom: false
+  var map = L.map(key, {
+    zoomControl: false
   }).setView([sf_lat,sf_long], zoom_deg);;
   // window.map = map;
 
   map.addLayer(Stamen);
-
-  map.dragging.enable();
-
-  // add tiles to the map
-  // var mapLayer = L.tileLayer("https://api.mapbox.com/styles/v1/emro/ciyvv7c2n003h2sqvmfffselg/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZW1ybyIsImEiOiJjaXl2dXUzMGQwMDdsMzJuM2s1Nmx1M29yIn0._KtME1k8LIhloMyhMvvCDA",{attribution: '© <a href="https://www.mapbox.com/map-feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>'})
-  // mapLayer.addTo(map);
-
-  // L.control.zoom({
-  //      position:'topright'
-  // }).addTo(map);
 
   // dragging and zooming controls
   map.scrollWheelZoom.disable();
@@ -295,7 +256,6 @@ var drawMap = function(key) {
   map.keyboard.disable();
 
   // initializing the svg layer
-  // L.svg().addTo(map)
   map._initPathRoot();
 
   // creating Lat/Lon objects that d3 is expecting
@@ -304,7 +264,7 @@ var drawMap = function(key) {
   							d.Long);
   });
 
-  var svg = d3.select("#map").select("svg"),
+  var svg = d3.select("#"+key).select("svg"),
   g = svg.append("g");
 
   // adding circles to the map
@@ -319,11 +279,6 @@ var drawMap = function(key) {
     })
     .style("opacity", function(d) {
       return "0.8";
-      // if ((d.Day == current_day) || (current_day == 100)) {
-      //   return 0.8;
-      // } else {
-      //   return 0.3;
-      // }
     })
     .style("fill", function(d) {
       return "#782E20";//"#3C87CF";
@@ -333,7 +288,13 @@ var drawMap = function(key) {
       if (screen.width <= 480) {
         return 7;
       } else {
-        return d.Count2016/100+10;
+        console.log(d);
+        console.log(mapDataFLAG);
+        if (mapDataFLAG == "count") {
+          return d.Capacity/100+10;
+        } else {
+          return d.Count2016/100+10;
+        }
       }
     })
     .on('mouseover', function(d) {
@@ -346,8 +307,6 @@ var drawMap = function(key) {
         return tooltip
           .style("top", 70+"px")
           .style("left",40+"px");
-          // .style("top",(d3.event.pageY+40)+"px")//(d3.event.pageY+40)+"px")
-          // .style("left",10+"px");
       } else {
         return tooltip
           .style("top", (d3.event.pageY+10)+"px")
@@ -376,37 +335,6 @@ var drawMap = function(key) {
     .enter().append("g")
     .attr("class","node");
 
-  // node.append("rect")
-  //   .attr("x", function(d) {
-  //     if (d.Name.match("Betty")) {
-  //       return map.latLngToLayerPoint(d.LatLng).x-100;
-  //     } else {
-  //       return map.latLngToLayerPoint(d.LatLng).x+20;
-  //     }
-  //   })
-  //   .attr("y", function(d) {
-  //     if (d.Name.match("Betty")) {
-  //       return map.latLngToLayerPoint(d.LatLng).y+15;
-  //     } else {
-  //       return map.latLngToLayerPoint(d.LatLng).y-15;
-  //     }
-  //   })
-  //   .attr("width",function(d){
-  //     return (d.Name).length*7+40 + "px";
-  //   })
-  //   .attr("visibility",function(d) {
-  //     if (d.Name.match("Mary Graham")) {
-  //       console.log("visibility");
-  //       return "visible";
-  //     } else {
-  //       return "hidden";
-  //     }
-  //   })
-  //   .attr("height","20px")
-  //   .attr("opacity","0.5")
-  //   .attr("fill","white")
-  //   .attr("pointer-events", "none");
-
   node.append("text")
     .attr("x", function(d) {
       if (d.Name.match("Betty")) {
@@ -427,16 +355,12 @@ var drawMap = function(key) {
     })
     .attr("visibility",function(d) {
       if (d.Name.match("Mary Graham")) {
-        console.log("visibility");
         return "visible";
       } else {
         return "hidden";
       }
     })
-    // .style("fill","BFBFBF")
-    // .style("font-family","AntennaBold")
     .style("font-size","16px")
-    // .style("font-style","italic")
     .text(function(d) {
         return d.Name
     });
@@ -609,10 +533,6 @@ var drawBars = function() {
 // function to draw bubbles
 var drawBubbles = function(key,flag,highlight) {
 
-  console.log(key);
-  console.log(flag);
-  console.log(highlight);
-
   // show tooltip
   // var bubbles_tooltip = d3.select("div.tooltip-bubbles");
 
@@ -743,8 +663,6 @@ var drawBubbles = function(key,flag,highlight) {
 var active_num, lastactive_num, inactive_num;
 var drawIcons = function(html_str,key) {
 
-  console.log(key);
-
   if (key == "icon-arrests") {
     active_num = 259;
     lastactive_num = 0;
@@ -762,9 +680,6 @@ var drawIcons = function(html_str,key) {
     lastactive_num = 24;
     inactive_num = 204;
   }
-
-  console.log(active_num);
-  console.log(inactive_num);
 
   html_str += "<div class='icon-container'>";
   var count = 0;
@@ -793,9 +708,13 @@ slides.forEach( function(slide) {
 
   console.log(slide["Interactive"]);
 
-  // this is the map interactive
+  // this is the map with numbers of kids on it
   if (slide["Interactive"] == "map"){
-    drawMap("map");
+    drawMap("map","count");
+
+  // this is the map with numbers of arrests on it
+  } else if (slide["Interactive"] == "map-v2"){
+    drawMap("map-v2","calls");
 
   // this is the interactive that shows how Mary Graham is an outlier
   } else if (slide["Interactive"] == "bars"){
@@ -806,7 +725,7 @@ slides.forEach( function(slide) {
     drawDots();
 
   // this is the interactive that shows how Mary Graham is an outlier
-  } else if ((slide["Interactive"] == "bubbles") || (slide["Interactive"] == "bubbles-v2") || (slide["Interactive"] == "bubbles-v3")){
+} else if ((slide["Interactive"] == "bubbles") || (slide["Interactive"] == "bubbles-v2") || (slide["Interactive"] == "bubbles-v3") || (slide["Interactive"] == "bubbles-v4")){
 
     // bubble chart that includes runaways
     if (slide["Interactive"] == "bubbles"){
@@ -815,7 +734,9 @@ slides.forEach( function(slide) {
     } else if (slide["Interactive"] == "bubbles-v2"){
       drawBubbles("bubbles-v2",1,"Assault/Battery");
     } else if (slide["Interactive"] == "bubbles-v3") {
-      drawBubbles("bubbles-v3",1,"Suicidal Subject");
+      drawBubbles("bubbles-v3",1,"Threats/Disturbing the Peace");
+    } else if (slide["Interactive"] == "bubbles-v4") {
+      drawBubbles("bubbles-v4",1,"Property crime");
     }
 
   // this is the icon chart that shows all the cases that were thrown out
@@ -851,20 +772,30 @@ $(window).scroll(function () {
 
   var currentIDX = -1;
   slides.forEach(function(slide,slideIDX) {
-    var pos_slides = $('#slide-top-'+slideIDX).offset().top-offset_top;
+    var pos_slides = $('#slide-top-'+slideIDX).offset().top-400;
     if (pos > pos_slides) {
       currentIDX = Math.max(slideIDX,currentIDX);
     }
   });
 
   console.log(currentIDX);
+  // if (currentIDX == 0) {
+  //   var prevMap = document.getElementsByClassName("map");
+  //   for (var i=0; i< prevMap.length; i++) {
+  //     prevMap[i].classList.remove("fixedMap");
+  //   };
+  // }
 
   if (currentIDX != prevIDX) {
 
     console.log("switching slide");
-    var prevInteractives = document.getElementsByClassName("interactive");
+    var prevInteractives = document.getElementsByClassName("sticky");
     for (var i=0; i< prevInteractives.length; i++) {
       prevInteractives[i].classList.remove("fixedInteractive");
+    };
+    var prevMap = document.getElementsByClassName("map");
+    for (var i=0; i< prevMap.length; i++) {
+      prevMap[i].classList.remove("fixedMap");
     };
 
     document.getElementById(["slide-top-"+currentIDX]).classList.add("active");
@@ -879,11 +810,18 @@ $(window).scroll(function () {
         targetDivs[0].classList.add("boldColor");
       }
     }
-    var targetInteractive = document.getElementById(["slide-top-"+currentIDX]).getElementsByClassName("interactive");
-    var targetText = document.getElementById(["slide-top-"+currentIDX]).getElementsByClassName("flex-left");
+    var targetInteractive = document.getElementById(["slide-top-"+currentIDX]).getElementsByClassName("sticky");
+    console.log(targetInteractive);
     if (targetInteractive.length > 0) {
       targetInteractive[0].classList.add("fixedInteractive");
+    }
+    var targetText = document.getElementById(["slide-top-"+currentIDX]).getElementsByClassName("flex-left");
+    if ((targetText.length > 0) && (targetInteractive.length > 0)){
       targetText[0].classList.add("fixedText");
+    }
+    var targetMap = document.getElementById(["slide-top-"+currentIDX]).getElementsByClassName("map");
+    if (targetMap.length > 0) {
+      targetMap[0].classList.add("fixedMap");
     }
 
     var icon_list = [];

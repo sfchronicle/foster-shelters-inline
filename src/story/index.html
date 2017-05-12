@@ -49,7 +49,7 @@
 
 
           <div class="<%= text.value[0].Width %>-img">
-            <img src="http://ww4.hdnux.com/photos/61/02/21/<%= text.value[0].Wcm_id %>/3/2000x0.jpg">
+            <img src="../assets/photos/<%= text.value[0].Image %>.jpg">
             <div class="caption"><%= text.value[0].Caption %> <span class="byline"><%= text.value[0].Photographer %>, The Chronicle</span></div>
           </div>
 
@@ -64,7 +64,7 @@
           <% text.value.forEach(function(grid) { %>
            
            <div class="grid-img">
-              <img src="http://ww4.hdnux.com/photos/61/02/21/<%= grid.Wcm_id %>/3/1600x0.jpg">
+              <img src="../assets/photos/<%= grid.Image %>.jpg">
             </div>
             
             
@@ -79,7 +79,7 @@
           <% text.value.forEach(function(grid) { %>
            
            <div class="grid-img">
-              <img src="http://ww4.hdnux.com/photos/61/02/21/<%= grid.Wcm_id %>/3/1600x0.jpg">
+              <img src="../assets/photos/<%= grid.Image %>.jpg">
             </div>
             
             
@@ -107,7 +107,7 @@
             <% text.value.forEach(function(slide) { %>
            
              <div class="carousel-cell">
-              <img src="http://ww4.hdnux.com/photos/61/02/21/<%= slide.Wcm_id %>/3/1600x0.jpg">
+              <img src="../assets/photos/<%= slide.Image %>.jpg">
               <div class="caption"><%= slide.Caption %> <span class="byline"><%= slide.Photographer %></span></div>
             </div>
 

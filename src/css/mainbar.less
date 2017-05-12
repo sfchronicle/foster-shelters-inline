@@ -248,3 +248,59 @@
 		display:block;
 	}
 }
+
+#infobox {
+  float: right;
+  width: 30%;
+  color: #585858;
+  font-family: "AntennaRegular", Helvetica, sans-serif;
+  margin: 0 2em 2em;
+  font-size: 15px;
+  border-left: 5px solid #ccc;
+  padding-right: 2em;
+  padding-bottom:2em;
+
+  @media (max-width:890px){
+  	float: none;
+    width: 90%;
+    max-width: none;
+    padding: 0 10px;
+    margin: 2em auto;
+
+
+  }
+
+  .lede{
+  	font-family:@bold-graphics;
+  	font-size:17px;
+
+  	@media @mobile{
+  		font-size:15px;
+  	}
+  }
+
+  p{
+    max-width: 280px;
+    margin: 0 0 1em;
+    font-family:@med-graphics;
+
+    @media (max-width:890px){
+    	max-width:none;
+    }
+  }
+
+  .readmore{
+    margin-left: 15px;
+    border-radius: 2px;
+    color:#c12020;
+    border: 1px solid #ccc;
+    background: #e6e6e6;
+    display: inline-block;
+    font-size: 12px;
+    padding: 5px 8px;
+
+    &:hover{
+    	background: #f1f1f1;
+    }
+  }
+}

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flickity@2/dist/flickity.css">
-    <link rel="stylesheet" type="text/css" href="../style.css">
+    <link rel="stylesheet" type="text/css" href="./style.css">
 
     <%= !json.project.embedded ? t.include("partials/_paywall.html") : t.include("partials/_embedframe.html") %>
 
@@ -50,19 +50,18 @@
           
           <p><%= text.value %></p>
 
+
+        <% } else if ( text.type == 'infobox' ){ %>
+
+          <%= t.include("partials/_infobox.html") %>
+
         <% } else if ( text.type == 'image' ){ %>
-
-       
-
 
           <div class="<%= text.value[0].Width %>-img">
             <img src="./assets/photos/<%= text.value[0].Image %>.jpg">
             <div class="caption"><%= text.value[0].Caption %> <span class="byline"><%= text.value[0].Photographer %></span></div>
           </div>
-
-          
-
-    
+ 
 
         <% } else if ( text.type == 'grid' ){ %>
 
@@ -110,7 +109,7 @@
 
         <% } else if ( text.type == 'slideshow' ){ %>
 
-          <div class="slideshow" data-flickity>
+          <div class="slideshow" data-flickity data-flickity-options='{ "imagesLoaded": true }'>
             <% text.value.forEach(function(slide) { %>
            
              <div class="carousel-cell">

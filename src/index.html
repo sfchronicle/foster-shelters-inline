@@ -26,10 +26,10 @@
       <div class="top-image">
         <div class="background-img">
           <video id="looper" class="show-for-large" poster="" loop autoplay muted>
-            <source src="../assets/videos/bird.mov" type="video/mp4" >
+            <source src="./assets/videos/bird.mov" type="video/mp4" >
             Your browser does not support the <code>video</code> element.
           </video>
-          <img class="main-gif" src="../assets/gifs/bird.gif">
+          <img class="main-gif" src="./assets/gifs/bird.gif">
           <div class="over-img">
           <div class="specialhead-top overline">Chronicle Investigation: Fostering Failure</div>
             <h1 class="title">Dubious arrests, damaged lives</h1>
@@ -56,7 +56,7 @@
 
 
           <div class="<%= text.value[0].Width %>-img">
-            <img src="../assets/photos/<%= text.value[0].Image %>.jpg">
+            <img src="./assets/photos/<%= text.value[0].Image %>.jpg">
             <div class="caption"><%= text.value[0].Caption %> <span class="byline"><%= text.value[0].Photographer %></span></div>
           </div>
 
@@ -71,7 +71,7 @@
           <% text.value.forEach(function(grid) { %>
            
            <div class="grid-img">
-              <img src="../assets/photos/<%= grid.Image %>.jpg">
+              <img src="./assets/photos/<%= grid.Image %>.jpg">
             </div>
             
             
@@ -86,7 +86,7 @@
           <% text.value.forEach(function(grid) { %>
            
            <div class="grid-img">
-              <img src="../assets/photos/<%= grid.Image %>.jpg">
+              <img src="./assets/photos/<%= grid.Image %>.jpg">
             </div>
             
             
@@ -98,7 +98,7 @@
         <% } else if ( text.type == 'gif' ){ %>
 
            <div class="gif">
-           <img src="../assets/gifs/<%= text.value[0].Title %>">
+           <img src="./assets/gifs/<%= text.value[0].Title %>">
            </div>
 
         <% } else if ( text.type == 'video' ){ %>
@@ -114,7 +114,7 @@
             <% text.value.forEach(function(slide) { %>
            
              <div class="carousel-cell">
-              <img src="../assets/photos/<%= slide.Image %>.jpg">
+              <img src="./assets/photos/<%= slide.Image %>.jpg">
               <div class="caption"><%= slide.Caption %> <span class="byline"><%= slide.Photographer %></span></div>
             </div>
 

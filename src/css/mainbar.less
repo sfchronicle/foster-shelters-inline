@@ -22,6 +22,28 @@
 		padding:0 15px;
 	}
 
+	.info{
+	  max-width: 730px;
+    margin: 0 auto 2em;
+    padding: 0 15px;
+    font-family: antenna;
+    font-size: 15px;
+    opacity: 0.6;
+    line-height: 1.56;
+    color: #000000;
+
+    @media @mobile{
+    	max-width: 270px;
+    	margin: 0 0 2em 0;
+    }
+
+    hr{
+    	margin:1em 0 0;
+    	width:60%;
+    	border-top:1px solid #616161;
+
+    }
+	}
 
 	.over-img {
     position: absolute;
@@ -29,12 +51,16 @@
     z-index: 2;
     color: #fff;
     left: inherit;
-    right:0;
+    max-width:600px;
+    right:1em;
+
+
 
     @media @tablet{
 			position: static;
 	    color: #333;
-	    margin: 1em 0;
+	    max-width:none;
+	    margin: 1em 0 3em;
 	    padding: 0 10px;
 		}
 
@@ -51,31 +77,45 @@
 		.title{
 			font-size:2.5em;
 			text-align:right;
-			margin:0;
+			margin:0 0 10px;
 			padding:0;
 			line-height:1.2;
+			text-transform:uppercase;
 
 			@media @tablet{
 				text-align:center;
 			}
 
 			@media @mobile{
-				font-size: 1.45em;
+				font-size: 1.25em;
 			}
 		}
 
 		.date{
 			text-align:right;
 			margin:0;
+			padding:0;
 			max-width:none;
 
 			@media @tablet{
 				text-align:center;
 			}
 		}
+		.deck{
+			text-align:right;
+			max-width:none;
+			padding:0;
+
+			@media @tablet{
+				text-align:center;
+		    font-size: 18px;
+   			line-height: 1.2;
+			}
+		}
 		.author{
 			text-align:right;
 			margin:0;
+			padding:0;
 			max-width:none;
 
 			@media @tablet{
@@ -187,8 +227,24 @@
 }
 /* position outside */
 .flickity-prev-next-button.previous {
-  left: -35px;
+  left: -32px;
 }
 .flickity-prev-next-button.next {
-  right: -35px;
+  right: -32px;
+}
+
+.mobile-title{
+	@media @tablet{
+		display:none
+	}
+}
+
+.overline{
+	display:none;
+	text-align:center;
+	margin-bottom:5px;
+
+	@media @tablet{
+		display:block;
+	}
 }

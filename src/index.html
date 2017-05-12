@@ -31,11 +31,17 @@
           </video>
           <img class="main-gif" src="../assets/gifs/bird.gif">
           <div class="over-img">
-            <h1 class="title">Childish outbursts — or criminal acts?</h1>
-            <p class="date">May 20, 2017</p>
-            <p class="author">By <a href="mailto:jtucker@sfchronicle.com">Author, Author, Author</a></p>
+          <div class="specialhead-top overline">Chronicle Investigation: Fostering Failure</div>
+            <h1 class="title">Dubious arrests, damaged lives</h1>
+            <p class="deck">How state shelters criminalize hundreds of children</p>
           </div>
         </div>
+      </div>
+
+      <div class="info">
+        May 20, 2017<br>
+        By Karen de Sá, Cynthia Dizikes and Joaquin Palomino
+        <hr>
       </div>
 
       <% json.shelters_digital['text'].forEach(function(text) { %>
@@ -51,7 +57,7 @@
 
           <div class="<%= text.value[0].Width %>-img">
             <img src="../assets/photos/<%= text.value[0].Image %>.jpg">
-            <div class="caption"><%= text.value[0].Caption %> <span class="byline"><%= text.value[0].Photographer %>, The Chronicle</span></div>
+            <div class="caption"><%= text.value[0].Caption %> <span class="byline"><%= text.value[0].Photographer %></span></div>
           </div>
 
           
@@ -127,7 +133,7 @@
 
 
 
-    <!-- <%= t.include("partials/_credits.html") %> -->
+    <%= t.include("partials/_credits.html") %>
     <%= t.include("partials/_footer.html") %>
 
     <script src="../app-story.js" async></script>

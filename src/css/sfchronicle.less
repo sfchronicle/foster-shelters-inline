@@ -43,13 +43,13 @@ a {
   text-decoration: none;
   outline: 0 !important;
   &:hover {
-    color: darken(@orange,10%);
+    color: #333;
   }
   img {
     border: none;
   }
   :hover {
-    color: darken(@orange,10%);
+    color: #333;
   }
 }
 
@@ -254,13 +254,17 @@ text {
 }
 
 .specialhead-top {
-  color: @orange;
+  color: #c12020;
   font-family: @banner;
-  font-size: 18px;
-  // text-transform: uppercase;
+  font-size: 16px;
+  vertical-align:1px;
   @media @mobile {
     font-size: 13px;
     vertical-align: text-top;
+  }
+
+  &:hover{
+    color:#c12020;
   }
 }
 
@@ -295,6 +299,10 @@ text {
     font-family: @body;
     cursor: pointer;
 
+    @media @mobile{
+      padding:5px 10px 0 0;
+    }
+
     &.active {
       background: @active-link;
       color: @dark-gray;
@@ -310,7 +318,7 @@ text {
       margin: 0 6px;
       padding: 4px 2px;
       a {
-        color: @orange;
+        color: #333;
       }
     }
     &.email {
@@ -342,7 +350,7 @@ text {
 header {
   background: @white;
   overflow: visible;
-  opacity: 0.9;
+  
   -webkit-box-shadow: 0 0 6px 0 @dark-gray;
   -moz-box-shadow: 0 0 6px 0 @dark-gray;
   box-shadow: 0 0 6px 0 @dark-gray;

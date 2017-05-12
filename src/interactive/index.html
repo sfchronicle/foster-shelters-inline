@@ -61,10 +61,14 @@
 
           <% if (slide["Interactive"] == "quote") { %>
 
+            <% if (slide["Photo"]) { %>
+              <div class="inline-img">
+                <img src='<%= slide["Photo"] %>'></img>
+              </div>
+            <% } %>
             <div class='quote'>
               <div class='huge-quote'>“</div>
-              <span class="quote-text"><%= slide["Text"] %></span>
-              <span class='small-quote'> ”</span>
+              <span class="quote-text"><%= slide["Text"] %><span class='small-quote'> ”</span></span>
               <div class='quote-author'>&mdash; <%= slide["Author"] %></div>
             </div>
 
@@ -80,7 +84,7 @@
 
           <% } else if (slide["Interactive"] == "gif") { %>
 
-            <div class="text gif-text"><%= slide["Text"] %></div>
+            <div class="text gif-text"><%= slide["Text"].replace("**","<span class='bold'>").replace("*","</span>").replace("**","<span class='bold'>").replace("*","</span>") %></div>
             <div class="inline-img">
               <img src='<%= slide["Photo"] %>'></img>
             </div>
@@ -136,9 +140,12 @@
 
     <div class="divider"></div>
     <div class="credits">
-      <h2>About the data</h2>
+      <h2>Behind the investigation</h2>
       <div class="entry"><%= json.foster_shelters_interactive_text_inline["data"][0]["Text"] %></div>
+      <div class="page-link"><a href="http://google.com"><i class="fa fa-external-link" aria-hidden="true"></i>Read more here</a></div>
     </div>
+
+    <div class="divider"></div>
 
     <%= t.include("partials/_credits.html") %>
     <%= t.include("partials/_footer.html") %>

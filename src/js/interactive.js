@@ -38,21 +38,21 @@ function color(name, depth) {
 // CODE FOR INTERACTIVES -------------------------------------------------------
 
 // function to draw scatter chart
-var drawDots = function(){
+var drawDots = function(key){
 
   var margin = {
-    top: 15,
+    top: 20,
     right: 25,
     bottom: 25,
     left: 35
   };
 
   if (screen.width > 768) {
-    var width = 800 - margin.left - margin.right;
-    var height = 400 - margin.top - margin.bottom;
+    var width = 500 - margin.left - margin.right;
+    var height = 500 - margin.top - margin.bottom;
   } else if (screen.width <= 768 && screen.width > 480) {
-    var width = 650 - margin.left - margin.right;
-    var height = 400 - margin.top - margin.bottom;
+    var width = 500 - margin.left - margin.right;
+    var height = 500 - margin.top - margin.bottom;
   } else if (screen.width <= 480) {
     var margin = {
       top: 15,
@@ -65,13 +65,14 @@ var drawDots = function(){
   }
 
   // show tooltip
-  var tooltip = d3.select("div.tooltip-dots");
+  // show tooltip
+  var tooltipDots = d3.select("body").append("div")
+    .attr("class", "tooltip-dots")
 
   // convert strings to numbers
   bubbleData.forEach(function(d) {
-    d.capacity = +d.capacity;
-    d.placements = +d.placements;
-    d.arrests = +d.arrests;
+    d.bookings = +d.bookings;
+    d.population = +d.population;
   });
 
   // x-axis scale
@@ -95,14 +96,14 @@ var drawDots = function(){
       .orient("left")
 
   // create SVG container for chart components
-  var svg = d3.select(".dot-chart").append("svg")
+  var svg = d3.select("#"+key).append("svg")
       .attr("width", width + margin.left + margin.right)
       .attr("height", height + margin.top + margin.bottom)
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  x.domain(d3.extent(bubbleData, function(d) { return d.placements; })).nice();//.nice();
-  y.domain(d3.extent(bubbleData, function(d) { return d.arrests; })).nice(); //.nice();
+  x.domain(d3.extent(bubbleData, function(d) { return d.population; })).nice();//.nice();
+  y.domain(d3.extent(bubbleData, function(d) { return d.bookings; })).nice(); //.nice();
 
   svg.append("g")
       .attr("class", "x axis")
@@ -113,7 +114,7 @@ var drawDots = function(){
       .attr("x", width)
       .attr("y", -10)
       .style("text-anchor", "end")
-      .text("Shelter placements (2016)");
+      .text("Shelter population (2016)");
 
   svg.append("g")
       .attr("class", "y axis")
@@ -125,7 +126,7 @@ var drawDots = function(){
       .attr("x", 0)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Arrests at facility (2016)")
+      .text("Bookings at facility (2016)")
 
   //color in the dots
   svg.selectAll(".dot")
@@ -139,41 +140,42 @@ var drawDots = function(){
         return "dot "+d.shelter.replace(/\s/g, '').toLowerCase();
       })
       .attr("r", function(d) {
-        return 10;
+        return 20;
         // if (screen.width <= 480) {
         //   return (d.num_teachers/1400)+5;
         // } else {
         //   return (d.num_teachers/800)+6.5;
         // }
       })
-      .attr("cx", function(d) { return x(d.placements); })
-      .attr("cy", function(d) { return y(d.arrests); })
+      .attr("cx", function(d) { return x(d.population); })
+      .attr("cy", function(d) { return y(d.bookings); })
       .style("stroke","#696969")
-      .style("opacity","0.7")
+      .style("opacity","1.0")
       .style("fill", function(d) {
-        return "red";
+        return "#92483A";
         // return color_function(d.county) || colors.fallback;
       })
       .on("mouseover", function(d) {
-          tooltip.html(`
+          tooltipDots.html(`
               <div><b>${d.shelter}</b></div>
-              <div>Placements in 2016: <b>${d.placements}</b></div>
-              <div>Arrests in 2016: <b>${d.arrests}</b></div>
+              <div>Population in 2016: <b>${d.population}</b></div>
+              <div>Bookings in 2016: <b>${d.bookings}</b></div>
           `);
-          tooltip.style("visibility", "visible");
+          tooltipDots.style("visibility", "visible");
       })
       .on("mousemove", function() {
+        console.log("moving");
         if (screen.width <= 480) {
-          return tooltip
+          return tooltipDots
             .style("top",(d3.event.pageY+40)+"px")//(d3.event.pageY+40)+"px")
             .style("left",10+"px");
         } else {
-          return tooltip
+          return tooltipDots
             .style("top", (d3.event.pageY+20)+"px")
             .style("left",(d3.event.pageX-80)+"px");
         }
       })
-      .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
+      .on("mouseout", function(){return tooltipDots.style("visibility", "hidden");});
 
   var node = svg.selectAll(".circle")
     .data(bubbleData)
@@ -182,10 +184,10 @@ var drawDots = function(){
 
   node.append("text")
       .attr("x", function(d) {
-        return x(d.placements)+20
+        return x(d.population)-50
       })
       .attr("y", function(d) {
-        return y(d.arrests)+5;
+        return y(d.bookings)+40;
       })
       // .attr("id", function(d) {
       //   return (d.school.replace(/\s/g, '').toLowerCase()+"text");
@@ -194,15 +196,8 @@ var drawDots = function(){
       .style("font-size","12px")
       .style("font-family","AntennaMedium")
       // .style("font-style","italic")
-      .style("visibility",function(d) {
-        if (d.shelter == "Mary Graham") {
-          return "visible";
-        } else {
-          return "hidden";
-        }
-      })
       .text(function(d) {
-        if (d.shelter == "Mary Graham") {
+        if (d.shelter == "Mary Graham-San Joaquin County") {
           return d.shelter;
         } else {
           return "";
@@ -216,8 +211,13 @@ var drawMap = function(key,mapDataFLAG) {
 
   // tooltip information
   function tooltip_function (d) {
-    var html_str = "<div class='name'>"+d.Name+"</div><div>"+d.Address+"</div><div>"+d.County+" County</div><div>Capacity: "+d.Capacity+"</div><div>Count in 2016: "+d.Count2016+"</div>"
-    return html_str;
+    if (d.Note){
+      var html_str = "<div class='name bold'>"+d.Name+"</div><div>"+d.Address+"</div><div>Count in 2016: <span class='bold'>"+d.Count2016+"</span></div><div>"+d.Note+"</div>"
+      return html_str;
+    } else {
+      var html_str = "<div class='name bold'>"+d.Name+"</div><div>"+d.Address+"</div><div>Count in 2016: <span class='bold'>"+d.Count2016+"</span></div>"
+      return html_str;
+    }
   }
 
   // setting parameters for the center of the map and initial zoom level
@@ -232,7 +232,11 @@ var drawMap = function(key,mapDataFLAG) {
   }
 
   // show tooltip
-  var tooltip = d3.select("div.tooltip-map");
+  var tooltip = d3.select("body").append("div")
+    .attr("class", "tooltip-map")
+    // .style("opacity", 0);
+
+  console.log(tooltip);
 
   //get access to Leaflet and the map
   var element = document.querySelector(key);
@@ -288,13 +292,7 @@ var drawMap = function(key,mapDataFLAG) {
       if (screen.width <= 480) {
         return 7;
       } else {
-        console.log(d);
-        console.log(mapDataFLAG);
-        if (mapDataFLAG == "count") {
-          return d.Capacity/100+10;
-        } else {
-          return d.Count2016/100+10;
-        }
+        return d.Count2016/100+10;
       }
     })
     .on('mouseover', function(d) {
@@ -310,7 +308,7 @@ var drawMap = function(key,mapDataFLAG) {
       } else {
         return tooltip
           .style("top", (d3.event.pageY+10)+"px")
-          .style("left",(d3.event.pageX-100)+"px");
+          .style("left",(d3.event.pageX-10)+"px");
       }
     })
     .on("mouseout", function(){
@@ -337,32 +335,20 @@ var drawMap = function(key,mapDataFLAG) {
 
   node.append("text")
     .attr("x", function(d) {
-      if (d.Name.match("Betty")) {
-        return map.latLngToLayerPoint(d.LatLng).x-90;
-      } else {
-        return map.latLngToLayerPoint(d.LatLng).x+20;
-      }
+      return map.latLngToLayerPoint(d.LatLng).x+20;
     })
     .attr("y", function(d) {
-      if (d.Name.match("Betty")) {
-        return map.latLngToLayerPoint(d.LatLng).y+30;
-      } else {
-        return map.latLngToLayerPoint(d.LatLng).y+5;
-      }
+      return map.latLngToLayerPoint(d.LatLng).y+5;
     })
     .attr("id", function(d) {
-      // return (d.school.replace(/\s/g, '').toLowerCase()+"text");
-    })
-    .attr("visibility",function(d) {
-      if (d.Name.match("Mary Graham")) {
-        return "visible";
-      } else {
-        return "hidden";
-      }
     })
     .style("font-size","16px")
     .text(function(d) {
+      if (d.Name == "Mary Graham Children's Shelter"){
         return d.Name
+      } else {
+        return "";
+      }
     });
 
 
@@ -641,21 +627,24 @@ var drawBubbles = function(key,flag,highlight) {
 
   //format the text for each bubble
   bubbles.append("text")
-      .attr("x", function(d){ return d.x; })
+      .attr("x", function(d){
+        if (d.call_types == "Runaway") {
+          return d.x;
+        } else {
+          return d.x;
+        }
+      })
       .attr("y", function(d){ return d.y + 5; })
       .attr("text-anchor", "middle")
       .text(function(d){
-        if (d.r > 20) {
+        if (d.call_types == highlight) {
           return d["call_types"];
+        } else {
+          return "";
         }
       })
-      .style("fill",function(d) {
-        // if (d.call_types == highlight) {
-          // return "white";
-        // } else {
-          return "black";
-        // }
-      })
+      .style("fill","black")
+      .style("font-size","18px")
 
 }
 
@@ -672,8 +661,8 @@ var drawIcons = function(html_str,key) {
     lastactive_num = 60;
     inactive_num = 0;
   } else if (key == "icon-pursued") {
-    active_num = 55;
-    lastactive_num = 139;
+    active_num = 53;
+    lastactive_num = 141;
     inactive_num = 65;
   } else if (key == "icon-probation") {
     active_num = 31;
@@ -722,7 +711,7 @@ slides.forEach( function(slide) {
 
   // this is the interactive that shows how Mary Graham is an outlier
   } else if (slide["Interactive"] == "dots"){
-    drawDots();
+    drawDots("dots");
 
   // this is the interactive that shows how Mary Graham is an outlier
 } else if ((slide["Interactive"] == "bubbles") || (slide["Interactive"] == "bubbles-v2") || (slide["Interactive"] == "bubbles-v3") || (slide["Interactive"] == "bubbles-v4")){
@@ -732,11 +721,11 @@ slides.forEach( function(slide) {
       drawBubbles("bubbles",0,"Runaway");
     // bubble chart that does not include runaways
     } else if (slide["Interactive"] == "bubbles-v2"){
-      drawBubbles("bubbles-v2",1,"Assault/Battery");
+      drawBubbles("bubbles-v2",0,"Assault/Battery");
     } else if (slide["Interactive"] == "bubbles-v3") {
-      drawBubbles("bubbles-v3",1,"Threats/Disturbing the Peace");
+      drawBubbles("bubbles-v3",0,"Juvenile misconduct");
     } else if (slide["Interactive"] == "bubbles-v4") {
-      drawBubbles("bubbles-v4",1,"Property crime");
+      drawBubbles("bubbles-v4",0,"Threats/Disturbing the Peace");
     }
 
   // this is the icon chart that shows all the cases that were thrown out
@@ -779,12 +768,6 @@ $(window).scroll(function () {
   });
 
   console.log(currentIDX);
-  // if (currentIDX == 0) {
-  //   var prevMap = document.getElementsByClassName("map");
-  //   for (var i=0; i< prevMap.length; i++) {
-  //     prevMap[i].classList.remove("fixedMap");
-  //   };
-  // }
 
   if (currentIDX != prevIDX) {
 
@@ -793,10 +776,10 @@ $(window).scroll(function () {
     for (var i=0; i< prevInteractives.length; i++) {
       prevInteractives[i].classList.remove("fixedInteractive");
     };
-    var prevMap = document.getElementsByClassName("map");
-    for (var i=0; i< prevMap.length; i++) {
-      prevMap[i].classList.remove("fixedMap");
-    };
+    // var prevMap = document.getElementsByClassName("map");
+    // for (var i=0; i< prevMap.length; i++) {
+    //   prevMap[i].classList.remove("fixedMap");
+    // };
 
     document.getElementById(["slide-top-"+currentIDX]).classList.add("active");
 
@@ -813,16 +796,20 @@ $(window).scroll(function () {
     var targetInteractive = document.getElementById(["slide-top-"+currentIDX]).getElementsByClassName("sticky");
     console.log(targetInteractive);
     if (targetInteractive.length > 0) {
-      targetInteractive[0].classList.add("fixedInteractive");
+      if (targetInteractive[0].id != "dots") {
+        targetInteractive[0].classList.add("fixedInteractive");
+      }
     }
     var targetText = document.getElementById(["slide-top-"+currentIDX]).getElementsByClassName("flex-left");
     if ((targetText.length > 0) && (targetInteractive.length > 0)){
-      targetText[0].classList.add("fixedText");
+      if (targetInteractive[0].id != "dots") {
+        targetText[0].classList.add("fixedText");
+      }
     }
-    var targetMap = document.getElementById(["slide-top-"+currentIDX]).getElementsByClassName("map");
-    if (targetMap.length > 0) {
-      targetMap[0].classList.add("fixedMap");
-    }
+    // var targetMap = document.getElementById(["slide-top-"+currentIDX]).getElementsByClassName("map");
+    // if (targetMap.length > 0) {
+    //   targetMap[0].classList.add("fixedMap");
+    // }
 
     var icon_list = [];
     if (slides[currentIDX]["Interactive"] == "icons-arrests") {

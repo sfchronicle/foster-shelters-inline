@@ -52,8 +52,10 @@
             <div class="slide photo-slide">
           <% } else if (slide["Interactive"] == "gif"){ %>
             <div class="slide gif-slide">
-          <% } else { %>
+          <% } else if (slide["Interactive"].slice(0,5) == "icons"){ %>
             <div class="slide fixed-height-slide">
+          <% } else { %>
+            <div class="slide static-interactive">
           <% } %>
         <% } else { %>
           <div class="slide text-slide">
@@ -75,7 +77,7 @@
           <% } else if (slide["Interactive"] == "audio") { %>
 
             <div class="text audio-text"><div><%= slide["Text"] %></div>
-              <div class="soundcite" data-url="../assets/audio/MG_Dispatch.wav" data-start="0" data-end="164000" data-plays="1"><i class="fa fa-volume-up" aria-hidden="true"></i> Listen to a call</div>
+              <div class="soundcite" data-url="../assets/audio/MG_Dispatch.wav" data-start="0" data-end="164000" data-plays="1"><i class="fa fa-volume-up" aria-hidden="true"></i> Listen to a call from April 26, 2017</div>
             </div>
             <div class="inline-img">
               <img src='<%= slide["Photo"] %>'></img>
@@ -85,7 +87,7 @@
           <% } else if (slide["Interactive"] == "gif") { %>
 
             <div class="text gif-text"><%= slide["Text"].replace("**","<span class='bold'>").replace("*","</span>").replace("**","<span class='bold'>").replace("*","</span>") %></div>
-            <div class="inline-img">
+            <div class="inline-img flex-right">
               <img src='<%= slide["Photo"] %>'></img>
             </div>
             </div>
@@ -123,10 +125,11 @@
           <% } %>
 
           <% if (slide["Interactive"]) { %>
-            <% if ((slide["Interactive"] == "map")||(slide["Interactive"] == "map-v2")) { %>
+            <% if (slide["Interactive"] == "map") { %>
               <div class="map <%= slide['Interactive'] %>" id="<%= slide['Interactive'] %>"></div>
-            <% } else if ( (slide["Interactive"] != "quote") && (slide["Interactive"] != "report") && (slide["Interactive"] != "gif") && (slide["Interactive"] != "photo") && (slide["Interactive"] != "audio") ) { %>
+            <% } else if ( slide["Interactive"].slice(0,5) == "icons" ) { %>
               <div class="interactive sticky" id="<%= slide['Interactive'] %>"></div>
+              <div id="stick-ph"></div>
             <% } else { %>
               <div class="interactive" id="<%= slide['Interactive'] %>"></div>
             <% } %>
@@ -142,7 +145,7 @@
     <div class="credits">
       <h2>Behind the investigation</h2>
       <div class="entry"><%= json.foster_shelters_interactive_text_inline["data"][0]["Text"] %></div>
-      <div class="page-link"><a href="http://google.com"><i class="fa fa-external-link" aria-hidden="true"></i>Read more here</a></div>
+      <div class="page-link"><a href="../about-the-data/" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i>Read more here</a></div>
     </div>
 
     <div class="divider"></div>

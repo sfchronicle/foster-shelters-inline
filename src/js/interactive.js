@@ -1,39 +1,13 @@
 require("./lib/social"); //Do not delete
 var d3 = require('d3');
 
-console.log(slidesData);
-console.log(MGData.length);
-
-// var timeTimeout = 50;
 
 var offset_top = 500;
 
 var slides = slidesData["slides"];
-// var num_slides = slides.length();
 
-var colors = {
-    // 'runaway': '#D4A190',
-    // 'assault/battery': '#D4C890',
-    // 'juvenilemisconduct': '#782E20',
-    // 'threats/disturbingthepeace': '#3C501F',
-    // 'propertycrime': '#D3D57C',
-    // 'suicidalsubject': '#889C6B',
-    // '5150/mentalhealthemergency': '#957964',
-    // 'drugs': '#F5CB5C',
-    // 'sexcrimes': '#492D18',
-    // 'childabuse': '#CAD178',
-    'fallback': '#92483A'
-}
-
-function color(name, depth) {
-  var id = name.toLowerCase().replace(/ /g,"");
-  console.log(id);
-  if (colors[id]) {
-    return colors[id];
-  } else {
-    return null;
-  }
-}
+// helpful functions:
+var formatthousands = d3.format("0,000");
 
 // CODE FOR INTERACTIVES -------------------------------------------------------
 
@@ -44,7 +18,7 @@ var drawDots = function(key){
     top: 20,
     right: 25,
     bottom: 25,
-    left: 35
+    left: 40
   };
 
   if (screen.width > 768) {
@@ -83,8 +57,6 @@ var drawDots = function(key){
   var y = d3.scale.linear()
       .rangeRound([height, 0]);
 
-  // var color = d3.scale.category10();
-
   // use x-axis scale to set x-axis
   var xAxis = d3.svg.axis()
       .scale(x)
@@ -102,8 +74,8 @@ var drawDots = function(key){
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  x.domain(d3.extent(bubbleData, function(d) { return d.population; })).nice();//.nice();
-  y.domain(d3.extent(bubbleData, function(d) { return d.bookings; })).nice(); //.nice();
+  x.domain([0,3000]);//.nice();
+  y.domain([0,250]); //.nice();
 
   svg.append("g")
       .attr("class", "x axis")
@@ -132,7 +104,6 @@ var drawDots = function(key){
   svg.selectAll(".dot")
       .data(bubbleData)
       .enter().append("circle")
-      // .attr("class", "dot")
       .attr("id", function(d) {
         return d.shelter.replace(/\s/g, '').toLowerCase();
       })
@@ -140,26 +111,20 @@ var drawDots = function(key){
         return "dot "+d.shelter.replace(/\s/g, '').toLowerCase();
       })
       .attr("r", function(d) {
-        return 20;
-        // if (screen.width <= 480) {
-        //   return (d.num_teachers/1400)+5;
-        // } else {
-        //   return (d.num_teachers/800)+6.5;
-        // }
+        return 15;
       })
       .attr("cx", function(d) { return x(d.population); })
       .attr("cy", function(d) { return y(d.bookings); })
       .style("stroke","#696969")
       .style("opacity","1.0")
       .style("fill", function(d) {
-        return "#92483A";
-        // return color_function(d.county) || colors.fallback;
+        return "#c12020";
       })
       .on("mouseover", function(d) {
           tooltipDots.html(`
               <div><b>${d.shelter}</b></div>
-              <div>Population in 2016: <b>${d.population}</b></div>
-              <div>Bookings in 2016: <b>${d.bookings}</b></div>
+              <div>Population in 2016: <b>${formatthousands(d.population)}</b></div>
+              <div>Bookings in 2016: <b>${formatthousands(d.bookings)}</b></div>
           `);
           tooltipDots.style("visibility", "visible");
       })
@@ -189,13 +154,8 @@ var drawDots = function(key){
       .attr("y", function(d) {
         return y(d.bookings)+40;
       })
-      // .attr("id", function(d) {
-      //   return (d.school.replace(/\s/g, '').toLowerCase()+"text");
-      // })
-      // .style("fill","BFBFBF")
       .style("font-size","12px")
       .style("font-family","AntennaMedium")
-      // .style("font-style","italic")
       .text(function(d) {
         if (d.shelter == "Mary Graham-San Joaquin County") {
           return d.shelter;
@@ -212,10 +172,10 @@ var drawMap = function(key,mapDataFLAG) {
   // tooltip information
   function tooltip_function (d) {
     if (d.Note){
-      var html_str = "<div class='name bold'>"+d.Name+"</div><div>"+d.Address+"</div><div>Count in 2016: <span class='bold'>"+d.Count2016+"</span></div><div>"+d.Note+"</div>"
+      var html_str = "<div class='name bold'>"+d.Name+"</div><div>"+d.Address+"</div><div>Count in 2016: <span class='bold'>"+formatthousands(d.Count2016)+"</span></div><div>"+d.Note+"</div>"
       return html_str;
     } else {
-      var html_str = "<div class='name bold'>"+d.Name+"</div><div>"+d.Address+"</div><div>Count in 2016: <span class='bold'>"+d.Count2016+"</span></div>"
+      var html_str = "<div class='name bold'>"+d.Name+"</div><div>"+d.Address+"</div><div>Count in 2016: <span class='bold'>"+formatthousands(d.Count2016)+"</span></div>"
       return html_str;
     }
   }
@@ -233,10 +193,7 @@ var drawMap = function(key,mapDataFLAG) {
 
   // show tooltip
   var tooltip = d3.select("body").append("div")
-    .attr("class", "tooltip-map")
-    // .style("opacity", 0);
-
-  console.log(tooltip);
+    .attr("class", "tooltip-map");
 
   //get access to Leaflet and the map
   var element = document.querySelector(key);
@@ -285,7 +242,7 @@ var drawMap = function(key,mapDataFLAG) {
       return "0.8";
     })
     .style("fill", function(d) {
-      return "#782E20";//"#3C87CF";
+      return "#c12020";//"#3C87CF";
     })
     .style("stroke","#696969")
     .attr("r", function(d) {
@@ -303,12 +260,12 @@ var drawMap = function(key,mapDataFLAG) {
     .on("mousemove", function() {
       if (screen.width <= 480) {
         return tooltip
-          .style("top", 70+"px")
+          .style("top",70+"px")
           .style("left",40+"px");
       } else {
         return tooltip
-          .style("top", (d3.event.pageY+10)+"px")
-          .style("left",(d3.event.pageX-10)+"px");
+          .style("top", (d3.event.pageY+20)+"px")
+          .style("left",(d3.event.pageX-100)+"px");
       }
     })
     .on("mouseout", function(){
@@ -616,13 +573,13 @@ var drawBubbles = function(key,flag,highlight) {
         console.log(d);
         // return "0.7";
         if (d.call_types == highlight) {
-          return 1;
+          return 0.8;
         } else {
           return 0.6;
         }
       })
       .style("fill", function(d) {
-        return color(d.call_types, 1) || colors.fallback;
+        return "#8E0000";
       });
 
   //format the text for each bubble
@@ -652,40 +609,61 @@ var drawBubbles = function(key,flag,highlight) {
 var active_num, lastactive_num, inactive_num;
 var drawIcons = function(html_str,key) {
 
-  if (key == "icon-arrests") {
-    active_num = 259;
-    lastactive_num = 0;
-    inactive_num = 0;
-  } else if (key == "icon-bookings") {
-    active_num = 199;
-    lastactive_num = 60;
-    inactive_num = 0;
-  } else if (key == "icon-pursued") {
-    active_num = 53;
-    lastactive_num = 141;
-    inactive_num = 65;
-  } else if (key == "icon-probation") {
-    active_num = 31;
-    lastactive_num = 24;
-    inactive_num = 204;
-  }
-
-  html_str += "<div class='icon-container'>";
   var count = 0;
-  for (var ii=0; ii< active_num; ii++) {
-    html_str += "<div class='"+key+" show"+"' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
+  html_str += "<div class='icon-container'>";
+  for (var ii=0; ii< 31; ii++) {
+    html_str += "<div class='icon icons-arrests icons-bookings icons-pursued icons-probation' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
     count++;
   };
-  for (var ii=0; ii< lastactive_num; ii++) {
-    html_str += "<div class='"+key+" dark"+"' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
+  for (var ii=0; ii< 22; ii++) {
+    html_str += "<div class='icon icons-arrests icons-bookings icons-pursued' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
     count++;
   };
-  for (var ii=0; ii< inactive_num; ii++) {
-    html_str += "<div class='"+key+"' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
+  for (var ii=0; ii< 115; ii++) {
+    html_str += "<div class='icon icons-arrests icons-bookings' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
+    count++;
+  };
+  for (var ii=0; ii< 91; ii++) {
+    html_str += "<div class='icon icons-arrests' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
     count++;
   };
   html_str += "</div>";
   return html_str;
+
+  // if (key == "icon-arrests") {
+  //   active_num = 259;
+  //   lastactive_num = 0;
+  //   inactive_num = 0;
+  // } else if (key == "icon-bookings") {
+  //   active_num = 199;
+  //   lastactive_num = 60;
+  //   inactive_num = 0;
+  // } else if (key == "icon-pursued") {
+  //   active_num = 53;
+  //   lastactive_num = 141;
+  //   inactive_num = 65;
+  // } else if (key == "icon-probation") {
+  //   active_num = 31;
+  //   lastactive_num = 24;
+  //   inactive_num = 204;
+  // }
+  //
+  // html_str += "<div class='icon-container'>";
+  // var count = 0;
+  // for (var ii=0; ii< active_num; ii++) {
+  //   html_str += "<div class='"+key+" show"+"' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
+  //   count++;
+  // };
+  // for (var ii=0; ii< lastactive_num; ii++) {
+  //   html_str += "<div class='"+key+" dark"+"' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
+  //   count++;
+  // };
+  // for (var ii=0; ii< inactive_num; ii++) {
+  //   html_str += "<div class='"+key+"' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
+  //   count++;
+  // };
+  // html_str += "</div>";
+  // return html_str;
 
 }
 
@@ -701,10 +679,6 @@ slides.forEach( function(slide) {
   if (slide["Interactive"] == "map"){
     drawMap("map","count");
 
-  // this is the map with numbers of arrests on it
-  } else if (slide["Interactive"] == "map-v2"){
-    drawMap("map-v2","calls");
-
   // this is the interactive that shows how Mary Graham is an outlier
   } else if (slide["Interactive"] == "bars"){
     drawBars();
@@ -714,22 +688,11 @@ slides.forEach( function(slide) {
     drawDots("dots");
 
   // this is the interactive that shows how Mary Graham is an outlier
-} else if ((slide["Interactive"] == "bubbles") || (slide["Interactive"] == "bubbles-v2") || (slide["Interactive"] == "bubbles-v3") || (slide["Interactive"] == "bubbles-v4")){
-
-    // bubble chart that includes runaways
-    if (slide["Interactive"] == "bubbles"){
-      drawBubbles("bubbles",0,"Runaway");
-    // bubble chart that does not include runaways
-    } else if (slide["Interactive"] == "bubbles-v2"){
-      drawBubbles("bubbles-v2",0,"Assault/Battery");
-    } else if (slide["Interactive"] == "bubbles-v3") {
-      drawBubbles("bubbles-v3",0,"Juvenile misconduct");
-    } else if (slide["Interactive"] == "bubbles-v4") {
-      drawBubbles("bubbles-v4",0,"Threats/Disturbing the Peace");
-    }
+  } else if (slide["Interactive"] == "bubbles"){
+    drawBubbles("bubbles",0,"Runaway");
 
   // this is the icon chart that shows all the cases that were thrown out
-  } else if ((slide["Interactive"] == "icons-arrests") || (slide["Interactive"] == "icons-bookings") || (slide["Interactive"] == "icons-pursued") || (slide["Interactive"] == "icons-probation")) {
+  } else if ((slide["Interactive"] == "icons-arrests")) {
 
     var key = "icon-"+slide["Interactive"].split("-")[1];
 
@@ -740,24 +703,11 @@ slides.forEach( function(slide) {
 
 });
 
-// set up scrolling timeout
-// var scrollTimer = null;
-// $(window).scroll(function () {
-//     if (scrollTimer) {
-//         clearTimeout(scrollTimer);   // clear any previous pending timer
-//     }
-//     scrollTimer = setTimeout(handleScroll, timeTimeout);   // set new timer
-// });
 
 var prevIDX = -1;
-// function handleScroll() {
 $(window).scroll(function () {
 
-  // scrollTimer = null;
-
   var pos = $(this).scrollTop();
-  // var pos_map_top = $('#bottom-of-top').offset().top;
-  // var pos_map_bottom = $('#top-of-bottom').offset().top-bottomOffset;
 
   var currentIDX = -1;
   slides.forEach(function(slide,slideIDX) {
@@ -767,19 +717,25 @@ $(window).scroll(function () {
     }
   });
 
+  var pos_icons_top = $("#slide-top-12").offset().top;
+  var pos_icons_bottom = $("#slide-top-15").offset().top+700;
+  console.log(pos_icons_top);
+  console.log(pos_icons_bottom);
+  var sticker_ph = document.getElementById('stick-ph');
+  if ((pos > pos_icons_top) && (pos < pos_icons_bottom)) {
+    console.log("HERE");
+    $("#icons-arrests").addClass("fixedInteractive");
+    sticker_ph.style.display = 'block';
+  } else {
+    $("#icons-arrests").removeClass("fixedInteractive");
+    sticker_ph.style.display = 'none';
+  }
+
   console.log(currentIDX);
 
   if (currentIDX != prevIDX) {
 
     console.log("switching slide");
-    var prevInteractives = document.getElementsByClassName("sticky");
-    for (var i=0; i< prevInteractives.length; i++) {
-      prevInteractives[i].classList.remove("fixedInteractive");
-    };
-    // var prevMap = document.getElementsByClassName("map");
-    // for (var i=0; i< prevMap.length; i++) {
-    //   prevMap[i].classList.remove("fixedMap");
-    // };
 
     document.getElementById(["slide-top-"+currentIDX]).classList.add("active");
 
@@ -793,42 +749,23 @@ $(window).scroll(function () {
         targetDivs[0].classList.add("boldColor");
       }
     }
-    var targetInteractive = document.getElementById(["slide-top-"+currentIDX]).getElementsByClassName("sticky");
-    console.log(targetInteractive);
-    if (targetInteractive.length > 0) {
-      if (targetInteractive[0].id != "dots") {
-        targetInteractive[0].classList.add("fixedInteractive");
-      }
-    }
-    var targetText = document.getElementById(["slide-top-"+currentIDX]).getElementsByClassName("flex-left");
-    if ((targetText.length > 0) && (targetInteractive.length > 0)){
-      if (targetInteractive[0].id != "dots") {
-        targetText[0].classList.add("fixedText");
-      }
-    }
-    // var targetMap = document.getElementById(["slide-top-"+currentIDX]).getElementsByClassName("map");
-    // if (targetMap.length > 0) {
-    //   targetMap[0].classList.add("fixedMap");
-    // }
 
-    var icon_list = [];
-    if (slides[currentIDX]["Interactive"] == "icons-arrests") {
-      var icon_list = document.getElementsByClassName("icon-arrests");
-    } else if (slides[currentIDX]["Interactive"] == "icons-bookings") {
-      var icon_list = document.getElementsByClassName("icon-bookings");
-    } else if (slides[currentIDX]["Interactive"] == "icons-pursued") {
-      var icon_list = document.getElementsByClassName("icon-pursued");
-    } else if (slides[currentIDX]["Interactive"] == "icons-probation") {
-      var icon_list = document.getElementsByClassName("icon-probation");
+
+    var icon_list = document.getElementsByClassName("icon");
+    for (var j=0; j<icon_list.length; j++) {
+      icon_list[j].classList.remove("active");
     }
     if ((slides[currentIDX]["Interactive"] == "icons-arrests") || (slides[currentIDX]["Interactive"] == "icons-bookings") || (slides[currentIDX]["Interactive"] == "icons-pursued") || (slides[currentIDX]["Interactive"] == "icons-probation")){
       Array.from(icon_list).forEach(function(element,idx){
-        if (element.classList.contains("show")) {
-          $(function(){
-            setTimeout(function() {
-              element.classList.add("active");
-            }, 500+10*idx);
-          });
+        if (element.classList.contains(slides[currentIDX]["Interactive"])) {
+          // $(function(){
+          //   setTimeout(function() {
+          //     element.classList.add("active");
+          //   }, 500+10*idx);
+          // });
+          element.classList.add("active");
+        } else {
+          element.classList.remove("active");
         }
       });
     }

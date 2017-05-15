@@ -32,9 +32,15 @@
       <h1 class="title long"><%= json.foster_shelters_interactive_text_inline["interactive"][0]["Title"] %></h1>
       <div class="authors"><%= json.foster_shelters_interactive_text_inline["interactive"][0]["Authors"] %></div>
       <%= t.include("partials/_title_social.html") %>
-      <div class="date"><%= json.foster_shelters_interactive_text_inline["interactive"][0]["Date"] %></div>
+      <div class="info">
+        May 20, 2017<br>
+        By Karen de Sá, Cynthia Dizikes and Joaquin Palomino
+        <hr>
+      </div>
 
     </div>
+
+
 
     <% json.foster_shelters_interactive_text_inline["slides"].forEach(function(slide,slideIDX) { %>
 

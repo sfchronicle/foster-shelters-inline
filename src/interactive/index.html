@@ -33,7 +33,7 @@
       <div class="authors"><%= json.foster_shelters_interactive_text_inline["interactive"][0]["Authors"] %></div>
       <%= t.include("partials/_title_social.html") %>
       <div class="date"><%= json.foster_shelters_interactive_text_inline["interactive"][0]["Date"] %></div>
-      
+
     </div>
 
     <% json.foster_shelters_interactive_text_inline["slides"].forEach(function(slide,slideIDX) { %>
@@ -73,10 +73,12 @@
                 <img src='<%= slide["Photo"] %>'></img>
               </div>
             <% } %>
-            <div class='quote'>
-              <div class='huge-quote'>“</div>
-              <span class="quote-text"><%= slide["Text"] %><span class='small-quote'> ”</span></span>
-              <div class='quote-author'>&mdash; <%= slide["Author"] %></div>
+            <div class="quote-container">
+              <div class='quote'>
+                <div class='huge-quote'>“</div>
+                <span class="quote-text"><%= slide["Text"] %><span class='small-quote'> ”</span></span>
+                <div class='quote-author'>&mdash; <%= slide["Author"] %></div>
+              </div>
             </div>
 
           <% } else if (slide["Interactive"] == "audio") { %>
@@ -100,14 +102,16 @@
           <% } else if (slide["Interactive"] == "report") { %>
 
             <div class="text"><%= slide["Text"].replace("**","<span class='bold'>").replace("*","</span>") %></div>
-            <div class="slideshow" data-flickity data-flickity-options='{ "imagesLoaded": true }'>
-               <div class="carousel-cell gray-bg">
-                <img src="<%= slide['Report1Image'] %>"></img>
-                <div class="report-text"><%= slide["Report1"].replace("**","<span class='bold'>").replace("*","</span>") %></div>
-              </div>
-              <div class="carousel-cell gray-bg">
-               <img src="<%= slide['Report2Image'] %>"></img>
-               <div class="report-text"><%= slide["Report2"].replace("**","<span class='bold'>").replace("*","</span>") %></div>
+            <div class="slideshow-wrapper">
+              <div class="slideshow" data-flickity data-flickity-options='{ "imagesLoaded": true }'>
+                 <div class="carousel-cell gray-bg">
+                  <img src="<%= slide['Report1Image'] %>"></img>
+                  <div class="report-text"><%= slide["Report1"].replace("**","<span class='bold'>").replace("*","</span>") %></div>
+                </div>
+                <div class="carousel-cell gray-bg">
+                 <img src="<%= slide['Report2Image'] %>"></img>
+                 <div class="report-text"><%= slide["Report2"].replace("**","<span class='bold'>").replace("*","</span>") %></div>
+                </div>
               </div>
             </div>
 

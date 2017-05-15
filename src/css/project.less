@@ -84,6 +84,9 @@ svg {
 .slide {
   position: relative;
   padding: 100px 0;
+  .inline-img {
+    width: 100%;
+  }
   &.interactive-slide {
     padding: 200px 0;
   }
@@ -92,8 +95,9 @@ svg {
     padding: 140px 0 40px 0;
     @media @tablet {
       padding: 40px;
+      padding-top: 0;
     }
-    @media @tablet {
+    @media @mobile {
       padding: 40px 10px;
     }
   }
@@ -102,6 +106,9 @@ svg {
   }
   &.map-slide {
     padding: 300px 0 0 0;
+    @media @tablet {
+      padding: 50px 0;
+    }
     @media @mobile {
       padding: 0;
     }
@@ -169,9 +176,6 @@ svg {
         margin-right: 600px;
       }
       @media @tablet {
-        margin-right: 400px;
-      }
-      @media @mobile {
         .flex(0 0 100%);
         margin: 0;
         max-width: 100%;
@@ -345,6 +349,10 @@ svg {
       margin: auto;
     }
   }
+}
+
+.quote-container, .slideshow-wrapper {
+  width: 100%;
 }
 
 .quote {
@@ -598,6 +606,9 @@ svg {
     color: white;
     font-size: 14px;
     font-family: @med-graphics;
+    @media @tablet {
+      left: 100px;
+    }
     @media @mobile {
       position: relative;
       font-size: 16px;

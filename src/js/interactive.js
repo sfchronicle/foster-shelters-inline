@@ -717,13 +717,10 @@ $(window).scroll(function () {
     }
   });
 
-  var pos_icons_top = $("#slide-top-12").offset().top;
-  var pos_icons_bottom = $("#slide-top-15").offset().top+700;
-  console.log(pos_icons_top);
-  console.log(pos_icons_bottom);
+  var pos_icons_top = $("#slide-top-11").offset().top;
+  var pos_icons_bottom = $("#slide-top-14").offset().top+400;
   var sticker_ph = document.getElementById('stick-ph');
   if ((pos > pos_icons_top) && (pos < pos_icons_bottom)) {
-    console.log("HERE");
     $("#icons-arrests").addClass("fixedInteractive");
     sticker_ph.style.display = 'block';
   } else {

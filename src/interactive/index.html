@@ -29,10 +29,11 @@
     <div class="title-image"><img src="http://ww3.hdnux.com/photos/61/02/21/12854386/3/2000x2000.jpg"></img></div>
 
     <div class="title-container">
-      <div class="title long"><%= json.foster_shelters_interactive_text_inline["interactive"][0]["Title"] %></div>
+      <h1 class="title long"><%= json.foster_shelters_interactive_text_inline["interactive"][0]["Title"] %></h1>
       <div class="authors"><%= json.foster_shelters_interactive_text_inline["interactive"][0]["Authors"] %></div>
-      <div class="date"><%= json.foster_shelters_interactive_text_inline["interactive"][0]["Date"] %></div>
       <%= t.include("partials/_title_social.html") %>
+      <div class="date"><%= json.foster_shelters_interactive_text_inline["interactive"][0]["Date"] %></div>
+      
     </div>
 
     <% json.foster_shelters_interactive_text_inline["slides"].forEach(function(slide,slideIDX) { %>

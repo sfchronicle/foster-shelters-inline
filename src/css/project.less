@@ -21,6 +21,7 @@ svg {
 
 .title-image {
   width: 100%;
+  margin-top: 37px;
   img {
     width: 100%;
   }
@@ -454,14 +455,25 @@ svg {
     text-transform: uppercase;
     color: #333;
     font-size: 1.25em;
+    margin-bottom:0;
   }
 
-  @media @tablet {
+  .long{
+    max-width:550px;
+    font-size:1.7em;
+    color:#fff;
+
+    @media (max-width:920px){
+      color:#000;
+      font-size:1.2em;
+    }
+  }
+
+  @media (max-width:920px) {
     position: relative;
     color: darken(@special-red,10%);
     text-align: center;
     top: 0;
-    background: white;
     padding: 0;
   }
 }

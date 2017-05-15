@@ -101,21 +101,15 @@
             <% console.log(slide) %>
             <div class="text"><%= slide["Text"].replace("**","<span class='bold'>").replace("*","</span>") %></div>
             <div class="slideshow" data-flickity data-flickity-options='{ "imagesLoaded": true }'>
-               <div class="carousel-cell">
+               <div class="carousel-cell gray-bg">
                  <div class="report-text"><%= slide["Report1"].replace("**","<span class='bold'>").replace("*","</span>") %></div>
                  <% console.log(slide['Report1Image']) %>
                 <img src="<%= slide['Report1Image'] %>"></img>
               </div>
-              <div class="carousel-cell">
+              <div class="carousel-cell gray-bg">
                 <div class="report-text"><%= slide["Report2"].replace("**","<span class='bold'>").replace("*","</span>") %></div>
                <img src="<%= slide['Report2Image'] %>"></img>
               </div>
-            </div>
-
-            <div class="slide-hed"><%= slide["Hed"] %></div>
-            <div class="graphic-img">
-              <div class="text graphics-text"><%= slide["Text"] %></div>
-              <img src='<%= slide["Report"] %>'></img>
             </div>
 
           <% } else if (slide["Interactive"] == "photo") { %>

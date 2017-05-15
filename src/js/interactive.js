@@ -182,9 +182,9 @@ var drawMap = function(key,mapDataFLAG) {
 
   // setting parameters for the center of the map and initial zoom level
   if (screen.width <= 480) {
-    var sf_lat = 37.85;
-    var sf_long = -122.43;
-    var zoom_deg = 8;
+    var sf_lat = 36.85;
+    var sf_long = -118.53;
+    var zoom_deg = 5;
   } else {
     var sf_lat = 37.14
     var sf_long = -121.5;
@@ -247,7 +247,7 @@ var drawMap = function(key,mapDataFLAG) {
     .style("stroke","#696969")
     .attr("r", function(d) {
       if (screen.width <= 480) {
-        return 7;
+        return d.Count2016/100+6;
       } else {
         return d.Count2016/100+10;
       }
@@ -299,10 +299,27 @@ var drawMap = function(key,mapDataFLAG) {
     })
     .attr("id", function(d) {
     })
-    .style("font-size","16px")
+    .style("font-size", function(d){
+      if (screen.width <= 480) {
+        return "14px";
+      } else {
+        return "16px";
+      }
+    })
+    .style("font-family", function(d){
+      if (screen.width <= 480) {
+        return "AntennaMedium";
+      } else {
+        return "AntennaExtraLight";
+      }
+    })
     .text(function(d) {
       if (d.Name == "Mary Graham Children's Shelter"){
-        return d.Name
+        if (screen.width <= 340) {
+          return "Mary Graham Shelter"
+        } else {
+          return d.Name
+        }
       } else {
         return "";
       }
@@ -493,8 +510,15 @@ var drawBubbles = function(key,flag,highlight) {
       left: 15
     }
     var topbuffer = 20;
-  } else if (screen.width <= 480) {
+  } else if (screen.width <= 480 && screen.width > 340) {
     var diameter = 360;
+    var margin = {
+      right: 5,
+      left: 5
+    }
+    var topbuffer = 20;
+  } else if (screen.width <= 340) {
+    var diameter = 300;
     var margin = {
       right: 5,
       left: 5
@@ -511,8 +535,6 @@ var drawBubbles = function(key,flag,highlight) {
     .attr('height', height)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + 0 + ")"); // giving the bubbles some padding, so that the text won't get cut off on the right and left margins
-
-  console.log(svg);
 
   var bubble = d3.layout.pack()
       .sort(null)
@@ -609,61 +631,66 @@ var drawBubbles = function(key,flag,highlight) {
 var active_num, lastactive_num, inactive_num;
 var drawIcons = function(html_str,key) {
 
-  var count = 0;
-  html_str += "<div class='icon-container'>";
-  for (var ii=0; ii< 31; ii++) {
-    html_str += "<div class='icon icons-arrests icons-bookings icons-pursued icons-probation' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
-    count++;
-  };
-  for (var ii=0; ii< 22; ii++) {
-    html_str += "<div class='icon icons-arrests icons-bookings icons-pursued' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
-    count++;
-  };
-  for (var ii=0; ii< 115; ii++) {
-    html_str += "<div class='icon icons-arrests icons-bookings' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
-    count++;
-  };
-  for (var ii=0; ii< 91; ii++) {
-    html_str += "<div class='icon icons-arrests' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
-    count++;
-  };
-  html_str += "</div>";
-  return html_str;
+  if (screen.width > 480) {
 
-  // if (key == "icon-arrests") {
-  //   active_num = 259;
-  //   lastactive_num = 0;
-  //   inactive_num = 0;
-  // } else if (key == "icon-bookings") {
-  //   active_num = 199;
-  //   lastactive_num = 60;
-  //   inactive_num = 0;
-  // } else if (key == "icon-pursued") {
-  //   active_num = 53;
-  //   lastactive_num = 141;
-  //   inactive_num = 65;
-  // } else if (key == "icon-probation") {
-  //   active_num = 31;
-  //   lastactive_num = 24;
-  //   inactive_num = 204;
-  // }
-  //
-  // html_str += "<div class='icon-container'>";
-  // var count = 0;
-  // for (var ii=0; ii< active_num; ii++) {
-  //   html_str += "<div class='"+key+" show"+"' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
-  //   count++;
-  // };
-  // for (var ii=0; ii< lastactive_num; ii++) {
-  //   html_str += "<div class='"+key+" dark"+"' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
-  //   count++;
-  // };
-  // for (var ii=0; ii< inactive_num; ii++) {
-  //   html_str += "<div class='"+key+"' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
-  //   count++;
-  // };
-  // html_str += "</div>";
-  // return html_str;
+    var count = 0;
+    html_str += "<div class='icon-container'>";
+    for (var ii=0; ii< 31; ii++) {
+      html_str += "<div class='icon icons-arrests icons-bookings icons-pursued icons-probation' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
+      count++;
+    };
+    for (var ii=0; ii< 22; ii++) {
+      html_str += "<div class='icon icons-arrests icons-bookings icons-pursued' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
+      count++;
+    };
+    for (var ii=0; ii< 115; ii++) {
+      html_str += "<div class='icon icons-arrests icons-bookings' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
+      count++;
+    };
+    for (var ii=0; ii< 91; ii++) {
+      html_str += "<div class='icon icons-arrests' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
+      count++;
+    };
+    html_str += "</div>";
+    return html_str;
+
+  } else {
+
+    if (key == "icon-arrests") {
+      active_num = 259;
+      lastactive_num = 0;
+      inactive_num = 0;
+    } else if (key == "icon-bookings") {
+      active_num = 199;
+      lastactive_num = 60;
+      inactive_num = 0;
+    } else if (key == "icon-pursued") {
+      active_num = 53;
+      lastactive_num = 141;
+      inactive_num = 65;
+    } else if (key == "icon-probation") {
+      active_num = 31;
+      lastactive_num = 24;
+      inactive_num = 204;
+    }
+
+    html_str += "<div class='icon-container'>";
+    var count = 0;
+    for (var ii=0; ii< active_num; ii++) {
+      html_str += "<div class='icon "+key+" show"+"' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
+      count++;
+    };
+    for (var ii=0; ii< lastactive_num; ii++) {
+      html_str += "<div class='icon "+key+" dark"+"' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
+      count++;
+    };
+    for (var ii=0; ii< inactive_num; ii++) {
+      html_str += "<div class='icon "+key+"' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
+      count++;
+    };
+    html_str += "</div>";
+    return html_str;
+  }
 
 }
 
@@ -699,6 +726,12 @@ slides.forEach( function(slide) {
     var html_str = drawIcons("",key);
     document.getElementById(slide["Interactive"]).innerHTML = html_str;
 
+  } else if ((screen.width <= 480) && ((slide["Interactive"] == "icons-bookings") || (slide["Interactive"] == "icons-pursued") || (slide["Interactive"] == "icons-probation"))) {
+    var key = "icon-"+slide["Interactive"].split("-")[1];
+
+    var html_str = drawIcons("",key);
+    document.getElementById(slide["Interactive"]).innerHTML = html_str;
+
   }
 
 });
@@ -717,15 +750,18 @@ $(window).scroll(function () {
     }
   });
 
-  var pos_icons_top = $("#slide-top-11").offset().top;
-  var pos_icons_bottom = $("#slide-top-14").offset().top+400;
-  var sticker_ph = document.getElementById('stick-ph');
-  if ((pos > pos_icons_top) && (pos < pos_icons_bottom)) {
-    $("#icons-arrests").addClass("fixedInteractive");
-    sticker_ph.style.display = 'block';
-  } else {
-    $("#icons-arrests").removeClass("fixedInteractive");
-    sticker_ph.style.display = 'none';
+  if (screen.width > 480) {
+
+    var pos_icons_top = $("#slide-top-11").offset().top;
+    var pos_icons_bottom = $("#slide-top-14").offset().top+400;
+    var sticker_ph = document.getElementById('stick-ph');
+    if ((pos > pos_icons_top) && (pos < pos_icons_bottom)) {
+      $("#icons-arrests").addClass("fixedInteractive");
+      sticker_ph.style.display = 'block';
+    } else {
+      $("#icons-arrests").removeClass("fixedInteractive");
+      sticker_ph.style.display = 'none';
+    }
   }
 
   console.log(currentIDX);

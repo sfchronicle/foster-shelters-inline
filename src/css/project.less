@@ -545,13 +545,26 @@ svg {
 .slideshow {
   .gray-bg{
     background: @lightest-gray;
+    padding: 20px;
   }
   .report-text {
+    position: absolute;
+    top: 120px;
+    left: 150px;
+    width: 110px;
+    color: white;
+    font-size: 14px;
+    font-family: @med-graphics;
     @media @mobile {
+      position: relative;
       font-size: 16px;
       padding: 10px;
       padding-bottom: 20px;
       font-family: @bold-graphics;
+      color: #333;
+      width: 100%;
+      top: 0;
+      left: 0; right: 0;
       // color: darken(@special-red,10%);
     }
   }

@@ -261,6 +261,10 @@
   padding-right: 2em;
   padding-bottom:2em;
 
+  img{
+    	width:100%;
+    }
+
   @media (max-width:890px){
   	float: none;
     width: 90%;
@@ -281,13 +285,44 @@
   }
 
   p{
-    max-width: 280px;
     margin: 0 0 1em;
     font-family:@med-graphics;
 
     @media (max-width:890px){
     	max-width:none;
     }
+  }
+
+  .readmore{
+    margin-left: 15px;
+    border-radius: 2px;
+    color:#c12020;
+    border: 1px solid #ccc;
+    background: #e6e6e6;
+    display: inline-block;
+    font-size: 12px;
+    padding: 5px 8px;
+
+    &:hover{
+    	background: #f1f1f1;
+    }
+  }
+}
+
+#about {
+  color: #585858;
+  font-family: "AntennaRegular", Helvetica, sans-serif;
+  margin: 1em auto 0;
+  font-size: 15px;
+
+  h2{
+  	margin-bottom:5px;
+  }
+  p{
+    max-width: 620px;
+    margin: 0 auto 1em;
+    font-family:@med-graphics;
+    padding:0;
   }
 
   .readmore{

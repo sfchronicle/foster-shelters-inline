@@ -156,15 +156,8 @@
     <% }); %>
 
 
-    <div class="divider"></div>
-    <div class="credits">
-      <h2>Behind the investigation</h2>
-      <div class="entry"><%= json.foster_shelters_interactive_text_inline["data"][0]["Text"] %></div>
-      <div class="page-link"><a href="../about-the-data/" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i>Read more here</a></div>
-    </div>
 
-    <div class="divider"></div>
-
+    <%= t.include("partials/_about.html") %>
     <%= t.include("partials/_credits.html") %>
     <%= t.include("partials/_footer.html") %>
 

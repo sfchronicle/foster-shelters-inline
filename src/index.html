@@ -45,6 +45,7 @@
         By Karen de Sá, Joaquin Palomino and Cynthia Dizikes
         <hr>
       </div> -->
+      <div class="json-wrapper">
 
       <% json.shelters_digital['text'].forEach(function(text) { %>
 
@@ -128,27 +129,32 @@
 
         <% } else if ( text.type == "icons") { %>
 
-          <div id="slide-top-11"></div>
           <div class="interactive-wrapper">
-          <% text.value.forEach(function(slide) { %>
-            
-            <div class="slide fixed-height-slide">
-              <% var text = slide["Text"].replace("**","<span class='bold'>").replace("*","</span>"); %>
-              <div class="text flex-left"><%= text %></div>
-              <div class="interactive sticky" id="<%= slide['Interactive'] %>"></div>
-              <div id="stick-ph"></div>           
+          <% text.value.forEach(function(slide,slideIDX) { %>
+
+            <% console.log(slideIDX) %>
+
+            <div id="slide-top-<%=slideIDX%>">
+
+              <div class="slide fixed-height-slide">
+                <% var text = slide["Text"].replace("**","<span class='bold'>").replace("*","</span>"); %>
+                <div class="text flex-left"><%= text %></div>
+                <div class="interactive sticky" id="<%= slide['Interactive'] %>"></div>
+                <div id="stick-ph"></div>
+              </div>
+
             </div>
+
           <% }); %>
           </div>
-          <div id="slide-top-14"></div>
 
         <% } else if (text.type == "quote") { %>
 
-            
+
               <div class="inline-img">
                 <img src='./assets/photos/<%= text.value[0].Image %>.jpg'></img>
               </div>
-           
+
             <div class="quote-container">
               <div class='quote'>
                 <div class='huge-quote'>“</div>
@@ -188,6 +194,8 @@
         <% } %>
 
       <% }); %>
+
+    </div>
 
     </div>
 

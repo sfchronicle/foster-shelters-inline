@@ -736,28 +736,32 @@ var drawIcons = function(html_str,key) {
 drawMap("map","count");
 
 
-// var prevIDX = -1;
+var prevIDX = -1;
+var icons_list = ["icons-arrests","icons-bookings","icons-pursued","icons-probation"];
+var current_icons = "icons-arrests";
 $(window).scroll(function () {
 
   var pos = $(this).scrollTop();
 
-//   var currentIDX = -1;
-//   slides.forEach(function(slide,slideIDX) {
-//     var pos_slides = $('#slide-top-'+slideIDX).offset().top-400;
-//     if (pos > pos_slides) {
-//       currentIDX = Math.max(slideIDX,currentIDX);
-//     }
-//   });
+  var currentIDX = -1;
+  [0,1,2,3].forEach(function(slide,slideIDX) {
+    var pos_slides = $('#slide-top-'+slideIDX).offset().top-400;
+    if (pos > pos_slides) {
+      currentIDX = Math.max(slideIDX,currentIDX);
+    }
+  });
 
   if (screen.width > 480) {
 
-    var pos_icons_top = $("#slide-top-11").offset().top;
-    var pos_icons_bottom = $("#slide-top-14").offset().top+400;
+    var pos_icons_top = $("#slide-top-0").offset().top;
+    var pos_icons_bottom = $("#slide-top-3").offset().top;
+    console.log(pos_icons_bottom);
     var sticker_ph = document.getElementById('stick-ph');
     if ((pos > pos_icons_top) && (pos < pos_icons_bottom)) {
       $("#icons-arrests").addClass("fixedInteractive");
       sticker_ph.style.display = 'block';
     } else {
+      console.log("getting here");
       $("#icons-arrests").removeClass("fixedInteractive");
       sticker_ph.style.display = 'none';
     }
@@ -765,43 +769,45 @@ $(window).scroll(function () {
 
 //   console.log(currentIDX);
 
-//   if (currentIDX != prevIDX) {
+  if (currentIDX != prevIDX) {
+    current_icons = icons_list[currentIDX];
 
-//     console.log("switching slide");
+    console.log("switching slide");
 
-//     document.getElementById(["slide-top-"+currentIDX]).classList.add("active");
+    document.getElementById(["slide-top-"+currentIDX]).classList.add("active");
 
-//     var targetDivs = document.getElementById(["slide-top-"+currentIDX]).getElementsByClassName("bold");
-//     if (targetDivs.length > 0) {
-//       if (targetDivs.length > 1) {
-//         targetDivs.forEach(function(target){
-//           target.classList.add("boldColor");
-//         });
-//       } else {
-//         targetDivs[0].classList.add("boldColor");
-//       }
-//     }
+    var targetDivs = document.getElementById(["slide-top-"+currentIDX]).getElementsByClassName("bold");
+    if (targetDivs.length > 0) {
+      if (targetDivs.length > 1) {
+        targetDivs.forEach(function(target){
+          target.classList.add("boldColor");
+        });
+      } else {
+        targetDivs[0].classList.add("boldColor");
+      }
+    }
 
 
-    // var icon_list = document.getElementsByClassName("icon");
-    // for (var j=0; j<icon_list.length; j++) {
-    //   icon_list[j].classList.remove("active");
+    var icon_list = document.getElementsByClassName("icon");
+    for (var j=0; j<icon_list.length; j++) {
+      icon_list[j].classList.remove("active");
+    }
+    // if ((currentIDX == "icons-arrests") || (currentIDX == "icons-bookings") || (currentIDX == "icons-pursued") || (currentIDX == "icons-probation")){
+
+      Array.from(icon_list).forEach(function(element,idx){
+        if (element.classList.contains(current_icons)) {
+          // $(function(){
+          //   setTimeout(function() {
+          //     element.classList.add("active");
+          //   }, 500+10*idx);
+          // });
+          element.classList.add("active");
+        } else {
+          element.classList.remove("active");
+        }
+      });
     // }
-    // if ((slides[currentIDX]["Interactive"] == "icons-arrests") || (slides[currentIDX]["Interactive"] == "icons-bookings") || (slides[currentIDX]["Interactive"] == "icons-pursued") || (slides[currentIDX]["Interactive"] == "icons-probation")){
-    //   Array.from(icon_list).forEach(function(element,idx){
-    //     if (element.classList.contains(slides[currentIDX]["Interactive"])) {
-    //       // $(function(){
-    //       //   setTimeout(function() {
-    //       //     element.classList.add("active");
-    //       //   }, 500+10*idx);
-    //       // });
-    //       element.classList.add("active");
-    //     } else {
-    //       element.classList.remove("active");
-    //     }
-    //   });
-    // }
 
-  // }
+  }
 
 });

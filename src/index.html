@@ -33,16 +33,16 @@
           <div class="over-img">
           <div class="specialhead-top overline">Chronicle Investigation: Fostering Failure</div>
             <h1 class="title">Dubious arrests, damaged lives</h1>
-            <p class="deck">How state shelters criminalize hundreds of children</p>
+            <p class="deck">State shelters criminalize hundreds of children</p>
+            <p class="date">May 20, 2017 | By Karen de Sá, Joaquin Palomino and Cynthia Dizikes</p>
           </div>
         </div>
       </div>
 
-      <div class="info">
-        May 20, 2017<br>
-        By Karen de Sá, Joaquin Palomino, and Cynthia Dizikes
+      <!-- <div class="info">
+        By Karen de Sá, Joaquin Palomino and Cynthia Dizikes
         <hr>
-      </div>
+      </div> -->
 
       <% json.shelters_digital['text'].forEach(function(text) { %>
 
@@ -51,9 +51,9 @@
           <p><%= text.value %></p>
 
 
-        <% } else if ( text.type == 'infobox' ){ %>
+        <% } else if ( text.type == 'infobox' ){  %>
 
-          <%= t.include("partials/_infobox.html") %>
+          <!-- <%= t.include("partials/_infobox.html") %> -->
 
         <% } else if ( text.type == 'image' ){ %>
 

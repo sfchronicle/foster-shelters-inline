@@ -261,6 +261,10 @@ svg {
     margin: auto;
     .flex(0 0 40%);
     max-width: 400px;
+    @media @mobile {
+      .flex(0 0 100%);
+      max-width: 100%;
+    }
     .bold {
       font-size: 40px;
       font-family: @boldest-graphics;
@@ -277,6 +281,10 @@ svg {
   }
   .ineractive {
     .flex(0 0 60%);
+    @media @mobile {
+      .flex(0 0 100%);
+      max-width: 100%;
+    }
   }
 }
 

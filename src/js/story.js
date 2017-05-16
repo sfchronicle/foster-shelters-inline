@@ -183,8 +183,8 @@ var drawMap = function(key,mapDataFLAG) {
     var sf_long = -118.53;
     var zoom_deg = 5;
   } else {
-    var sf_lat = 37.14
-    var sf_long = -121.5;
+    var sf_lat = 37.1699054;
+    var sf_long = -122.68111;
     var zoom_deg = 6;
   }
 
@@ -196,12 +196,12 @@ var drawMap = function(key,mapDataFLAG) {
   var element = document.querySelector(key);
 
   // add tiles to the map
-  var Stamen = L.tileLayer("https://api.mapbox.com/styles/v1/emro/cj2i9mx33001b2rqov44u9fux/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZW1ybyIsImEiOiJjaXl2dXUzMGQwMDdsMzJuM2s1Nmx1M29yIn0._KtME1k8LIhloMyhMvvCDA",{attribution: '© <a href="https://www.mapbox.com/map-feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>'})
+  var Stamen = L.tileLayer("https://api.mapbox.com/styles/v1/emro/cj2i9mx33001b2rqov44u9fux/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZW1ybyIsImEiOiJjaXl2dXUzMGQwMDdsMzJuM2s1Nmx1M29yIn0._KtME1k8LIhloMyhMvvCDA",{attribution: '© <a href="https://www.mapbox.com/map-feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'})
 
   // initialize map with center position and zoom levels
   var map = L.map(key, {
     zoomControl: false
-  }).setView([sf_lat,sf_long], zoom_deg);;
+  }).setView([sf_lat,sf_long], zoom_deg);
   // window.map = map;
 
   map.addLayer(Stamen);

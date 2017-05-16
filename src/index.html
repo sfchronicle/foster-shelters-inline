@@ -66,9 +66,9 @@
           </div>
 
         <% } else if (text.type == "map") { %>
-            <div class="interactive-wrapper">
-              <% var text = text.value[0].Title.replace("**","<span class='bold'>").replace("*","</span>"); %>
-              <div class="text float-left"><%= text %></div>
+            <div id="map-wrapper" class="interactive-wrapper">
+              <% var text = text.value[0].Title.replace("**","<span class='bold boldColor'>").replace("*","</span>"); %>
+              <div class="map-text"><%= text %></div>
               <div class="map" id="map"></div>
             </div>
         <% } else if ( text.type == 'grid' ){ %>

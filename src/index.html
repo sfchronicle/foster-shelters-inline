@@ -40,14 +40,14 @@
 
       <div class="info">
         May 20, 2017<br>
-        By Karen de Sá, Cynthia Dizikes and Joaquin Palomino
+        By Karen de Sá, Joaquin Palomino, and Cynthia Dizikes
         <hr>
       </div>
 
       <% json.shelters_digital['text'].forEach(function(text) { %>
 
         <% if ( text.type == 'text' ){ %>
-          
+
           <p><%= text.value %></p>
 
 
@@ -61,19 +61,19 @@
             <img src="./assets/photos/<%= text.value[0].Image %>.jpg">
             <div class="caption"><%= text.value[0].Caption %> <span class="byline"><%= text.value[0].Photographer %></span></div>
           </div>
- 
+
 
         <% } else if ( text.type == 'grid' ){ %>
 
            <div class="grid">
 
           <% text.value.forEach(function(grid) { %>
-           
+
            <div class="grid-img">
               <img src="./assets/photos/<%= grid.Image %>.jpg">
             </div>
-            
-            
+
+
           <% }); %>
 
           </div>
@@ -83,12 +83,12 @@
            <div class="grid-large">
 
           <% text.value.forEach(function(grid) { %>
-           
+
            <div class="grid-img">
               <img src="./assets/photos/<%= grid.Image %>.jpg">
             </div>
-            
-            
+
+
           <% }); %>
 
           </div>
@@ -101,7 +101,7 @@
            </div>
 
         <% } else if ( text.type == 'video' ){ %>
-         <div class="inline-img"> 
+         <div class="inline-img">
             <div class='embed-container'>
             <iframe src='http://player.vimeo.com/video/<%= text.value[0].ID %>' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
             </div>
@@ -111,7 +111,7 @@
 
           <div class="slideshow" data-flickity data-flickity-options='{ "imagesLoaded": true }'>
             <% text.value.forEach(function(slide) { %>
-           
+
              <div class="carousel-cell">
               <img src="./assets/photos/<%= slide.Image %>.jpg">
               <div class="caption"><%= slide.Caption %> <span class="byline"><%= slide.Photographer %></span></div>

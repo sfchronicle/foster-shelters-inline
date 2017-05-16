@@ -790,12 +790,15 @@ $(window).scroll(function () {
     if ((slides[currentIDX]["Interactive"] == "icons-arrests") || (slides[currentIDX]["Interactive"] == "icons-bookings") || (slides[currentIDX]["Interactive"] == "icons-pursued") || (slides[currentIDX]["Interactive"] == "icons-probation")){
       Array.from(icon_list).forEach(function(element,idx){
         if (element.classList.contains(slides[currentIDX]["Interactive"])) {
-          // $(function(){
-          //   setTimeout(function() {
-          //     element.classList.add("active");
-          //   }, 500+10*idx);
-          // });
-          element.classList.add("active");
+          if (screen.width <= 480) {
+            $(function(){
+              setTimeout(function() {
+                element.classList.add("active");
+              }, 500+10*idx);
+            });
+          } else {
+            element.classList.add("active");
+          }
         } else {
           element.classList.remove("active");
         }

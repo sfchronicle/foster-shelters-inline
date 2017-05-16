@@ -252,6 +252,34 @@ svg {
   }
 }
 
+.flex-wrapper {
+  position: relative;
+  padding: 50px 0;
+  .display-flex;
+  .flex-wrap(wrap);
+  .flex-left {
+    margin: auto;
+    .flex(0 0 40%);
+    max-width: 400px;
+    .bold {
+      font-size: 40px;
+      font-family: @boldest-graphics;
+      color: @light-gray;
+      // &.boldColor {
+        color: @special-red;
+        -webkit-transition: color 800ms ease-in;
+        -moz-transition: color 800ms ease-in;
+        -ms-transition: color 800ms ease-in;
+        -o-transition: color 800ms ease-in;
+        transition: color 800ms ease-in;
+      // }
+    }
+  }
+  .ineractive {
+    .flex(0 0 60%);
+  }
+}
+
 .quote-container, .slideshow-wrapper {
   width: 100%;
 }

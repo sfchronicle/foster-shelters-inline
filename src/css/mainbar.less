@@ -139,7 +139,146 @@
       }
 		}
 	}
+}
 
+.interactive-wrapper{
+  &.interactive-slide {
+    padding: 200px 0;
+  }
+  &.text-slide {
+    padding: 50px 0;
+    background: white;
+    @media @tablet {
+      padding: 40px;
+      padding-top: 0;
+    }
+    @media @mobile {
+      padding: 40px 10px;
+    }
+  }
+  &.static-interactive {
+    padding: 50px 0;
+  }
+  &.map-slide {
+    padding: 250px 0 40px 0;
+    @media @tablet {
+      padding: 50px 0;
+    }
+    @media @mobile {
+      padding: 0;
+    }
+  }
+  &.photo-slide {
+    padding: 100px 0 50px 0;
+    @media @mobile {
+      padding: 30px 0;
+    }
+  }
+  &.report-slide {
+    padding: 100px 0;
+    @media @mobile {
+      padding: 0;
+      padding-top: 20px;
+    }
+  }
+  &.quote-slide {
+    padding: 50px 0;
+    @media @mobile {
+      padding: 0;
+    }
+  }
+  &.fixed-height-slide {
+    height: 700px;
+    padding: 100px 0;
+    @media @tablet {
+      height: 1000px;
+    }
+    @media @mobile {
+      height: 100%;
+      padding: 30px 0;
+    }
+  }
+  &.gif-slide, &.audio-slide {
+    padding: 0;
+    margin: 100px auto;
+    @media @mobile {
+      margin: 30px auto;
+      padding: 0;
+    }
+  }
+  // background: white;
+  margin: auto;
+  text-align: center;
+  @media @tablet-horiz {
+    padding: 100px 30px 0px 30px;
+  }
+  @media @tablet {
+    padding: 50px 30px;
+  }
+  .text {
+    max-width: 800px;
+    margin: auto;
+    @media @mobile {
+      font-size: 18px;
+      padding: 0 10px;
+    }
+    &.float-left {
+      .flex(0 0 40%);
+      max-width: 400px;
+      margin-left: 5%;
+      z-index: 1;
+      @media @tablet-horiz {
+        max-width: 300px;
+        margin-right: 600px;
+      }
+      @media @tablet {
+        .flex(0 0 100%);
+        margin: 0;
+        max-width: 100%;
+        padding: 40px 10px;
+      }
+    }
+    .bold {
+      font-size: 40px;
+      font-family: @boldest-graphics;
+      color: @light-gray;
+      &.boldColor {
+        color: @special-red;
+        -webkit-transition: color 800ms ease-in;
+        -moz-transition: color 800ms ease-in;
+        -ms-transition: color 800ms ease-in;
+        -o-transition: color 800ms ease-in;
+        transition: color 800ms ease-in;
+      }
+    }
+    &.audio-text {
+      color: white;
+      font-family: @bold-graphics;
+      font-size: 25px;
+      @media @mobile {
+        font-family: @med-graphics;
+      }
+      // padding-bottom: 40px;
+      // max-width: 400px;
+    }
+    &.gif-text {
+      color: white;
+      @media @tablet-horiz {
+        padding-left: 20px;
+      }
+      @media @tablet {
+        max-width: 100%;
+        padding: 40px;
+        padding-top: 50px;
+        padding-bottom: 20px;
+      }
+      @media @mobile {
+        padding: 20px;
+        padding-top: 50px;
+        padding-bottom: 20px;
+      }
+    }
+  }
 }
 
 .top-image{

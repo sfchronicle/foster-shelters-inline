@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="__sync_contentCategory" content="meterA">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet-src.js"></script>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css"/>
     <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flickity@2/dist/flickity.css">
     <link rel="stylesheet" type="text/css" href="./style.css">
@@ -62,7 +64,12 @@
             <div class="caption"><%= text.value[0].Caption %> <span class="byline"><%= text.value[0].Photographer %></span></div>
           </div>
 
-
+        <% } else if (text.type == "map") { %>
+            <div class="interactive-wrapper">
+              <% var text = text.value[0].Title.replace("**","<span class='bold'>").replace("*","</span>"); %>
+              <div class="text float-left"><%= text %></div>
+              <div class="map" id="map"></div>
+            </div>
         <% } else if ( text.type == 'grid' ){ %>
 
            <div class="grid">
@@ -92,6 +99,63 @@
           <% }); %>
 
           </div>
+
+        <% } else if (text.type == "report") { %>
+
+            <div class="text"><%= text.value[0].Text.replace("**","<span class='bold'>").replace("*","</span>") %></div>
+            <div class="slideshow-wrapper">
+              <div class="slideshow" data-flickity data-flickity-options='{ "imagesLoaded": true }'>
+                 <div class="carousel-cell gray-bg">
+                  <img src="<%= text.value[0].Report1Image %>"></img>
+                  <div class="report-text"><%= text.value[0].Report1.replace("**","<span class='bold'>").replace("*","</span>") %></div>
+                </div>
+                <div class="carousel-cell gray-bg">
+                 <img src="<%= text.value[0].Report2Image %>"></img>
+                 <div class="report-text-right"><%= text.value[0].Report2.replace("**","<span class='bold'>").replace("*","</span>") %></div>
+                </div>
+                <div class="carousel-cell gray-bg">
+                 <img src="<%= text.value[0].Report3Image %>"></img>
+                 <div class="report-text"><%= text.value[0].Report3.replace("**","<span class='bold'>").replace("*","</span>") %></div>
+                </div>
+              </div>
+            </div>
+
+        <% } else if ( text.type == "interactive") { %>
+
+          <% var text = text.value[0].Title.replace("**","<span class='bold'>").replace("*","</span>"); %>
+          <div class="text flex-left"><%= text %></div>
+          <div class="interactive" id="dots"></div>
+
+        <% } else if ( text.type == "icons") { %>
+
+          <div id="slide-top-11"></div>
+          <div class="interactive-wrapper">
+          <% text.value.forEach(function(slide) { %>
+            
+            <div class="slide fixed-height-slide">
+              <% var text = slide["Text"].replace("**","<span class='bold'>").replace("*","</span>"); %>
+              <div class="text flex-left"><%= text %></div>
+              <div class="interactive sticky" id="<%= slide['Interactive'] %>"></div>
+              <div id="stick-ph"></div>           
+            </div>
+          <% }); %>
+          </div>
+          <div id="slide-top-14"></div>
+
+        <% } else if (text.type == "quote") { %>
+
+            
+              <div class="inline-img">
+                <img src='./assets/photos/<%= text.value[0].Image %>.jpg'></img>
+              </div>
+           
+            <div class="quote-container">
+              <div class='quote'>
+                <div class='huge-quote'>“</div>
+                <span class="quote-text"><%= text.value[0].Text %><span class='small-quote'> ”</span></span>
+                <div class='quote-author'>&mdash; <%= text.value[0].Author %></div>
+              </div>
+            </div>
 
 
         <% } else if ( text.type == 'gif' ){ %>
@@ -127,12 +191,16 @@
 
     </div>
 
-
     <%= t.include("partials/_about.html") %>
-
     <%= t.include("partials/_credits.html") %>
     <%= t.include("partials/_footer.html") %>
-
+    <script>
+      var mapData = <%= JSON.stringify(json.map) %>;
+      var bubbleData = <%= JSON.stringify(json.arrests_aggregate) %>;
+      var callsData = <%= JSON.stringify(json.calls_aggregate) %>;
+      var MGData = <%= JSON.stringify(json.marygraham_short) %>;
+      var slidesData = <%= JSON.stringify(json.foster_shelters_interactive_text_inline) %>
+    </script>
     <script src="../app-story.js" async></script>
     <%= t.include("partials/_helloSFC.html") %>
 

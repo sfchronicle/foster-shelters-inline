@@ -67,8 +67,12 @@
 
         <% } else if (text.type == "map") { %>
             <div id="map-wrapper" class="interactive-wrapper">
-              <% var text = text.value[0].Title.replace("**","<span class='bold boldColor'>").replace("*","</span>"); %>
-              <div class="map-text"><%= text %></div>
+              <% var title = text.value[0].Title.replace("**","<span class='bold boldColor'>").replace("*","</span>"); %>
+              <div class="map-text">
+                <%= title %>
+                <div class="map-deck"><%= text.value[0].Deck %></div>
+                </div>
+              
               <div class="map" id="map"></div>
             </div>
         <% } else if ( text.type == 'grid' ){ %>

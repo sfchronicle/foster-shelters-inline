@@ -628,6 +628,30 @@ svg {
     background: @lightest-gray;
     padding: 20px;
   }
+  .report-text-right {
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    font-family: @med-graphics;
+    top: 180px;
+    width: 150px;
+    right: 125px;
+    @media @tablet {
+      left: 100px;
+    }
+    @media @mobile {
+      position: relative;
+      font-size: 16px;
+      padding: 10px;
+      padding-bottom: 20px;
+      font-family: @bold-graphics;
+      color: #333;
+      width: 100%;
+      top: 0;
+      left: 0; right: 0;
+      // color: darken(@special-red,10%);
+    }
+  }
   .report-text {
     position: absolute;
     top: 120px;

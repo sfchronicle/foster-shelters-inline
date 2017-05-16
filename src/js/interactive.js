@@ -129,7 +129,6 @@ var drawDots = function(key){
           tooltipDots.style("visibility", "visible");
       })
       .on("mousemove", function() {
-        console.log("moving");
         if (screen.width <= 480) {
           return tooltipDots
             .style("top",(d3.event.pageY+40)+"px")//(d3.event.pageY+40)+"px")

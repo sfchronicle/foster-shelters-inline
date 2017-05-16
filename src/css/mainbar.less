@@ -208,7 +208,7 @@
   }
   margin: auto;
   text-align: center;
-  
+
   .text {
     max-width: 800px;
     margin: auto;
@@ -234,6 +234,9 @@
     }
     .bold {
       font-size: 40px;
+			@media @mobile {
+				font-size: 20px;
+			}
       font-family: @boldest-graphics;
       color: @light-gray;
       &.boldColor {

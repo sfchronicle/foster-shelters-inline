@@ -107,7 +107,7 @@
 
         <% } else if (text.type == "report") { %>
 
-            <div class="text"><%= text.value[0].Text.replace("**","<span class='bold'>").replace("*","</span>") %></div>
+            <div class="report-title"><%= text.value[0].Text.replace("**","<span class='bold'>").replace("*","</span>") %></div>
             <div class="slideshow-wrapper">
               <div class="slideshow" data-flickity data-flickity-options='{ "imagesLoaded": true }'>
                  <div class="carousel-cell gray-bg">
@@ -129,8 +129,9 @@
 
           <div class="flex-wrapper">
             <% var text = text.value[0].Title.replace("**","<span class='bold'>").replace("*","</span>"); %>
-            <div class="text flex-left"><%= text %></div>
+            
             <div class="interactive" id="dots"></div>
+            <div class="text flex-left"><%= text %></div>
           </div>
 
         <% } else if ( text.type == "icons") { %>
@@ -184,6 +185,7 @@
             <div class='embed-container'>
             <iframe src='http://player.vimeo.com/video/<%= text.value[0].ID %>' frameborder='0' webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
             </div>
+            <div class="caption"><%= text.value[0].Caption %></div>
           </div>
 
         <% } else if ( text.type == 'slideshow' ){ %>

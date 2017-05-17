@@ -190,9 +190,9 @@
   &.fixed-height-slide {
     height: 600px;
     padding: 0;
-    @media @tablet {
-      height: 1000px;
-    }
+    // @media @tablet {
+    //   height: 1000px;
+    // }
     @media @mobile {
       height: 100%;
       padding: 30px 0;
@@ -281,9 +281,9 @@
 .fixed-height-slide {
 	height: 650px;
 	// padding: 100px 0;
-	@media @tablet {
-		height: 1000px;
-	}
+	// @media @tablet {
+	// 	height: 1000px;
+	// }
 	@media @mobile {
 		height: 100%;
 		padding: 30px 0;
@@ -586,14 +586,15 @@
   .flex-left, .gif-text, .audio-text {
     padding-left: 5%;
     .flex(0 0 38%);
-    @media @tablet {
-      .flex(0 0 100%);
-    }
+		@media @tablet-horiz {
+			font-size: 18px;
+			font-family: @med-graphics;
+		}
     @media @mobile {
+      .flex(0 0 100%);
       padding: 0 10px;
 			font-family: @med-graphics;
 			font-size: 16px;
-      // padding-bottom: 20px;
     }
   }
   .audio-text {
@@ -608,10 +609,11 @@
   #icons-arrests, #icons-pursued, #icons-bookings, #icons-probation {
     .flex(0 0 60%);
     padding: 0 100px;
-    @media @tablet {
-      .flex(0 0 100%);
-    }
+		@media @tablet {
+			padding: 0 50px;
+		}
     @media @mobile {
+			.flex(0 0 100%);
       padding: 0;
     }
   }

@@ -183,8 +183,8 @@ svg {
     padding: 0 100px;
     left: 40%;
     @media @tablet {
-      left: 0; right: 0;
-      top: 250px;
+      // left: 0; right: 0;
+      top: 100px;
       margin: auto;
     }
   }
@@ -220,6 +220,10 @@ svg {
   .flex-left {
     .flex(0 0 40%);
     max-width: 400px;
+    @media @tablet-horiz {
+      font-size: 18px;
+      font-family: @med-graphics;
+    }
     @media @mobile {
       .flex(0 0 100%);
       max-width: 100%;
@@ -373,6 +377,13 @@ svg {
     // -ms-transition: color 1000ms linear;
     // transition: color 1000ms linear;
     padding: 0 4px;
+    @media @tablet-horiz {
+      font-size: 22px;
+    }
+    @media @tablet {
+      font-size: 18px;
+      padding: 0 2px;
+    }
     @media @mobile {
       font-size: 16px;
       padding: 0 1px;

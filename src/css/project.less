@@ -266,7 +266,7 @@ svg {
 }
 
 .quote-container{
-  
+
   @media @mobile{
     margin-top:15px;
   }
@@ -483,9 +483,9 @@ svg {
   height: 600px;
   margin: auto;
 
-
   @media @mobile {
     height: 350px;
+    width: 90%;
     margin: auto;
     padding-top: 10px;
   }
@@ -519,6 +519,18 @@ svg {
 
     @media @mobile{
       font-size:14px;
+    }
+    &.mobile-deck {
+      display: none;
+      @media @mobile {
+        display: block;
+      }
+    }
+    &.desktop-deck {
+      display: block;
+      @media @mobile {
+        display: none;
+      }
     }
   }
 

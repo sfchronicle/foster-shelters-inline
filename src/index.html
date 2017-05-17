@@ -41,7 +41,7 @@
         </div>
       </div>
 
-  
+
       <div class="json-wrapper">
 
       <% json.shelters_digital['text'].forEach(function(text) { %>
@@ -68,7 +68,8 @@
               <% var title = text.value[0].Title.replace("**","<span class='bold boldColor'>").replace("*","</span>"); %>
               <div class="map-text">
                 <%= title %>
-                <div class="map-deck"><%= text.value[0].Deck %></div>
+                <div class="map-deck desktop-deck"><%= text.value[0].Deck %></div>
+                <div class="map-deck mobile-deck"><%= text.value[0].DeckMobile %></div>
                 </div>
 
               <div class="map" id="map"></div>
@@ -90,7 +91,7 @@
 
           <div class="grid-caption"><%= text.value[0].Text %> <span class="byline"><%= text.value[0].Photographer %></span></div>
 
-          
+
 
         <% } else if ( text.type == 'grid-large' ){ %>
 
@@ -175,7 +176,7 @@
                   <span class='small-quote'> ”</span>
                   <div class='quote-author'>&mdash; <%= text.value[0].Author %></div>
                   </span>
-                
+
               </div>
             </div>
 

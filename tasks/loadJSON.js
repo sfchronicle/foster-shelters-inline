@@ -11,7 +11,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask("json", "Load JSON for templating", function() {
 
-    var files = grunt.file.expand(["project.json", "package.json", "data/**/*.json"]);
+    var files = grunt.file.expand(["project.json", "package.json", "data/**/*.json", "data_page.json"]);
 
     grunt.task.requires("state");
 

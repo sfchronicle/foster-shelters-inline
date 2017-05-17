@@ -1,13 +1,11 @@
 <!doctype html>
 <html>
   <head>
-    <title>About the data</title>
+    <title><%= json.data_page.seo_title %></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="__sync_contentCategory" content="meterA">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <script src="https://npmcdn.com/flickity@2/dist/flickity.pkgd.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flickity@2/dist/flickity.css">
     <link rel="stylesheet" type="text/css" href="../style.css">
 
     <%= !json.project.embedded ? t.include("partials/_paywall.html") : t.include("partials/_embedframe.html") %>
@@ -18,7 +16,7 @@
 
   <%= !json.project.embedded ? "<body>" : "<body is='responsive-body'>" %>
 
-    <%= t.include("partials/_nav.html") %>
+    <%= t.include("partials/_data-nav.html") %>
 
 
     <div id="mainbar">
@@ -41,7 +39,7 @@
 
     <%= t.include("partials/_footer.html") %>
 
-    <script src="../app-story.js" async></script>
+    <script src="../main.js" async></script>
     <%= t.include("partials/_helloSFC.html") %>
 
   </body>

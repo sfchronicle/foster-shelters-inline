@@ -16,7 +16,8 @@ module.exports = function(grunt) {
 
     //specify starter files here - if you need additionally built JS, just add it.
     var seeds = {
-      "./src/js/story.js": "build/app-story.js"
+      "./src/js/story.js": "build/app-story.js",
+      "./src/js/main.js": "build/main.js"
     };
 
     async.forEachOf(seeds, function(dest, src, c) {

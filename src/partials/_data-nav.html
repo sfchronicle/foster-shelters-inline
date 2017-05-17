@@ -1,0 +1,34 @@
+<header class="fixed">
+  <div class="navigation">
+
+    <a href="http://www.sfchronicle.com" target="_blank">
+      <div class="logo-link link">
+          <img class="desk-logo" src="http://projects.sfchronicle.com/shared/logos/sfc_logo_black.png"></img>
+          <img class="mobile-logo" src="http://projects.sfchronicle.com/shared/logos/sfletter_c_black.png"></img>
+        </div>
+    </a>
+
+    <div class="link">
+      <a class="specialhead-top" href="http://projects.sfchronicle.com/2017/fostering-failure/">Investigation<span class="mobile-title">: Fostering Failure</span></a>
+    </div>
+
+    <div class="link social email">
+      <a id="mail-icon" title="Share via email" href="mailto:?subject=<%= grunt.data.json.data_page.title %>&body=<%= grunt.data.json.data_page.description %>%0A%0Ahttp%3A%2F%2Fprojects.sfchronicle.com%2F<%= grunt.data.json.project.year %>%2F<%= grunt.data.json.data_page.slug %>">
+        <i class="fa fa-envelope" aria-hidden="true"></i>
+      </a>
+    </div>
+
+    <div class="link social">
+      <a id="facebook-icon" title="Share on Facebook" href="#" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fprojects.sfchronicle.com%2F<%= grunt.data.json.project.year %>%2F<%= grunt.data.json.data_page.slug %>', 'facebook-share-dialog', 'width=626,height=436'); return false;">
+        <i class="fa fa-facebook"></i>
+      </a>
+    </div>
+
+    <div class="link social">
+      <a id="twitter-icon" title="Share on Twitter" href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fprojects.sfchronicle.com%2F<%= grunt.data.json.project.year %>%2F<%= grunt.data.json.data_page.slug %>&text=<%= grunt.data.json.data_page.twitter_text %>&hashtags=<%= grunt.data.json.project.hashtag %>">
+        <i class="fa fa-twitter"></i>
+      </a>
+    </div>
+
+  </div>
+</header>

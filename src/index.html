@@ -27,10 +27,13 @@
 
       <div class="top-image">
         <div class="background-img">
-          <video id="looper" class="show-for-large" poster="" loop autoplay muted>
+          <video id="looper" class="show-for-large" preload loop autoplay muted poster="./assets/videos/frame.jpg">
             <source src="./assets/videos/bird.mov" type="video/mp4" >
-            Your browser does not support the <code>video</code> element.
+            <img class="bg-bird" src="./assets/videos/frame.jpg">
           </video>
+
+         
+
           <img class="main-gif" src="./assets/gifs/bird.gif">
           <div class="over-img">
           <div class="specialhead-top overline">Chronicle Investigation: Fostering Failure</div>
@@ -166,6 +169,7 @@
 
             <div class="flex-img">
               <img src='./assets/photos/<%= text.value[0].Image %>.jpg'></img>
+              <div class="caption"><%= text.value[0].Caption %><span class="byline"> <%= text.value[0].Photographer %></span></div>
             </div>
 
             <div class="quote-container">
@@ -230,7 +234,7 @@
       var MGData = <%= JSON.stringify(json.marygraham_short) %>;
       var slidesData = <%= JSON.stringify(json.foster_shelters_interactive_text_inline) %>
     </script>
-    <script src="../app-story.js" async></script>
+    <script src="./app-story.js" async></script>
     <%= t.include("partials/_helloSFC.html") %>
 
   </body>

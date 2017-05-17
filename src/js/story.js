@@ -430,25 +430,19 @@ $(window).scroll(function () {
   if (screen.width > 480) {
 
     var pos_icons_top = $("#slide-top-0").offset().top-100;
-    var pos_icons_bottom = $("#slide-top-3").offset().top+20;
-    console.log(pos_icons_bottom);
+    var pos_icons_bottom = $("#slide-top-3").offset().top+140;
     var sticker_ph = document.getElementById('stick-ph');
     if ((pos > pos_icons_top) && (pos < pos_icons_bottom)) {
       $("#icons-arrests").addClass("fixedInteractive");
       sticker_ph.style.display = 'block';
     } else {
-      console.log("getting here");
       $("#icons-arrests").removeClass("fixedInteractive");
       sticker_ph.style.display = 'none';
     }
   }
 
-  console.log(currentIDX);
-  console.log(prevIDX);
   if (currentIDX != prevIDX && currentIDX > -1) {
     current_icons = icons_list[currentIDX];
-    console.log(icons_list);
-
     console.log("switching slide");
 
     document.getElementById(["slide-top-"+currentIDX]).classList.add("active");

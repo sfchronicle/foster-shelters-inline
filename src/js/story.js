@@ -763,7 +763,7 @@ $(window).scroll(function () {
   if (screen.width > 480) {
 
     var pos_icons_top = $("#slide-top-0").offset().top;
-    var pos_icons_bottom = $("#slide-top-3").offset().top+150;
+    var pos_icons_bottom = $("#slide-top-3").offset().top+100;
     console.log(pos_icons_bottom);
     var sticker_ph = document.getElementById('stick-ph');
     if ((pos > pos_icons_top) && (pos < pos_icons_bottom)) {

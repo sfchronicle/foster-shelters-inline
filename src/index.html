@@ -85,10 +85,14 @@
               <img src="./assets/photos/<%= grid.Image %>.jpg">
             </div>
 
-
           <% }); %>
-
           </div>
+
+          <% } else if ( text.type == 'grid-caption' ){ %>
+
+          <div class="grid-caption"><%= text.value[0].Text %> <span class="byline"><%= text.value[0].Photographer %></span></div>
+
+          
 
         <% } else if ( text.type == 'grid-large' ){ %>
 

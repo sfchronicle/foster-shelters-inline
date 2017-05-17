@@ -39,7 +39,7 @@
           <div class="specialhead-top overline">Chronicle Investigation: Fostering Failure</div>
             <h1 class="title">Dubious arrests, damaged lives</h1>
             <p class="deck">State shelters criminalize hundreds of children</p>
-            <p class="date">May 20, 2017 | By Karen de Sá, Joaquin Palomino and Cynthia Dizikes</p>
+            <p class="date">May 18, 2017 | By Karen de Sá, Joaquin Palomino and Cynthia Dizikes</p>
           </div>
         </div>
       </div>
@@ -118,18 +118,24 @@
               <div class="slideshow" data-flickity data-flickity-options='{ "imagesLoaded": true }'>
                  <div class="carousel-cell gray-bg">
                   <img src="<%= text.value[0].Report1Image %>"></img>
+                  <div class="report-caption">Graphic by Todd Trumbull</div>
                   <div class="report-text"><%= text.value[0].Report1.replace("**","<span class='bold'>").replace("*","</span>") %></div>
                 </div>
                 <div class="carousel-cell gray-bg">
                  <img src="<%= text.value[0].Report2Image %>"></img>
+                 <div class="report-caption">Graphic by Todd Trumbull</div>
                  <div class="report-text-right"><%= text.value[0].Report2.replace("**","<span class='bold'>").replace("*","</span>") %></div>
                 </div>
                 <div class="carousel-cell gray-bg">
                  <img src="<%= text.value[0].Report3Image %>"></img>
+                 <div class="report-caption">Graphic by Todd Trumbull</div>
                  <div class="report-text"><%= text.value[0].Report3.replace("**","<span class='bold'>").replace("*","</span>") %></div>
+
                 </div>
               </div>
+
             </div>
+
 
         <% } else if ( text.type == "interactive") { %>
 

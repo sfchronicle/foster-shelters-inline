@@ -410,14 +410,14 @@ if (screen.width <= 480) {
   document.getElementById('icons-arrests').innerHTML = html_str;
 }
 
-var prevIDX = -1;
+var prevIDX = -2;
+var currentIDX = -1;
 var icons_list = ["icons-arrests","icons-bookings","icons-pursued","icons-probation"];
 var current_icons = "icons-arrests";
 $(window).scroll(function () {
 
   var pos = $(this).scrollTop();
 
-  var currentIDX = -1;
   [0,1,2,3].forEach(function(slide,slideIDX) {
     var pos_slides = $('#slide-top-'+slideIDX).offset().top-400;
     if (pos > pos_slides) {
@@ -441,8 +441,11 @@ $(window).scroll(function () {
     }
   }
 
+  console.log(currentIDX);
+  console.log(prevIDX);
   if (currentIDX != prevIDX) {
     current_icons = icons_list[currentIDX];
+    console.log(icons_list);
 
     console.log("switching slide");
 
@@ -459,26 +462,34 @@ $(window).scroll(function () {
       }
     }
 
-
-    var icon_list = document.getElementsByClassName("icon");
-    for (var j=0; j<icon_list.length; j++) {
-      icon_list[j].classList.remove("active");
+    if (screen.width > 480) {
+      var icon_list = document.getElementsByClassName("icon");
+      for (var j=0; j<icon_list.length; j++) {
+        icon_list[j].classList.remove("active");
+      }
     }
     // if ((currentIDX == "icons-arrests") || (currentIDX == "icons-bookings") || (currentIDX == "icons-pursued") || (currentIDX == "icons-probation")){
 
+    if (screen.width <= 480) {
+      // var timer = setTimeout(
+        var targetIcons = document.getElementById(current_icons).getElementsByClassName("show");
+        Array.from(targetIcons).forEach(function(element,idx){
+            $(function(){
+              setTimeout(function() {
+                element.classList.add("active");
+              }, 700+20*idx);
+            });
+        })
+      // ,500);
+    } else {
       Array.from(icon_list).forEach(function(element,idx){
         if (element.classList.contains(current_icons)) {
-          // $(function(){
-          //   setTimeout(function() {
-          //     element.classList.add("active");
-          //   }, 500+10*idx);
-          // });
           element.classList.add("active");
         } else {
           element.classList.remove("active");
         }
       });
-    // }
+    }
 
   }
 

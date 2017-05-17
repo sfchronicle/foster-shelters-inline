@@ -41,10 +41,7 @@
         </div>
       </div>
 
-      <!-- <div class="info">
-        By Karen de Sá, Joaquin Palomino and Cynthia Dizikes
-        <hr>
-      </div> -->
+  
       <div class="json-wrapper">
 
       <% json.shelters_digital['text'].forEach(function(text) { %>
@@ -56,7 +53,8 @@
 
         <% } else if ( text.type == 'infobox' ){  %>
 
-          <!-- <%= t.include("partials/_infobox.html") %> -->
+          <%= t.include("partials/_infobox.html") %>
+
 
         <% } else if ( text.type == 'image' ){ %>
 
@@ -220,6 +218,7 @@
 
     </div>
 
+    <!-- <%= t.include("partials/_share.html") %> -->
     <%= t.include("partials/_about.html") %>
     <%= t.include("partials/_credits.html") %>
     <%= t.include("partials/_footer.html") %>

@@ -211,8 +211,8 @@ svg {
 
   .flex-img, .quote-container {
     .flex(0 0 50%);
-    margin: auto;
-    @media @mobile {
+
+    @media @tablet-horiz {
       .flex(0 0 100%);
       max-width: 100%;
     }
@@ -257,80 +257,97 @@ svg {
 .quote-container, .slideshow-wrapper {
   width: 100%;
 }
+
+
+.slideshow-wrapper{
+  @media @mobile{
+    background-color:#f2f2f2;
+  }
+}
+
+.quote-container{
+  
+  @media @mobile{
+    margin-top:15px;
+  }
+}
 .report-title, .interactive-hed{
   font-family:@med-graphics;
   text-align:center;
   max-width:700px;
   margin: 2em auto 0;
-  @media @mobile {
-    font-size: 18px;
-    padding: 10px;
+  padding: 0 10px;
+
+  @media @mobile{
+    font-size:17px;
+    line-height:1.4;
   }
 }
 .quote {
   background: white;
-  // background: darken(@special-red,10%);//@dark-gray;
   padding: 20px;
   font-size: 30px;
   font-style: italic;
   position: relative;
   max-width: 900px;
   margin: auto;
-  // color: white;
-  // height: 300px;
+
   @media @mobile {
-    font-size: 20px;
-    padding: 20px 0;
+    padding: 20px 15px 10px;
   }
+
   .quote-text {
-    font-size: 26px;
+    font-size: 24px;
     margin-left: 75px;
     display:inline-block;
     padding-top: 30px;
     width: 85%;
+
     @media @tablet {
       font-size: 22px;
     }
     @media @mobile {
       padding-top: 0;
-      margin-left: 50px;
-      padding-right: 10px;
+      font-family:@med-graphics;
+      margin-left:0;
       font-size: 16px;
+      width:100%;
     }
   }
   .huge-quote {
     position: absolute;
-    top: 0;
-    left: -12px;
-    padding-right: 30px;
+    top: -10px;
+    left: -10px;
     line-height:1;
     font-family: @body;
     font-size: 200px;
     color: darken(@special-red,10%);
-    // color: white;//@special-red;
-    // float: left;
     height: 80px;
     width: 120px;
+
     @media @mobile {
-      left: -15px;
-      font-size: 110px;
+      left: -10px;
+      top:-30px;
+      font-size: 100px;
     }
   }
   .small-quote {
     font-family: @body;
     color: darken(@special-red,10%);
-    // color: white;//@special-red;
   }
   .quote-author {
     text-align: right;
-    font-size: 16px;
-    padding-top: 40px;
-    width: 50%;
+    font-size: 15px;
+    padding-top: 20px;
+    width: 60%;
     float: right;
+    margin-right:30px;
+    font-family:@block-graphics;
+
     @media @mobile {
-      width: 100%;
-      padding: 20px;
-      padding-left: 50px;
+      width: 90%;
+      margin:0;
+      padding: 10px 0 0;
       font-size: 13px;
     }
   }
@@ -585,7 +602,7 @@ svg {
 .slideshow {
   .gray-bg{
     background: @lightest-gray;
-    padding: 20px;
+    padding: 20px 0;
   }
   .report-text-right {
     position: absolute;
@@ -600,10 +617,9 @@ svg {
     }
     @media @mobile {
       position: relative;
-      font-size: 16px;
-      padding: 10px;
-      padding-bottom: 20px;
-      font-family: @bold-graphics;
+      font-size: 15px;
+      padding: 0 10px;
+      font-family: @med-graphics;
       color: #333;
       width: 100%;
       top: 0;
@@ -624,10 +640,9 @@ svg {
     }
     @media @mobile {
       position: relative;
-      font-size: 16px;
-      padding: 10px;
-      padding-bottom: 20px;
-      font-family: @bold-graphics;
+      font-size: 15px;
+      padding: 0 10px;
+      font-family: @med-graphics;
       color: #333;
       width: 100%;
       top: 0;

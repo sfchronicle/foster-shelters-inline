@@ -28,12 +28,12 @@ var drawDots = function(key){
   } else if (screen.width <= 480) {
     var margin = {
       top: 15,
-      right: 10,
-      bottom: 25,
-      left: 30
+      right: 25,
+      bottom: 40,
+      left: 32
     };
     var width = 310 - margin.left - margin.right;
-    var height = 300 - margin.top - margin.bottom;
+    var height = 350 - margin.top - margin.bottom;
   }
 
   // show tooltip
@@ -96,7 +96,7 @@ var drawDots = function(key){
       .attr("x", 0)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Bookings at facility (2016)")
+      .text("Juvenile hall bookings (2016)")
 
   //color in the dots
   svg.selectAll(".dot")
@@ -122,7 +122,7 @@ var drawDots = function(key){
           tooltipDots.html(`
               <div><b>${d.shelter}</b></div>
               <div>Population in 2016: <b>${formatthousands(d.population)}</b></div>
-              <div>Bookings in 2016: <b>${formatthousands(d.bookings)}</b></div>
+              <div>Juvenile hall bookings in 2016: <b>${formatthousands(d.bookings)}</b></div>
           `);
           tooltipDots.style("visibility", "visible");
       })

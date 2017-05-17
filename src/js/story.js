@@ -410,12 +410,13 @@ if (screen.width <= 480) {
   document.getElementById('icons-arrests').innerHTML = html_str;
 }
 
-var prevIDX = -2;
-var currentIDX = -1;
+var prevIDX = -1;
+// var currentIDX = -1;
 var icons_list = ["icons-arrests","icons-bookings","icons-pursued","icons-probation"];
 var current_icons = "icons-arrests";
 $(window).scroll(function () {
 
+  var currentIDX = -1;
   var pos = $(this).scrollTop();
 
   [0,1,2,3].forEach(function(slide,slideIDX) {
@@ -427,8 +428,8 @@ $(window).scroll(function () {
 
   if (screen.width > 480) {
 
-    var pos_icons_top = $("#slide-top-0").offset().top;
-    var pos_icons_bottom = $("#slide-top-3").offset().top+100;
+    var pos_icons_top = $("#slide-top-0").offset().top-100;
+    var pos_icons_bottom = $("#slide-top-3").offset().top+20;
     console.log(pos_icons_bottom);
     var sticker_ph = document.getElementById('stick-ph');
     if ((pos > pos_icons_top) && (pos < pos_icons_bottom)) {
@@ -443,7 +444,7 @@ $(window).scroll(function () {
 
   console.log(currentIDX);
   console.log(prevIDX);
-  if (currentIDX != prevIDX) {
+  if (currentIDX != prevIDX && currentIDX > -1) {
     current_icons = icons_list[currentIDX];
     console.log(icons_list);
 
@@ -490,6 +491,7 @@ $(window).scroll(function () {
         }
       });
     }
+    prevIDX = currentIDX;
 
   }
 

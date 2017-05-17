@@ -312,7 +312,7 @@ var drawMap = function(key,mapDataFLAG) {
     })
     .text(function(d) {
       if (d.Name == "Mary Graham Children's Shelter"){
-        if (screen.width <= 340) {
+        if (screen.width <= 380) {
           return "Mary Graham Shelter"
         } else {
           return d.Name

@@ -15,7 +15,7 @@ var drawDots = function(key){
   var margin = {
     top: 20,
     right: 25,
-    bottom: 25,
+    bottom: 40,
     left: 40
   };
 
@@ -154,7 +154,8 @@ var drawDots = function(key){
       .style("font-size","12px")
       .style("font-family","AntennaMedium")
       .text(function(d) {
-        if (d.shelter == "Mary Graham-San Joaquin County") {
+        console.log(d.shelter);
+        if (d.shelter == "Mary Graham Children's Shelter") {
           return d.shelter;
         } else {
           return "";
@@ -297,18 +298,18 @@ var drawMap = function(key,mapDataFLAG) {
     .attr("id", function(d) {
     })
     .style("font-size", function(d){
-      if (screen.width <= 480) {
+      // if (screen.width <= 480) {
         return "14px";
-      } else {
-        return "16px";
-      }
+      // } else {
+      //   return "16px";
+      // }
     })
     .style("font-family", function(d){
-      if (screen.width <= 480) {
+      // if (screen.width <= 480) {
         return "AntennaMedium";
-      } else {
-        return "AntennaExtraLight";
-      }
+      // } else {
+      //   return "AntennaExtraLight";
+      // }
     })
     .text(function(d) {
       if (d.Name == "Mary Graham Children's Shelter"){

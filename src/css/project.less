@@ -492,29 +492,33 @@ svg {
   width: 100%;
   height: 580px;
   margin: auto;
+  margin-top: 50px;
 
   @media @mobile {
     height: 350px;
     width: 90%;
     margin: auto;
     padding-top: 10px;
+    margin-bottom: 10px;
   }
   .leaflet-tile-pane {
     opacity: 0.7;
   }
 }
 
-
 #map-wrapper{
   position:relative;
   max-width:1000px;
   margin:1em auto 2em;
+  @media @mobile {
+    margin: 1em auto 1em;
+  }
 }
 
 .map-text{
   position:absolute;
-  left:30px;
-  top:30px;
+  left:40px;
+  top:60px;
   font-family:@bold-graphics;
   max-width:230px;
   text-align:left;

@@ -32,7 +32,7 @@
             <img class="bg-bird" src="./assets/videos/frame.jpg">
           </video>
 
-         
+
 
           <img class="main-gif" src="./assets/gifs/bird.gif">
           <div class="over-img">
@@ -76,6 +76,10 @@
                 </div>
 
               <div class="map" id="map"></div>
+              <div class="interactive-caption">
+                <div class="interactive-entry">Source: Children’s shelters</div>
+                <div class="interactive-entry">Emma O'Neill, The Chronicle</div>
+              </div>
             </div>
         <% } else if ( text.type == 'grid' ){ %>
 
@@ -140,10 +144,16 @@
         <% } else if ( text.type == "interactive") { %>
 
           <div class="flex-wrapper">
-            <% var text = text.value[0].Title.replace("**","<span class='bold'>").replace("*","</span>"); %>
+            <% var text = text.value[0].Title.replace("**","<span class='bold'>").replace("*","</span>").replace("**","<span class='bold'>").replace("*","</span>"); %>
 
-            <div class="interactive" id="dots"></div>
+            <div class="interactive" id="dots">
+            </div>
             <div class="text flex-left"><%= text %></div>
+            <div class="interactive-caption">
+              <div class="interactive-entry"><b>Source:</b> Bookings data are from local police, sheriff and probation departments.</div>
+              <div class="interactive-entry"><b>About the data:</b> The population includes hundreds of children that were under 6 years old, who were never arrested. Bookings numbers for Casa Pacifica in Ventura County were not included since some stemmed from off-campus arrests. The local probation department reported 66 bookings of Casa Pacifica youths in 2015 and 2016.</div>
+              <div class="interactive-entry interactive-author">Emma O'Neill, The Chronicle</div>
+            </div>
           </div>
 
         <% } else if ( text.type == "icons") { %>
@@ -167,6 +177,12 @@
             </div>
 
           <% }); %>
+
+            <div class="interactive-caption">
+              <div class="interactive-entry"><b>Source:</b> San Joaquin County Probation Department</div>
+              <div class="interactive-entry"><b>About the data:</b> The figures show all juvenile hall bookings stemming from arrests at Mary Graham’s campus. A small number of bookings from Aug-Dec 2016 may have followed off-campus arrests of children living at Mary Graham. </div>
+              <div class="interactive-entry interactive-author">Emma O'Neill, The Chronicle</div>
+            </div>
           </div>
 
         <% } else if (text.type == "quote") { %>

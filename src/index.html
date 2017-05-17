@@ -129,7 +129,7 @@
 
           <div class="flex-wrapper">
             <% var text = text.value[0].Title.replace("**","<span class='bold'>").replace("*","</span>"); %>
-            
+
             <div class="interactive" id="dots"></div>
             <div class="text flex-left"><%= text %></div>
           </div>
@@ -137,6 +137,8 @@
         <% } else if ( text.type == "icons") { %>
 
           <div class="interactive-wrapper">
+
+            <div class="interactive-hed">Frequent Arrests, Few Charges Upheld at Mary Graham Children’s Shelter</div>
           <% text.value.forEach(function(slide,slideIDX) { %>
 
             <% console.log(slideIDX) %>

@@ -31,12 +31,21 @@
           
             <p><%= text.value %></p>
 
+            <% } else if ( text.type == 'infobox' ){  %>
+
+              <%= t.include("partials/_storybox.html") %>
+
           <% } %>
           
         <% }); %>
+        <p class="authors">— <a href="http://www.sfchronicle.com/author/karen-de-sa/" target="_blank">Karen de Sá</a>, <a href="http://www.sfchronicle.com/author/cynthia-dizikes/" target="_blank">Cynthia Dizikes</a>  and <a href="http://www.sfchronicle.com/author/joaquin-palomino/" target="_blank">Joaquin Palomino</a></p>
 
       </div>
 
+<!-- 
+<%= t.include("partials/_storybox.html") %> -->
+
+    <%= t.include("partials/_share.html") %>
     <%= t.include("partials/_footer.html") %>
 
     <script src="../main.js" async></script>

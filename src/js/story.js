@@ -270,11 +270,13 @@ var drawMap = function(key,mapDataFLAG) {
       }
     })
     .on('mouseover', function(d) {
+      console.log("mouseover");
       var html_str = tooltip_function(d);
       tooltip.html(html_str);
       tooltip.style("visibility", "visible");
     })
     .on("mousemove", function() {
+      console.log("mousemove");
       if (screen.width <= 480) {
         return tooltip
           .style("top",(d3.event.pageY+20)+"px")//(d3.event.pageY+40)+"px")

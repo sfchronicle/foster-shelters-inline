@@ -362,6 +362,11 @@ svg {
   @media @mobile {
     width: 95%;
     padding-top: 20px;
+    margin: 0 auto 0 auto;
+    padding: 10px 15px;
+  }
+  @media @mobile-mini {
+    padding: 5px;
   }
   .icon {
     display:inline-block;
@@ -377,6 +382,10 @@ svg {
     }
     @media @mobile {
       font-size: 16px;
+      padding: 0 2px;
+      float: left;
+    }
+    @media @mobile-mini {
       padding: 0 1px;
     }
     &.active {
@@ -488,6 +497,7 @@ svg {
     margin: auto;
     padding-top: 10px;
     margin-bottom: 10px;
+    // z-index: -1;
   }
   .leaflet-tile-pane {
     opacity: 0.7;

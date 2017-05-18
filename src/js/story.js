@@ -183,19 +183,19 @@ var drawDots = function(key){
 
 }
 
+// tooltip information
+function tooltip_function (d) {
+  if (d.Note){
+    var html_str = "<div class='name bold'>"+d.Name+"</div><div>"+d.Address+"</div><div>Count in 2016: <span class='bold'>"+formatthousands(d.Count2016)+"</span></div><div>"+d.Note+"</div>"
+    return html_str;
+  } else {
+    var html_str = "<div class='name bold'>"+d.Name+"</div><div>"+d.Address+"</div><div>Count in 2016: <span class='bold'>"+formatthousands(d.Count2016)+"</span></div>"
+    return html_str;
+  }
+}
+
 // function to create map
 var drawMap = function(key,mapDataFLAG) {
-
-  // tooltip information
-  function tooltip_function (d) {
-    if (d.Note){
-      var html_str = "<div class='name bold'>"+d.Name+"</div><div>"+d.Address+"</div><div>Count in 2016: <span class='bold'>"+formatthousands(d.Count2016)+"</span></div><div>"+d.Note+"</div>"
-      return html_str;
-    } else {
-      var html_str = "<div class='name bold'>"+d.Name+"</div><div>"+d.Address+"</div><div>Count in 2016: <span class='bold'>"+formatthousands(d.Count2016)+"</span></div>"
-      return html_str;
-    }
-  }
 
   // setting parameters for the center of the map and initial zoom level
   if (screen.width <= 480) {
@@ -210,7 +210,8 @@ var drawMap = function(key,mapDataFLAG) {
 
   // show tooltip
   var tooltip = d3.select("body").append("div")
-    .attr("class", "tooltip-map");
+    .attr("class", "tooltip-map")
+    .attr("id","tooltip-map");
 
   //get access to Leaflet and the map
   var element = document.querySelector(key);
@@ -249,11 +250,11 @@ var drawMap = function(key,mapDataFLAG) {
   var feature = g.selectAll("circle")
     .data(mapData)
     .enter().append("circle")
-    .attr("id",function(d) {
-      return d.Facility;
-    })
+    // .attr("id",function(d) {
+    //   return d.Facility;
+    // })
     .attr("class",function(d) {
-      return "dot "+d.Facility;
+      return "dot mapdot";
     })
     .style("opacity", function(d) {
       return "0.8";
@@ -270,13 +271,11 @@ var drawMap = function(key,mapDataFLAG) {
       }
     })
     .on('mouseover', function(d) {
-      console.log("mouseover");
       var html_str = tooltip_function(d);
       tooltip.html(html_str);
       tooltip.style("visibility", "visible");
     })
     .on("mousemove", function() {
-      console.log("mousemove");
       if (screen.width <= 480) {
         return tooltip
           .style("top",(d3.event.pageY+20)+"px")//(d3.event.pageY+40)+"px")
@@ -289,6 +288,15 @@ var drawMap = function(key,mapDataFLAG) {
     })
     .on("mouseout", function(){
         return tooltip.style("visibility", "hidden");
+    })
+    .on('click', function(d) {
+      if (screen.width <= 480) {
+        var html_str = tooltip_function(d);
+        tooltip.html(html_str);
+        tooltip.style("visibility", "visible")
+        tooltip.style("top",(d3.event.pageY+20)+"px")
+        tooltip.style("left",30+"px")
+      }
     });
 
     map.on("viewreset", update);
@@ -319,18 +327,10 @@ var drawMap = function(key,mapDataFLAG) {
     .attr("id", function(d) {
     })
     .style("font-size", function(d){
-      // if (screen.width <= 480) {
-        return "14px";
-      // } else {
-      //   return "16px";
-      // }
+      return "14px";
     })
     .style("font-family", function(d){
-      // if (screen.width <= 480) {
-        return "AntennaMedium";
-      // } else {
-      //   return "AntennaExtraLight";
-      // }
+      return "AntennaMedium";
     })
     .text(function(d) {
       if (d.Name == "Mary Graham Children's Shelter"){
@@ -346,6 +346,30 @@ var drawMap = function(key,mapDataFLAG) {
 
 
 }
+
+// if (screen.width <= 480) {
+//
+//   setTimeout(
+//     function() {
+//
+//     // event listener for each dot
+//     var qsa = s => Array.prototype.slice.call(document.querySelectorAll(s));
+//     console.log(qsa(".mapdot"));
+//     qsa(".mapdot").forEach(function(group,index) {
+//       group.addEventListener("click", function(e) {
+//         document.querySelector("#tooltip-map").innerHTML = tooltip_function(mapData[index]);
+//         d3.select("#tooltip-map").style("visibility", "visible");
+//         d3.select("#tooltip-map").style("top",20+"px")//(d3.event.pageY+40)+"px")
+//         d3.select("#tooltip-map").style("left",30+"px");
+//         // highlight the appropriate dot
+//         // d3.selectAll(".dot").style("opacity", "0.2");
+//         // d3.select("#"+e.target.classList[1]).style("opacity","1.0");
+//
+//       });
+//     });
+//   },5000);
+//
+// }
 
 // function to draw icons
 var active_num, lastactive_num, inactive_num;
@@ -494,7 +518,7 @@ $(window).scroll(function () {
             $(function(){
               setTimeout(function() {
                 element.classList.add("active");
-              }, 700+20*idx);
+              }, 1000+40*idx);
             });
         })
       // ,500);

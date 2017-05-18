@@ -142,63 +142,76 @@
 }
 
 .interactive-wrapper{
-	// max-width: 1500px;
+
   &.interactive-slide {
     padding: 200px 0;
   }
+  
   &.text-slide {
     padding: 50px 0;
     background: white;
+    
     @media @tablet {
       padding: 40px;
       padding-top: 0;
     }
+    
     @media @mobile {
       padding: 40px 10px;
     }
   }
+  
   &.static-interactive {
     padding: 50px 0;
   }
+  
   &.map-slide {
     padding: 250px 0 40px 0;
+  
     @media @tablet {
       padding: 50px 0;
     }
+  
     @media @mobile {
       padding: 0;
     }
   }
+  
   &.photo-slide {
     padding: 100px 0 50px 0;
+  
     @media @mobile {
       padding: 30px 0;
     }
   }
+  
   &.report-slide {
     padding: 100px 0;
+    
     @media @mobile {
       padding: 0;
       padding-top: 20px;
     }
   }
+  
   &.quote-slide {
     padding: 50px 0;
+    
     @media @mobile {
       padding: 0;
     }
   }
+  
   &.fixed-height-slide {
     height: 600px;
     padding: 0;
-    // @media @tablet {
-    //   height: 1000px;
-    // }
+    
     @media @mobile {
       height: 100%;
       padding: 30px 0;
     }
   }
+  
   &.gif-slide, &.audio-slide {
     padding: 0;
     margin: 100px auto;
@@ -207,20 +220,18 @@
       padding: 0;
     }
   }
-  margin: auto;
-  text-align: center;
 
   .text {
     max-width: 800px;
-    margin: auto;
+    
     @media @mobile {
       font-size: 18px;
       padding: 0 10px;
     }
+
     &.float-left {
       .flex(0 0 40%);
       max-width: 400px;
-      margin-left: 5%;
       z-index: 1;
       @media @tablet-horiz {
         max-width: 300px;
@@ -256,8 +267,6 @@
       @media @mobile {
         font-family: @med-graphics;
       }
-      // padding-bottom: 40px;
-      // max-width: 400px;
     }
     &.gif-text {
       color: white;
@@ -329,7 +338,7 @@
 }
 
 .grid-img{
-	.flex(0 0 50%);
+	.flex(0 0 49%);
 	img{
 		width:100%;
 	}

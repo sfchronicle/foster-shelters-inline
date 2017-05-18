@@ -369,7 +369,7 @@ var drawIcons = function(html_str,key) {
       html_str += "<div class='icon icons-arrests' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
       count++;
     };
-    html_str += "</div>";
+    html_str += "</div><div class='interactive-caption'><div class='interactive-entry'><b>Source:</b> San Joaquin County Probation Department</div><div class='interactive-entry'><b>About the data:</b> The figures show all juvenile hall bookings stemming from arrests at Mary Graham’s campus. A small number of bookings from Aug. - Dec. 2016 may have followed off-campus arrests of children living at Mary Graham. </div><div class='interactive-entry interactive-author'>Emma O'Neill, The Chronicle</div></div></div>";
     return html_str;
 
   } else {
@@ -449,7 +449,7 @@ $(window).scroll(function () {
   if (screen.width > 480) {
 
     var pos_icons_top = $("#slide-top-0").offset().top-100;
-    var pos_icons_bottom = $("#slide-top-3").offset().top+140;
+    var pos_icons_bottom = $("#slide-top-3").offset().top+100;
     var sticker_ph = document.getElementById('stick-ph');
     if ((pos > pos_icons_top) && (pos < pos_icons_bottom)) {
       $("#icons-arrests").addClass("fixedInteractive");

@@ -643,16 +643,24 @@
 
 
 .slide {
+  position:relative;
+  .align-items(center);
   .display-flex;
   .flex-wrap(wrap);
+  .justify-content(space-between);
+
   .interactive {
     .flex(0 0 60%);
+    .align-self(flex-start);
+
     @media @mobile {
       .flex(0 0 100%);
     }
   }
+  
   .flex-right {
     .flex(0 0 60%);
+
     @media @mobile {
       .flex(0 0 100%);
     }
@@ -663,6 +671,7 @@
   .flex-left, .gif-text, .audio-text {
     padding-left: 5%;
     .flex(0 0 38%);
+
 		@media @tablet-horiz {
 			font-size: 18px;
 			font-family: @med-graphics;
@@ -684,12 +693,10 @@
     }
   }
   #icons-arrests, #icons-pursued, #icons-bookings, #icons-probation {
-		// max-width: 840px;
-    .flex(0 0 60%);
-    padding: 0 100px;
-		@media @tablet {
-			padding: 0 50px;
-		}
+		
+    .flex(0 0 50%);
+    padding: 0;
+	
     @media @mobile {
 			.flex(0 0 100%);
       padding: 0;
@@ -697,11 +704,12 @@
   }
   #bubbles {
     .flex(0 0 60%);
+    
     @media @tablet {
       .flex(0 0 100%);
     }
   }
- }
+}
 
  .interactive-wrapper {
 	 @media @mobile {
@@ -716,7 +724,6 @@
 	 font-style: italic;
 	 max-width: 1000px;
 	 width: 100%;
-	 margin: auto;
 	 padding-bottom: 40px;
 	 &.no-padding {
 		 padding-top: 5px;

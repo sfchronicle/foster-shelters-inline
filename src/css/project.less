@@ -108,20 +108,14 @@ svg {
   }
 }
 
-.slide {
-  position: relative;
-  // padding: 100px 0;
-  .inline-img {
-    width: 100%;
-  }
-
-}
-
 #slide-top-0 {
-  // padding: 50px 0 0 0;
   @media @mobile {
     padding: 0;
   }
+}
+
+#slide-top-3 {
+  margin-bottom:8em;
 }
 
 .soundcite {
@@ -170,20 +164,18 @@ svg {
 }
 
 .interactive {
-  // display: none;
   position: relative;
   display: inline-block;
   .flex(0 0 50%);
+
   &.fixedInteractive {
-    // display: block;
     position: fixed;
     opacity: 1;
     top: 100px;
-    // z-index: -1;
     padding: 0 100px;
-    left: 40%;
+    left: 50%;
+
     @media @tablet {
-      // left: 0; right: 0;
       top: 100px;
       margin: auto;
     }
@@ -359,24 +351,18 @@ svg {
 
 .icon-container {
   padding-top: 40px;
-  margin-left: 5%;
-  max-width: 900px;
+  margin:0 0 0 auto;
   width:100%;
-  vertical-align: center;
-  .display-flex;
-  .flex-wrap(wrap);
-  align-items: center;
+  padding-right:40px;
+
   @media @mobile {
     width: 95%;
     padding-top: 20px;
   }
   .icon {
-    .flex(0 0 0 4%);
+    display:inline-block;
     font-size: 25px;
     color: @light-gray;
-    // -webkit-transition: color 1000ms linear;
-    // -ms-transition: color 1000ms linear;
-    // transition: color 1000ms linear;
     padding: 0 4px;
     @media @tablet-horiz {
       font-size: 22px;
@@ -389,9 +375,6 @@ svg {
       font-size: 16px;
       padding: 0 1px;
     }
-    // &.show {
-    //   color: darken(@special-red,10%);
-    // }
     &.active {
       color: darken(@special-red,15%);
     }

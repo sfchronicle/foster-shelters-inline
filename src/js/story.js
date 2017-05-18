@@ -154,7 +154,6 @@ var drawDots = function(key){
       .style("font-size","12px")
       .style("font-family","AntennaMedium")
       .text(function(d) {
-        console.log(d.shelter);
         if (d.shelter == "Mary Graham Children's Shelter") {
           return d.shelter;
         } else {

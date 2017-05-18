@@ -250,9 +250,6 @@
     <script>
       var mapData = <%= JSON.stringify(json.map) %>;
       var bubbleData = <%= JSON.stringify(json.arrests_aggregate) %>;
-      var callsData = <%= JSON.stringify(json.calls_aggregate) %>;
-      var MGData = <%= JSON.stringify(json.marygraham_short) %>;
-      var slidesData = <%= JSON.stringify(json.foster_shelters_interactive_text_inline) %>
     </script>
     <script src="./app-story.js" async></script>
     <%= t.include("partials/_helloSFC.html") %>

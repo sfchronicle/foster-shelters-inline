@@ -56,9 +56,16 @@ var drawDots = function(key){
       .rangeRound([height, 0]);
 
   // use x-axis scale to set x-axis
-  var xAxis = d3.svg.axis()
-      .scale(x)
-      .orient("bottom");
+  if (screen.width <= 480) {
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom")
+        .ticks(5);
+  } else {
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
+  }
 
   // use y-axis scale to set y-axis
   var yAxis = d3.svg.axis()
@@ -82,8 +89,8 @@ var drawDots = function(key){
         .call(xAxis)
         .append("text")
         .attr("class", "label")
-        .attr("x", width)
-        .attr("y", 50)
+        .attr("x", width+15)
+        .attr("y", 45)
         .style("text-anchor", "end")
         .text("Population over 5 years old (2015 and 2016)");
   } else {
@@ -93,7 +100,7 @@ var drawDots = function(key){
         .call(xAxis)
         .append("text")
         .attr("class", "label")
-        .attr("x", width)
+        .attr("x", width+10)
         .attr("y", 50)
         .style("text-anchor", "end")
         .text("Shelter population over 5 years old (2015 and 2016)");
@@ -142,8 +149,8 @@ var drawDots = function(key){
       .on("mousemove", function() {
         if (screen.width <= 480) {
           return tooltipDots
-            .style("top",(d3.event.pageY+40)+"px")//(d3.event.pageY+40)+"px")
-            .style("left",10+"px");
+            .style("top",(d3.event.pageY+20)+"px")//(d3.event.pageY+40)+"px")
+            .style("left",30+"px");
         } else {
           return tooltipDots
             .style("top", (d3.event.pageY+20)+"px")
@@ -270,8 +277,8 @@ var drawMap = function(key,mapDataFLAG) {
     .on("mousemove", function() {
       if (screen.width <= 480) {
         return tooltip
-          .style("top",(d3.event.pageY+40)+"px")//(d3.event.pageY+40)+"px")
-          .style("left",10+"px");
+          .style("top",(d3.event.pageY+20)+"px")//(d3.event.pageY+40)+"px")
+          .style("left",30+"px");
       } else {
         return tooltip
           .style("top", (d3.event.pageY+20)+"px")

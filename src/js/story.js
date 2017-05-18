@@ -15,7 +15,7 @@ var drawDots = function(key){
   var margin = {
     top: 20,
     right: 25,
-    bottom: 40,
+    bottom: 70,
     left: 40
   };
 
@@ -29,7 +29,7 @@ var drawDots = function(key){
     var margin = {
       top: 15,
       right: 25,
-      bottom: 40,
+      bottom: 70,
       left: 32
     };
     var width = 310 - margin.left - margin.right;
@@ -72,19 +72,32 @@ var drawDots = function(key){
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  x.domain([0,3000]);//.nice();
-  y.domain([0,250]); //.nice();
+  x.domain([0,2000]);//.nice();
+  y.domain([0,220]); //.nice();
 
-  svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis)
-      .append("text")
-      .attr("class", "label")
-      .attr("x", width)
-      .attr("y", -10)
-      .style("text-anchor", "end")
-      .text("Shelter population (2015 and 2016)");
+  if (screen.width <= 480) {
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+        .append("text")
+        .attr("class", "label")
+        .attr("x", width)
+        .attr("y", 50)
+        .style("text-anchor", "end")
+        .text("Population over 5 years old (2015 and 2016)");
+  } else {
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+        .append("text")
+        .attr("class", "label")
+        .attr("x", width)
+        .attr("y", 50)
+        .style("text-anchor", "end")
+        .text("Shelter population over 5 years old (2015 and 2016)");
+  }
 
   svg.append("g")
       .attr("class", "y axis")
@@ -111,7 +124,7 @@ var drawDots = function(key){
       .attr("r", function(d) {
         return 15;
       })
-      .attr("cx", function(d) { return x(d.population); })
+      .attr("cx", function(d) { return x(d.populationSixPlus); })
       .attr("cy", function(d) { return y(d.bookings); })
       .style("stroke","#696969")
       .style("opacity","1.0")
@@ -121,7 +134,7 @@ var drawDots = function(key){
       .on("mouseover", function(d) {
           tooltipDots.html(`
               <div><b>${d.shelter}</b></div>
-              <div>Population: <b>${formatthousands(d.population)}</b></div>
+              <div>Population over 5 years old: <b>${formatthousands(d.populationSixPlus)}</b></div>
               <div>Juvenile hall bookings: <b>${formatthousands(d.bookings)}</b></div>
           `);
           tooltipDots.style("visibility", "visible");
@@ -146,7 +159,7 @@ var drawDots = function(key){
 
   node.append("text")
       .attr("x", function(d) {
-        return x(d.population)-50
+        return x(d.populationSixPlus)-50
       })
       .attr("y", function(d) {
         return y(d.bookings)+40;

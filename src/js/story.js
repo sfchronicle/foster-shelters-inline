@@ -84,7 +84,7 @@ var drawDots = function(key){
       .attr("x", width)
       .attr("y", -10)
       .style("text-anchor", "end")
-      .text("Shelter population (2016)");
+      .text("Shelter population (2015 and 2016)");
 
   svg.append("g")
       .attr("class", "y axis")
@@ -96,7 +96,7 @@ var drawDots = function(key){
       .attr("x", 0)
       .attr("dy", ".71em")
       .style("text-anchor", "end")
-      .text("Juvenile hall bookings (2016)")
+      .text("Juvenile hall bookings (2015 and 2016)")
 
   //color in the dots
   svg.selectAll(".dot")
@@ -121,8 +121,8 @@ var drawDots = function(key){
       .on("mouseover", function(d) {
           tooltipDots.html(`
               <div><b>${d.shelter}</b></div>
-              <div>Population in 2016: <b>${formatthousands(d.population)}</b></div>
-              <div>Juvenile hall bookings in 2016: <b>${formatthousands(d.bookings)}</b></div>
+              <div>Population: <b>${formatthousands(d.population)}</b></div>
+              <div>Juvenile hall bookings: <b>${formatthousands(d.bookings)}</b></div>
           `);
           tooltipDots.style("visibility", "visible");
       })

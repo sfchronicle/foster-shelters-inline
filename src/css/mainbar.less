@@ -203,7 +203,7 @@
   }
 
   &.fixed-height-slide {
-    height: 600px;
+    height: 0px;
     padding: 0;
 
     @media @mobile {
@@ -720,7 +720,7 @@
 
  .interactive-caption {
 	 text-align: left;
-	 padding: 20px 5px;
+	 padding: 20px 10px 20px 5px;
 	 font-size: 12px;
 	 font-style: italic;
 	 max-width: 1000px;
@@ -738,6 +738,11 @@
 	 @media @mobile {
 		 padding: 10px 20px;
 		 font-size: 12px;
+	 }
+	 &.scrolly {
+		 @media @tablet {
+			 padding-left: 0;
+		 }
 	 }
 
    &.mobile{

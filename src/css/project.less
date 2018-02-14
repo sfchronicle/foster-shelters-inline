@@ -167,20 +167,27 @@ svg {
   .flex(0 0 60%);
 }
 
+.interactive-wrapper {
+  max-width: 1200px;
+  margin: auto;
+  position: relative;
+}
+
 .interactive {
   position: relative;
   display: inline-block;
   .flex(0 0 50%);
+  max-width: 600px;
 
   &.fixedInteractive {
     position: fixed;
     opacity: 1;
-    top: 100px;
-    padding: 0 100px;
+    top: 37px;
+    padding: 0 30px;
     left: 50%;
 
     @media @tablet {
-      top: 100px;
+      top: 37px;
       margin: auto;
     }
   }
@@ -354,7 +361,7 @@ svg {
 }
 
 .icon-container {
-  padding-top: 40px;
+  padding-top: 30px;
   margin:0 0 0 auto;
   width:100%;
   padding-right:40px;
@@ -372,7 +379,8 @@ svg {
     display:inline-block;
     font-size: 25px;
     color: @light-gray;
-    padding: 0 4px;
+    padding: 0 2px;
+    line-height: 1;
     @media @tablet-horiz {
       font-size: 22px;
     }

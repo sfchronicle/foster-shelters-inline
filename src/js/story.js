@@ -395,7 +395,7 @@ var drawIcons = function(html_str,key) {
       html_str += "<div class='icon icons-arrests' id='icon"+String(count)+"'><i class='fa fa-male' aria-hidden='true'></i></div>";
       count++;
     };
-    html_str += "</div><div class='interactive-caption'><div class='interactive-entry'><b>Source:</b> San Joaquin County Probation Department</div><div class='interactive-entry'><b>About the data:</b> The figures show all juvenile hall bookings stemming from arrests at Mary Graham’s campus. A small number of bookings from August – December 2016 may have followed off-campus arrests of children living at Mary Graham. Three cases were pending as of February, when the records were obtained. </div><div class='interactive-entry interactive-author'>Emma O'Neill, The Chronicle</div></div></div>";
+    html_str += "</div><div class='interactive-caption scrolly'><div class='interactive-entry'><b>Source:</b> San Joaquin County Probation Department</div><div class='interactive-entry'><b>About the data:</b> The figures show all juvenile hall bookings stemming from arrests at Mary Graham’s campus. A small number of bookings from August – December 2016 may have followed off-campus arrests of children living at Mary Graham. Three cases were pending as of February, when the records were obtained. </div><div class='interactive-entry interactive-author'>Emma O'Neill, The Chronicle</div></div></div>";
     return html_str;
 
   } else {
@@ -456,6 +456,19 @@ if (screen.width <= 480) {
   document.getElementById('icons-arrests').innerHTML = html_str;
 }
 
+window.onresize = function(){ location.reload(); }
+
+var offsetVar = 280;
+console.log("280");
+if (screen.width <= 1400){
+  var offsetVar = 260;
+  console.log("260");
+}
+if (screen.width <= 860){
+  var offsetVar = 150;
+  console.log("150");
+}
+
 var prevIDX = -1;
 // var currentIDX = -1;
 var icons_list = ["icons-arrests","icons-bookings","icons-pursued","icons-probation"];
@@ -474,8 +487,8 @@ $(window).scroll(function () {
 
   if (screen.width > 480) {
 
-    var pos_icons_top = $("#slide-top-0").offset().top-100;
-    var pos_icons_bottom = $("#slide-top-3").offset().top+100;
+    var pos_icons_top = $("#slide-top-0").offset().top-37;
+    var pos_icons_bottom = $("#slide-top-3").offset().top+offsetVar;
     var sticker_ph = document.getElementById('stick-ph');
     if ((pos > pos_icons_top) && (pos < pos_icons_bottom)) {
       $("#icons-arrests").addClass("fixedInteractive");
